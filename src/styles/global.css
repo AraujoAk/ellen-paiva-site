@@ -6,16 +6,19 @@ body {
 :root {
   --reveal-duration: 900ms;
   --reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-human: cubic-bezier(0.19, 1, 0.22, 1);
   --shadow-editorial-soft: 0 1rem 2.5rem rgba(75, 53, 43, 0.08);
   --shadow-editorial-hover: 0 1.25rem 3rem rgba(75, 53, 43, 0.11);
   scroll-padding-top: 7.25rem;
 }
 
 .page-section {
+  position: relative;
   padding-inline: var(--space-page);
 }
 
 .section-container {
+  position: relative;
   width: min(100%, var(--container-width));
   margin-inline: auto;
 }
@@ -100,7 +103,8 @@ button {
     color var(--transition-base),
     background var(--transition-base),
     border-color var(--transition-base),
-    transform var(--transition-base);
+    transform 520ms var(--motion-human),
+    opacity var(--transition-base);
 }
 
 :is(
@@ -139,7 +143,7 @@ button {
 ):hover {
   border-color: rgba(176, 138, 82, 0.72);
   box-shadow: var(--shadow-editorial-hover);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 
 :is(
@@ -159,7 +163,7 @@ button {
   transition:
     filter 420ms var(--reveal-easing),
     opacity var(--reveal-duration) var(--reveal-easing),
-    transform var(--reveal-duration) var(--reveal-easing);
+    transform 820ms var(--motion-human);
   will-change: filter, opacity, transform;
 }
 
@@ -201,7 +205,8 @@ button {
   .magazine-card-media,
   .tendencia-image-placeholder
 ) {
-  filter: saturate(1.05);
+  filter: saturate(1.06) contrast(1.02);
+  transform: scale(1.012);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -237,6 +242,26 @@ button {
   }
 }
 
+@media (max-width: 767px) {
+  :root {
+    scroll-padding-top: 6.35rem;
+  }
+
+  .page-section {
+    padding-inline: clamp(1.15rem, 5vw, 1.5rem);
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+  }
+
+  .button-link {
+    min-height: 2.85rem;
+    padding: 0.75rem 1rem;
+  }
+}
+
 @media (max-width: 479px) {
   .page-section {
     padding-inline: clamp(1rem, 5vw, 1.25rem);
@@ -244,5 +269,17 @@ button {
 
   .button-link {
     width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --shadow-editorial-soft: 0 1.15rem 2.8rem rgba(75, 53, 43, 0.085);
+    --shadow-editorial-hover: 0 1.45rem 3.4rem rgba(75, 53, 43, 0.12);
+  }
+
+  .button-link:hover,
+  .button-link:focus-visible {
+    transform: translateY(-3px);
   }
 }

@@ -1,6 +1,8 @@
 .smart-style {
   padding-block: clamp(2.4rem, 4.4vw, 4rem);
-  background: var(--color-paper);
+  background:
+    radial-gradient(circle at 88% 16%, rgba(176, 138, 82, 0.08), transparent 21%),
+    var(--color-paper);
 }
 
 .smart-style-container {
@@ -9,6 +11,7 @@
 }
 
 .smart-style-heading {
+  position: relative;
   display: grid;
   justify-items: center;
   gap: 0.75rem;
@@ -37,6 +40,7 @@
 }
 
 .smart-style-card {
+  position: relative;
   display: grid;
   overflow: hidden;
   border: 1px solid rgba(176, 138, 82, 0.2);
@@ -63,18 +67,21 @@
 
 .smart-style-card-media-2 {
   background:
+    radial-gradient(circle at 20% 76%, rgba(176, 138, 82, 0.24), transparent 18%),
     linear-gradient(150deg, rgba(15, 46, 37, 0.78), rgba(231, 221, 210, 0.14)),
     linear-gradient(35deg, var(--color-green-deep), var(--color-satin-nude) 64%, var(--color-aged-gold));
 }
 
 .smart-style-card-media-3 {
   background:
+    linear-gradient(110deg, rgba(255, 255, 255, 0.24), transparent 34%),
     radial-gradient(circle at 30% 24%, rgba(176, 138, 82, 0.32), transparent 22%),
     linear-gradient(35deg, var(--color-editorial-sand), var(--color-satin-nude) 58%, var(--color-aged-gold));
 }
 
 .smart-style-card-media-4 {
   background:
+    radial-gradient(circle at 74% 72%, rgba(255, 255, 255, 0.22), transparent 20%),
     linear-gradient(145deg, rgba(75, 53, 43, 0.78), rgba(154, 107, 82, 0.24)),
     linear-gradient(35deg, var(--color-coffee-deep), var(--color-terracotta), var(--color-editorial-sand));
 }
@@ -84,27 +91,36 @@
   inset: 0;
   z-index: 1;
   border: 1px solid rgba(176, 138, 82, 0.18);
+  background: linear-gradient(180deg, transparent 62%, rgba(15, 46, 37, 0.12));
   content: '';
   pointer-events: none;
 }
 
 .smart-style-card-media span {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  width: 2.8rem;
-  height: 2.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 50%;
-  background: rgba(15, 46, 37, 0.18);
-  box-shadow: inset 0 0 0 0.45rem rgba(255, 255, 255, 0.08);
+  display: none;
 }
 
 .smart-style-card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
+}
+
+.smart-style-card-media-1 .smart-style-card-image {
+  object-position: center center;
+}
+
+.smart-style-card-media-2 .smart-style-card-image {
+  object-position: 50% 54%;
+}
+
+.smart-style-card-media-3 .smart-style-card-image {
+  object-position: center center;
+}
+
+.smart-style-card-media-4 .smart-style-card-image {
+  object-position: center center;
 }
 
 .smart-style-card-content {
@@ -134,15 +150,89 @@
 @media (min-width: 1024px) {
   .smart-style-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
   }
 }
 
 @media (max-width: 479px) {
   .smart-style-title {
-    font-size: clamp(2.25rem, 13vw, 3.2rem);
+    font-size: clamp(2.05rem, 11.5vw, 2.8rem);
   }
 
   .smart-style-card-content {
-    padding: 1rem;
+    padding: 0.85rem;
   }
+}
+
+@media (max-width: 767px) {
+  .smart-style {
+    padding-block: clamp(2rem, 7vw, 2.75rem);
+  }
+
+  .smart-style-container {
+    gap: 1rem;
+  }
+
+  .smart-style-heading {
+    gap: 0.6rem;
+  }
+
+  .smart-style-title {
+    font-size: clamp(2.1rem, 9.5vw, 3rem);
+  }
+
+  .smart-style-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .smart-style-grid {
+    gap: 0.75rem;
+  }
+
+  .smart-style-card-media {
+    aspect-ratio: 16 / 8.8;
+  }
+
+  .smart-style-card-content {
+    gap: 0.32rem;
+    padding: 0.85rem;
+  }
+
+  .smart-style-card-content h3 {
+    font-size: 1.08rem;
+  }
+
+  .smart-style-card-content p {
+    font-size: 0.88rem;
+    line-height: 1.42;
+  }
+}
+
+@media (min-width: 1024px) {
+  .smart-style-container {
+    gap: clamp(1.6rem, 3vw, 2.35rem);
+  }
+
+  .smart-style-card {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 38%),
+      rgba(255, 255, 255, 0.84);
+  }
+
+  .smart-style-card-media {
+    aspect-ratio: 4 / 3.35;
+  }
+
+  .smart-style-card-content {
+    min-height: 8.1rem;
+    align-content: start;
+    padding: 1rem;
+    border-top: 1px solid rgba(176, 138, 82, 0.16);
+  }
+
+  .smart-style-card-content h3 {
+    font-size: 1.15rem;
+  }
+
 }

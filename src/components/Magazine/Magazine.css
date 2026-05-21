@@ -1,6 +1,8 @@
 .magazine {
   padding-block: clamp(2.4rem, 4.4vw, 4rem);
-  background: var(--color-satin-nude);
+  background:
+    linear-gradient(90deg, rgba(15, 46, 37, 0.035), transparent 38%),
+    var(--color-satin-nude);
 }
 
 .magazine-container {
@@ -9,6 +11,7 @@
 }
 
 .magazine-heading {
+  position: relative;
   display: grid;
   gap: 0.75rem;
   max-width: 49rem;
@@ -45,12 +48,21 @@
   color: var(--color-green-deep);
   font-size: 0.86rem;
   font-weight: 800;
+  transition:
+    background var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform 520ms var(--motion-human);
 }
 
 .magazine-category:first-child {
   background: var(--color-green-deep);
   border-color: var(--color-green-deep);
   color: var(--color-white);
+}
+
+.magazine-category:hover {
+  transform: translateY(-2px);
 }
 
 .magazine-grid {
@@ -60,6 +72,7 @@
 }
 
 .magazine-card {
+  position: relative;
   display: grid;
   overflow: hidden;
   border: 1px solid rgba(176, 138, 82, 0.2);
@@ -79,6 +92,7 @@
 
 .magazine-card-media-1 {
   background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.2), transparent 34%),
     linear-gradient(150deg, rgba(15, 46, 37, 0.72), rgba(75, 53, 43, 0.12)),
     linear-gradient(45deg, var(--color-editorial-sand), var(--color-satin-nude), var(--color-aged-gold));
 }
@@ -112,6 +126,7 @@
   inset: 0;
   z-index: 1;
   border: 1px solid rgba(176, 138, 82, 0.2);
+  background: linear-gradient(180deg, transparent 58%, rgba(15, 46, 37, 0.14));
   content: '';
   pointer-events: none;
 }
@@ -120,7 +135,24 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
+}
+
+.magazine-card-media-1 .magazine-card-image {
+  object-position: center 18%;
+}
+
+.magazine-card-media-2 .magazine-card-image,
+.magazine-card-media-4 .magazine-card-image {
+  object-position: center center;
+}
+
+.magazine-card-media-3 .magazine-card-image {
+  object-position: center 16%;
+}
+
+.magazine-card-media-5 .magazine-card-image {
+  object-position: center 28%;
 }
 
 .magazine-card-content {
@@ -160,13 +192,15 @@
   transition:
     color var(--transition-base),
     border-color var(--transition-base),
-    opacity var(--transition-base);
+    opacity var(--transition-base),
+    transform 520ms var(--motion-human);
 }
 
 .magazine-card-link:hover,
 .magazine-card-link:focus-visible {
   color: var(--color-aged-gold);
   opacity: 0.78;
+  transform: translateX(0.18rem);
 }
 
 @media (min-width: 768px) {
@@ -178,6 +212,46 @@
 @media (min-width: 1024px) {
   .magazine-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .magazine-card:first-child {
+    grid-column: span 2;
+    box-shadow: 0 1.35rem 3.1rem rgba(75, 53, 43, 0.1);
+  }
+
+  .magazine-card:first-child .magazine-card-media {
+    aspect-ratio: 16 / 7.3;
+  }
+
+  .magazine-card:first-child .magazine-card-content {
+    grid-template-columns: minmax(0, 0.65fr) minmax(0, 1fr);
+    column-gap: 1.25rem;
+    align-items: start;
+    padding: 1.05rem;
+  }
+
+  .magazine-card:first-child .magazine-card-category,
+  .magazine-card:first-child .magazine-card-link {
+    grid-column: 1;
+  }
+
+  .magazine-card:first-child .magazine-card-content h3,
+  .magazine-card:first-child .magazine-card-content p:not(.magazine-card-category) {
+    grid-column: 2;
+  }
+
+  .magazine-card:first-child .magazine-card-content h3 {
+    font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+  }
+
+  .magazine-card:hover {
+    background: rgba(247, 241, 234, 0.86);
+  }
+
+  .magazine-card:nth-child(3),
+  .magazine-card:nth-child(5) {
+    margin-top: 0.85rem;
   }
 }
 
@@ -185,12 +259,16 @@
   .magazine-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
+
+  .magazine-card:first-child {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 479px) {
   .magazine-title {
     max-width: 13ch;
-    font-size: clamp(2.25rem, 13vw, 3.2rem);
+    font-size: clamp(2.05rem, 11.5vw, 2.8rem);
   }
 
   .magazine-category {
@@ -199,5 +277,61 @@
 
   .magazine-card-link {
     width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .magazine {
+    padding-block: clamp(2rem, 7vw, 2.75rem);
+  }
+
+  .magazine-container {
+    gap: 1rem;
+  }
+
+  .magazine-heading {
+    gap: 0.6rem;
+  }
+
+  .magazine-title {
+    max-width: 13ch;
+    font-size: clamp(2.1rem, 9.5vw, 3rem);
+  }
+
+  .magazine-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .magazine-categories {
+    gap: 0.4rem;
+  }
+
+  .magazine-category {
+    min-height: 1.85rem;
+    padding: 0.3rem 0.62rem;
+    font-size: 0.78rem;
+  }
+
+  .magazine-grid {
+    gap: 0.75rem;
+  }
+
+  .magazine-card-media {
+    aspect-ratio: 16 / 8.2;
+  }
+
+  .magazine-card-content {
+    gap: 0.38rem;
+    padding: 0.82rem;
+  }
+
+  .magazine-card-content h3 {
+    font-size: clamp(1.08rem, 5.2vw, 1.32rem);
+  }
+
+  .magazine-card-content p:not(.magazine-card-category) {
+    font-size: 0.88rem;
+    line-height: 1.42;
   }
 }

@@ -217,3 +217,62 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Adicionados acentos sutis de marca, sombras silenciosas e bordas mais sofisticadas.
 - Melhorada a hierarquia visual de header, hero, cards, seções institucionais, newsletter e footer.
 - Microinterações foram ajustadas para reforçar luxo silencioso sem alterar textos ou estrutura.
+
+### Etapa E5 — Experiência humana e conversão silenciosa
+
+- Aplicadas assimetrias editoriais sutis para reduzir a sensação de grid mecânico.
+- Criado detalhe visual recorrente com linhas douradas discretas em seções, cards e painéis.
+- SmartStyle e Magazine receberam variações de ritmo, proporção e hierarquia para parecerem mais curados.
+- Tendência, Newsletter e Footer foram refinados para transmitir marca consolidada, exclusividade e fechamento institucional.
+- Microinterações foram ajustadas com movimentos mais orgânicos, sem alterar textos, estrutura ou dependências.
+
+### Ajuste SmartStyle — refinamento de hierarquia e organização
+
+- Revertidas as variações estruturais mais ousadas da grade SmartStyle.
+- Cards retornaram para alinhamento mais limpo, organizado e funcional em desktop.
+- Mantidos acabamento premium, sombras suaves, detalhes editoriais e hovers refinados.
+- Magazine e demais seções não foram alteradas neste ajuste.
+
+### Experimento UX 01 — Refinamento mobile premium
+
+- Header mobile ficou mais compacto, com logo legível, hamburger refinado e painel de menu mais premium.
+- Hero mobile recebeu título mais controlado, CTAs confortáveis e painel editorial com altura mais elegante.
+- Seções internas foram ajustadas em mobile para reduzir scroll excessivo e melhorar ritmo de leitura.
+- Cards, formulários, botões e footer receberam espaçamentos mais confortáveis para telas pequenas.
+- Versão desktop aprovada foi preservada.
+
+### Experimento UX 02 — Desktop editorial fino
+
+- Hero recebeu detalhes editoriais desktop para reforçar sensação de capa premium.
+- AboutEllen, SmartStyle e Magazine foram refinadas com mais presença institucional, curadoria e hierarquia visual.
+- Tendência, Newsletter e Footer ganharam profundidade, respiro e acabamento mais sofisticado em desktop.
+- Microdetalhes de hover, sombras e linhas editoriais foram ajustados sem alterar textos, grids principais ou mobile.
+
+### Ajuste de direção criativa — sofisticação limpa
+
+- Removidas linhas decorativas e marcas gráficas abstratas que poderiam parecer interferência visual.
+- SmartStyle teve detalhes conceituais reduzidos para reforçar organização, clareza e curadoria funcional.
+- Tendência perdeu o monograma abstrato grande, mantendo composição institucional mais limpa.
+- Mantidos espaçamentos, sombras suaves, hovers, estrutura aprovada e estética premium madura.
+
+### Etapa F1 — Hero como capa editorial integrada
+
+- Hero desktop passou de layout dividido para composição editorial integrada.
+- Painel visual ocupa a maior parte da primeira dobra como fundo dominante e preparado para fotografia futura.
+- Conteúdo textual ficou em área segura com gradiente suave, sem aparência de card rígido.
+- Mobile foi preservado com texto primeiro e painel visual abaixo.
+
+### Etapa F1.1 — Hero integrado ao background editorial
+
+- Background editorial do Hero passou a ocupar 100% da composição desktop.
+- Removida a sensação de faixa branca rígida na área textual.
+- Legibilidade do texto agora é criada por gradientes suaves sobre o próprio fundo editorial.
+- Mobile permanece com leitura segura e painel visual abaixo do conteúdo.
+
+### Etapa G1 — Curadoria visual editorial
+
+- Imagens reais e stills editoriais foram aplicados estrategicamente no mapa de assets.
+- Hero recebeu retrato editorial forte da Ellen, com corte preparado para composição de capa.
+- AboutEllen usa retrato nude para autoridade suave e proximidade.
+- SmartStyle e Magazine alternam Ellen, acessórios, tecidos, café e detalhes para evitar aparência de catálogo.
+- Tendência recebeu ambiente sofisticado e Newsletter recebeu imagem intimista de café.
