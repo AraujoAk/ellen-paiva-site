@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <Header />
-      <main>
+      <main id="top">
         <HeroSection />
         <AboutEllen />
         <SmartStyle />

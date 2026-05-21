@@ -276,3 +276,31 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - AboutEllen usa retrato nude para autoridade suave e proximidade.
 - SmartStyle e Magazine alternam Ellen, acessórios, tecidos, café e detalhes para evitar aparência de catálogo.
 - Tendência recebeu ambiente sofisticado e Newsletter recebeu imagem intimista de café.
+
+### Ajuste G2 — Correções visuais pós-curadoria real
+
+- Hero teve borda indesejada removida e enquadramento ajustado para posicionar Ellen mais à direita.
+- Microcards de AboutEllen foram realinhados para manter altura e grid mais consistentes.
+- Primeiro card do Magazine recebeu alinhamento interno mais limpo e corte superior preservando melhor a imagem.
+- Tendência passou a preencher o painel visual sem respiros internos desalinhados.
+- Newsletter foi compactada para reduzir área vazia e equilibrar melhor texto, imagem e formulário.
+
+### Ajuste G2.1 — Direção editorial final do Hero
+
+- Imagem real do Hero foi invertida horizontalmente no desktop para posicionar Ellen à direita.
+- Object-position e overlay foram ajustados para deixar o lado esquerdo mais limpo para leitura.
+- Mobile permanece com a imagem em orientação normal e leitura segura.
+
+### Ajuste G2.2 — Hero com presença editorial e header refinado
+
+- Overlay do Hero foi reduzido no lado direito para recuperar presença, contraste e definição da Ellen.
+- Inversão editorial da imagem foi preservada também durante hover no desktop.
+- Topbar deixou de ser sticky e passa a aparecer apenas no topo inicial.
+- Header principal continua sticky ao rolar a página.
+- Logo Ellen Paiva agora rola suavemente ao topo sem recarregar a página.
+
+### Ajuste G2.3 — Destaque visual da Ellen no Hero
+
+- Overlay do Hero foi reduzido novamente na área direita para evitar aparência lavada.
+- Proteção visual ficou concentrada no lado esquerdo, preservando a leitura do texto.
+- Imagem da Ellen recebeu contraste, saturação e brilho sutis para maior presença editorial.

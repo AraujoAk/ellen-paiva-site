@@ -238,7 +238,7 @@
     display: block;
     min-height: clamp(29rem, calc(100vh - 9.5rem), 38rem);
     overflow: hidden;
-    border: 1px solid rgba(176, 138, 82, 0.18);
+    border: 0;
     border-radius: var(--radius-small);
     background:
       linear-gradient(90deg, rgba(231, 221, 210, 0.82) 0%, rgba(216, 199, 179, 0.52) 36%, rgba(75, 53, 43, 0.24) 64%, rgba(15, 46, 37, 0.24) 100%),
@@ -253,9 +253,8 @@
     inset: 0;
     z-index: 1;
     background:
-      linear-gradient(90deg, rgba(247, 241, 234, 0.88) 0%, rgba(247, 241, 234, 0.66) 34%, rgba(247, 241, 234, 0.18) 54%, rgba(15, 46, 37, 0.08) 100%),
-      radial-gradient(circle at 74% 18%, rgba(255, 255, 255, 0.34), transparent 18%),
-      radial-gradient(circle at 42% 86%, rgba(176, 138, 82, 0.18), transparent 24%);
+      linear-gradient(90deg, rgba(247, 241, 234, 0.9) 0%, rgba(247, 241, 234, 0.68) 34%, rgba(247, 241, 234, 0.2) 48%, rgba(247, 241, 234, 0.04) 58%, transparent 100%),
+      radial-gradient(circle at 40% 86%, rgba(176, 138, 82, 0.1), transparent 23%);
     content: '';
     pointer-events: none;
   }
@@ -297,8 +296,8 @@
   .hero-image-panel::before {
     border: 0;
     background:
-      linear-gradient(90deg, rgba(247, 241, 234, 0.62) 0%, rgba(216, 199, 179, 0.2) 42%, rgba(15, 46, 37, 0.12) 78%),
-      linear-gradient(180deg, rgba(15, 46, 37, 0.1), transparent 34%, rgba(75, 53, 43, 0.14));
+      linear-gradient(90deg, rgba(247, 241, 234, 0.5) 0%, rgba(216, 199, 179, 0.12) 42%, rgba(15, 46, 37, 0.02) 58%, transparent 100%),
+      linear-gradient(180deg, rgba(15, 46, 37, 0.04), transparent 34%, rgba(75, 53, 43, 0.04));
   }
 
   .hero-image-placeholder {
@@ -315,7 +314,15 @@
   }
 
   .hero-image {
-    object-position: 76% center;
+    object-position: 18% center;
+    opacity: 1;
+    filter: contrast(1.07) saturate(1.06) brightness(1.03);
+    transform: scaleX(-1);
+    transform-origin: center;
+  }
+
+  .hero-image-panel:hover .hero-image {
+    transform: scaleX(-1) scale(1.012);
   }
 }
 
@@ -330,6 +337,6 @@
   }
 
   .hero-image {
-    object-position: 82% center;
+    object-position: 16% center;
   }
 }

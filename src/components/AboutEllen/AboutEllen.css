@@ -116,12 +116,8 @@
     transform: translateY(-0.45rem);
   }
 
-  .about-ellen-card:nth-child(even) {
-    transform: translateY(0.35rem);
-  }
-
-  .about-ellen-card:nth-child(even):hover {
-    transform: translateY(0.05rem);
+  .about-ellen-card {
+    min-height: 4.25rem;
   }
 }
 
@@ -198,6 +194,7 @@
   .about-ellen-cards {
     gap: 0.75rem;
     max-width: 35rem;
+    align-items: stretch;
   }
 
   .about-ellen-card {

@@ -139,7 +139,7 @@
 }
 
 .magazine-card-media-1 .magazine-card-image {
-  object-position: center 18%;
+  object-position: center top;
 }
 
 .magazine-card-media-2 .magazine-card-image,
@@ -221,24 +221,13 @@
   }
 
   .magazine-card:first-child .magazine-card-media {
-    aspect-ratio: 16 / 7.3;
+    aspect-ratio: 16 / 8;
   }
 
   .magazine-card:first-child .magazine-card-content {
-    grid-template-columns: minmax(0, 0.65fr) minmax(0, 1fr);
-    column-gap: 1.25rem;
-    align-items: start;
-    padding: 1.05rem;
-  }
-
-  .magazine-card:first-child .magazine-card-category,
-  .magazine-card:first-child .magazine-card-link {
-    grid-column: 1;
-  }
-
-  .magazine-card:first-child .magazine-card-content h3,
-  .magazine-card:first-child .magazine-card-content p:not(.magazine-card-category) {
-    grid-column: 2;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    padding: 1.05rem 1.1rem;
   }
 
   .magazine-card:first-child .magazine-card-content h3 {

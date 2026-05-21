@@ -26,11 +26,14 @@ function Header() {
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const handleLogoClick = (event) => {
+    event.preventDefault();
+    closeMenu();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <header
-      className={`site-header${isScrolled ? ' is-scrolled' : ''}${isMenuOpen ? ' is-menu-open' : ''}`}
-      aria-label="Cabeçalho principal"
-    >
+    <>
       <div className="site-topbar" aria-label="Barra editorial">
         <div className="site-topbar-container">
           <p className="site-topbar-social">Instagram · WhatsApp · Facebook</p>
@@ -41,8 +44,12 @@ function Header() {
         </div>
       </div>
 
+      <header
+        className={`site-header${isScrolled ? ' is-scrolled' : ''}${isMenuOpen ? ' is-menu-open' : ''}`}
+        aria-label="Cabeçalho principal"
+      >
       <div className="site-header-container">
-        <a className="site-logo" href="/" aria-label="Ellen Paiva - página inicial" onClick={closeMenu}>
+        <a className="site-logo" href="#top" aria-label="Ellen Paiva - página inicial" onClick={handleLogoClick}>
           {assets.ellenSignature ? (
             <img src={assets.ellenSignature} alt="Ellen Paiva" className="site-logo-image" />
           ) : (
@@ -83,7 +90,8 @@ function Header() {
           Newsletter
         </a>
       </div>
-    </header>
+      </header>
+    </>
   );
 }
 
