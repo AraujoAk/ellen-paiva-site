@@ -1,0 +1,17 @@
+export const assets = {
+  ellenHero: null,
+  ellenAbout: null,
+  smartCasual: null,
+  smartWork: null,
+  smartLeisure: null,
+  smartSpecial: null,
+  magazine01: null,
+  magazine02: null,
+  magazine03: null,
+  magazine04: null,
+  magazine05: null,
+  tendenciaStore: null,
+  newsletterFooter: null,
+  ellenSignature: null,
+  tendenciaLogo: null,
+};

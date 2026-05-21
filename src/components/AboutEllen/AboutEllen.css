@@ -1,0 +1,124 @@
+.about-ellen {
+  padding-block: clamp(2.4rem, 4.4vw, 4rem);
+  background: var(--color-satin-nude);
+}
+
+.about-ellen-container {
+  display: grid;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+}
+
+.about-ellen-content {
+  display: grid;
+  gap: 0.85rem;
+  max-width: 46rem;
+}
+
+.about-ellen-title {
+  max-width: 13ch;
+  color: var(--color-green-deep);
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.about-ellen-text {
+  max-width: 39rem;
+  color: var(--color-coffee-deep);
+  font-size: clamp(1rem, 2vw, 1.08rem);
+}
+
+.about-ellen-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.55rem;
+}
+
+.about-ellen-card {
+  display: flex;
+  min-height: 4rem;
+  align-items: flex-end;
+  padding: 0.85rem;
+  border: 1px solid rgba(176, 138, 82, 0.28);
+  border-radius: var(--radius-small);
+  background: rgba(247, 241, 234, 0.5);
+}
+
+.about-ellen-card span {
+  color: var(--color-green-deep);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.about-ellen-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  min-height: clamp(20rem, 46vh, 30rem);
+  overflow: hidden;
+  border-radius: var(--radius-small);
+  background: var(--color-editorial-sand);
+  box-shadow: var(--shadow-editorial-soft);
+}
+
+.about-ellen-media::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid rgba(176, 138, 82, 0.32);
+  content: '';
+  pointer-events: none;
+}
+
+.about-ellen-image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: end start;
+  padding: 0;
+  background:
+    radial-gradient(circle at 72% 22%, rgba(255, 255, 255, 0.38), transparent 18%),
+    linear-gradient(160deg, rgba(75, 53, 43, 0.32), rgba(15, 46, 37, 0.6)),
+    linear-gradient(35deg, var(--color-satin-nude), var(--color-editorial-sand) 52%, var(--color-aged-gold));
+}
+
+.about-ellen-image-placeholder span {
+  margin: clamp(1.25rem, 4vw, 2rem);
+  position: relative;
+  z-index: 2;
+  max-width: 8ch;
+  color: var(--color-white);
+  font-family: var(--font-title);
+  font-size: clamp(2.2rem, 6vw, 4.6rem);
+  line-height: 0.95;
+}
+
+.about-ellen-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (min-width: 768px) {
+  .about-ellen-container {
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.82fr);
+    align-items: center;
+  }
+}
+
+@media (max-width: 479px) {
+  .about-ellen-title {
+    max-width: 12ch;
+    font-size: clamp(2.25rem, 13vw, 3.1rem);
+  }
+
+  .about-ellen-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .about-ellen-media {
+    min-height: 20rem;
+  }
+}

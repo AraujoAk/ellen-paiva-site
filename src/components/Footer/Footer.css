@@ -1,0 +1,116 @@
+.site-footer {
+  padding-block: clamp(2.2rem, 4vw, 3.5rem) 1rem;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(176, 138, 82, 0.1), transparent 24%),
+    var(--color-green-deep);
+  color: var(--color-white);
+}
+
+.site-footer-container {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.site-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.site-footer-brand {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 21rem;
+}
+
+.site-footer-logo {
+  color: var(--color-aged-gold);
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.site-footer-logo-image {
+  width: auto;
+  max-width: 11rem;
+  max-height: 4rem;
+  object-fit: contain;
+}
+
+.site-footer-brand p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.98rem;
+}
+
+.site-footer-column {
+  display: grid;
+  gap: 0.75rem;
+  font-style: normal;
+}
+
+.site-footer-column h2 {
+  color: var(--color-aged-gold);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.site-footer-column ul {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer-column a {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition:
+    color var(--transition-base),
+    opacity var(--transition-base);
+}
+
+.site-footer-column a:hover,
+.site-footer-column a:focus-visible,
+.site-footer-logo:hover,
+.site-footer-logo:focus-visible {
+  color: var(--color-aged-gold);
+  opacity: 0.9;
+}
+
+.site-footer-bottom {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(176, 138, 82, 0.3);
+}
+
+.site-footer-bottom p {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.88rem;
+}
+
+@media (min-width: 768px) {
+  .site-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-footer-grid {
+    grid-template-columns: 1.5fr repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .site-footer {
+    padding-block: 3rem 1.25rem;
+  }
+
+  .site-footer-grid {
+    gap: 1.75rem;
+  }
+}

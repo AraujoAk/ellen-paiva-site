@@ -1,0 +1,219 @@
+# Ellen Paiva Site
+
+Landing page editorial premium para posicionamento da marca pessoal de Ellen Paiva.
+
+## Stack
+
+- React
+- Vite
+- JavaScript
+- CSS global organizado
+
+## Scripts
+
+```bash
+npm install
+npm run dev
+npm run build
+```
+
+## Fase Atual
+
+Preparação de ambiente, arquitetura base, Header e Hero.
+
+## Assets Recomendados
+
+Coloque imagens editoriais em `src/assets/images/` e logos/assinaturas em `src/assets/logos/`.
+
+- `src/assets/images/ellen-editorial-close.jpeg` → `ellenHero`, `smartSpecial`, `magazine01`
+- `src/assets/images/ellen-about-nude.jpeg` → `ellenAbout`, `smartLeisure`, `magazine03`
+- `src/assets/images/ellen-white-red.jpeg` → `smartCasual`, `magazine02`, `magazine05`
+- `src/assets/images/ellen-burgundy.jpeg` → `smartWork`, `magazine04`, `newsletterFooter`
+- `src/assets/logos/ellen-paiva-signature.png` → `ellenSignature`
+- `src/assets/logos/tendencia-logo.jpeg` → `tendenciaLogo`
+
+Depois de adicionar os arquivos reais, atualize `src/assets/assetsMap.js` para importar os arquivos e trocar os valores `null` pelas referências importadas.
+
+Assets reais/editoriais aplicados nesta versão:
+
+- `src/assets/logos/ellen-paiva-signature.png` → assinatura Ellen Paiva no Header e Footer
+- `src/assets/images/ellen-editorial-close.jpeg` → Hero e conteúdo editorial
+- `src/assets/images/ellen-about-nude.jpeg` → Sobre Ellen e conteúdo editorial
+- `src/assets/images/ellen-white-red.jpeg` → SmartStyle e Magazine
+- `src/assets/images/ellen-burgundy.jpeg` → SmartStyle, Magazine e Newsletter
+- `src/assets/logos/tendencia-logo.jpeg` → Tendência Multimarcas
+
+## Deploy
+
+### Vercel
+
+Configuração recomendada:
+
+- Framework Preset: `Vite`
+- Install Command: `npm install`
+- Build Command: `npm run build`
+- Output Directory: `dist`
+
+Fluxo sugerido:
+
+1. Criar um repositório no GitHub.
+2. Enviar este projeto para o repositório.
+3. Entrar em `vercel.com`.
+4. Importar o repositório.
+5. Confirmar as configurações acima.
+6. Fazer o deploy.
+
+O arquivo `vercel.json` já deixa essas configurações explícitas para o ambiente da Vercel.
+
+### Observação
+
+O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não comerciais. Para uso comercial da marca, valide as regras atuais do plano antes da publicação definitiva.
+
+## Changelog
+
+### Fase 01.1 — Ajuste Header + Hero
+
+- Corrigido tamanho do título do Hero.
+- Ajustado equilíbrio visual entre texto e imagem no Hero.
+- Corrigidos acentos dos textos em Header e Hero.
+- Mantida arquitetura base.
+- Nenhuma nova dependência instalada.
+
+### Fase 02 — AboutEllen
+
+- Criada seção Sobre Ellen abaixo do Hero.
+- Adicionado layout editorial com texto à esquerda e imagem temporária à direita no desktop.
+- Adicionados quatro microcards de autoridade e posicionamento.
+- Mantida arquitetura atual, sem novas dependências e sem novas pastas.
+
+### Fase 03 — SmartStyle
+
+- Criada seção Estilo Inteligente abaixo de AboutEllen.
+- Adicionado conceito “Uma peça. Várias possibilidades.” com subtítulo editorial.
+- Criado grid responsivo com quatro cards de momentos de uso.
+- Mantida arquitetura atual, sem novas dependências, animações ou assets novos.
+
+### Fase 04 — Magazine
+
+- Criada seção Revista Editorial abaixo de SmartStyle.
+- Adicionadas categorias visuais para organizar os temas de conteúdo.
+- Criado grid responsivo com cinco cards editoriais e links “Leia mais”.
+- Mantida arquitetura atual, sem novas dependências, animações ou assets novos.
+
+### Fase 05 — Tendencia
+
+- Criada seção Tendência Multimarcas abaixo de Magazine.
+- Adicionada conexão editorial entre Ellen Paiva e a marca Tendência Multimarcas.
+- Criados quatro diferenciais institucionais e três botões de ação.
+- Mantida arquitetura atual, sem novas dependências, animações ou assets novos.
+
+### Fase 06 — Newsletter
+
+- Criada seção Newsletter Editorial abaixo de Tendencia.
+- Adicionado layout leve e dividido com formulário visual de nome e e-mail.
+- Incluída nota editorial abaixo do formulário.
+- Mantida arquitetura atual, sem lógica funcional, novas dependências, animações ou assets novos.
+
+### Fase 07 — Footer
+
+- Criado rodapé final abaixo da Newsletter.
+- Adicionadas colunas de marca, navegação, conteúdos e contato.
+- Incluída linha inferior com direitos reservados.
+- Mantida arquitetura atual, sem novas dependências, animações ou assets novos.
+
+### Etapa 08 — Sistema global de efeitos e microinterações
+
+- Criado utilitário de reveal ao scroll com IntersectionObserver.
+- Adicionadas classes globais de reveal, delays e estado visível.
+- Aplicadas microinterações sutis em botões, links, cards e placeholders visuais.
+- Mantido suporte a prefers-reduced-motion e nenhuma dependência nova foi instalada.
+
+### Etapa 09 — Refinamento premium do Header e menu mobile
+
+- Adicionado comportamento visual do Header ao rolar a página.
+- Criado menu mobile acessível com botão hamburger, aria-expanded e aria-controls.
+- Refinados hover, foco visível, painel mobile e botão Newsletter.
+- Mantido Header sticky, sem novas dependências e sem alterações nas seções abaixo.
+
+### Etapa 10 — Refinamento dos reveals visuais
+
+- Suavizada a duração, easing e distância inicial dos reveals globais.
+- Corrigida sobrescrita de transição que fazia cards revelarem de forma abrupta.
+- Sincronizada a entrada de placeholders visuais com cards e containers.
+- Ajustado o IntersectionObserver para iniciar o reveal de forma mais elegante.
+
+### Etapa 11 — Scroll restoration global
+
+- Definido `history.scrollRestoration` como manual no carregamento da aplicação.
+- Adicionado retorno automático ao topo ao recarregar a landing page.
+- Mantida a navegação interna por âncoras após o carregamento inicial.
+
+### Etapa 12 — Auditoria e refinamento responsivo global
+
+- Ajustados títulos grandes, espaçamentos e botões para telas pequenas.
+- Refinados menu mobile, grids e cards para evitar overflow horizontal.
+- Ajustadas alturas visuais de placeholders em 320px e 480px.
+- Mantida a arquitetura atual sem novas dependências ou seções.
+
+### Etapa A — Preparação para assets reais
+
+- Criado `src/assets/assetsMap.js` com mapeamento seguro para imagens, assinatura e logos.
+- Componentes visuais preparados para renderizar `<img>` quando houver assets reais.
+- Mantidos fallbacks editoriais atuais enquanto os arquivos reais não forem inseridos.
+- Documentados nomes recomendados e locais de armazenamento dos assets.
+
+### Etapa B — Aplicação dos assets reais
+
+- Mapeados os arquivos reais existentes em `src/assets/assetsMap.js`.
+- Aplicadas imagens reais no Hero, Sobre Ellen, SmartStyle, Magazine, Tendência e Newsletter.
+- Aplicada assinatura Ellen Paiva no Header e Footer.
+- Mantidos fallbacks para imagens reais ainda não disponíveis, como foto da loja Tendência.
+
+### Etapa C — Correção dos assets editoriais
+
+- Removido do mapa o uso de screenshots/mockups das seções como imagens de conteúdo.
+- Aplicadas apenas fotos reais/editoriais da Ellen nos blocos visuais.
+- Tendência passou a usar logo real sobre composição refinada quando não houver foto da loja.
+- Assinatura Ellen Paiva ampliada no Header com proporção preservada.
+
+### Etapa C1 — Correção visual do Header e Hero
+
+- Criada topbar editorial acima do Header principal.
+- Assinatura Ellen Paiva ampliada no Header para melhor legibilidade.
+- Hero ajustado para foto editorial preencher todo o painel visual.
+- Removida moldura interna da imagem do Hero e refinada proporção em desktop/notebook.
+
+### Etapa C2 — Correção visual de imagens internas
+
+- Removidas molduras internas desnecessárias em painéis de imagem das seções internas.
+- Alternadas fotos reais da Ellen com fallbacks editoriais em SmartStyle e Magazine.
+- Ajustado corte das imagens com `object-position: center top`.
+- Tendência passou a integrar melhor o logo ao painel visual refinado.
+
+### Etapa D — Refino estrutural sem imagens reais
+
+- Assets reais foram temporariamente removidos do layout e retornaram para `null` no mapa.
+- Reforçados placeholders editoriais premium em Hero, AboutEllen, SmartStyle, Magazine, Tendência e Newsletter.
+- Reduzidos paddings, títulos e alturas visuais para melhor leitura em notebooks.
+- Header, topbar e Footer refinados para funcionar melhor com fallback textual de marca.
+
+### Etapa E1 — Correção Hero full-width editorial
+
+- Hero refinado para duas colunas reais com painel visual maior à direita.
+- Painel editorial passou a preencher 100% da altura útil da seção.
+- Caption do painel removida no desktop para melhorar alinhamento e compactação.
+- Título, gap e padding vertical ajustados para telas de notebook.
+
+### Etapa E2 — Refinamento estrutural editorial global
+
+- Seções pós-Hero foram compactadas para melhorar leitura em notebook e desktop.
+- Gaps, paddings, títulos, grids e painéis foram ajustados para maior densidade editorial.
+- Cards e placeholders ficaram mais proporcionais e menos verticais.
+- Footer teve hierarquia e espaçamento refinados sem alterar conteúdo.
+
+### Etapa E4 — Direção criativa editorial avançada
+
+- Refinado o ritmo visual global para uma experiência mais contínua e editorial.
+- Adicionados acentos sutis de marca, sombras silenciosas e bordas mais sofisticadas.
+- Melhorada a hierarquia visual de header, hero, cards, seções institucionais, newsletter e footer.
+- Microinterações foram ajustadas para reforçar luxo silencioso sem alterar textos ou estrutura.

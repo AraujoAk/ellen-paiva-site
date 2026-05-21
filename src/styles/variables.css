@@ -1,0 +1,19 @@
+:root {
+  --color-green-deep: #0f2e25;
+  --color-aged-gold: #b08a52;
+  --color-editorial-sand: #d8c7b3;
+  --color-terracotta: #9a6b52;
+  --color-satin-nude: #e7ddd2;
+  --color-coffee-deep: #4b352b;
+  --color-ink: #211b17;
+  --color-paper: #f7f1ea;
+  --color-white: #ffffff;
+
+  --font-title: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', Arial, sans-serif;
+
+  --container-width: 1180px;
+  --space-page: clamp(1rem, 4vw, 3rem);
+  --radius-small: 8px;
+  --transition-base: 180ms ease;
+}
