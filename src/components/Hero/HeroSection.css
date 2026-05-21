@@ -140,12 +140,12 @@
 @media (max-width: 479px) {
   .hero-section {
     min-height: auto;
-    padding-block: 1.65rem 2.25rem;
+    padding-block: 1.35rem 1.85rem;
   }
 
   .hero-title {
     max-width: 12ch;
-    font-size: clamp(2.25rem, 12.5vw, 3rem);
+    font-size: clamp(2.12rem, 10.8vw, 2.82rem);
     line-height: 1;
   }
 
@@ -167,28 +167,28 @@
 
 @media (max-width: 767px) {
   .hero-section {
-    padding-block: clamp(1.8rem, 6vw, 2.5rem);
+    padding-block: clamp(1.35rem, 5vw, 2rem);
   }
 
   .hero-container {
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .hero-content {
-    gap: 0.85rem;
+    gap: 0.74rem;
     max-width: 100%;
   }
 
   .hero-title {
     max-width: 11.5ch;
-    font-size: clamp(2.35rem, 11vw, 3.35rem);
+    font-size: clamp(2.15rem, 10.2vw, 3rem);
     line-height: 0.98;
   }
 
   .hero-description {
     max-width: 33rem;
-    font-size: 0.98rem;
-    line-height: 1.55;
+    font-size: 0.94rem;
+    line-height: 1.5;
   }
 
   .hero-actions {
@@ -202,7 +202,7 @@
   }
 
   .hero-media {
-    height: clamp(15.5rem, 48vh, 22rem);
+    height: clamp(13.5rem, 40vh, 18.5rem);
   }
 
   .hero-image-panel {
@@ -215,7 +215,8 @@
   }
 
   .hero-image {
-    object-position: center top;
+    object-position: center 12%;
+    filter: contrast(1.04) saturate(1.04) brightness(1.01);
   }
 }
 

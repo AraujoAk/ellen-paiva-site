@@ -191,12 +191,12 @@
 
 @media (max-width: 479px) {
   .tendencia-media {
-    min-height: 16rem;
+    min-height: 13.5rem;
   }
 
   .tendencia-title {
     max-width: 13ch;
-    font-size: clamp(2.05rem, 11.5vw, 2.8rem);
+    font-size: clamp(1.95rem, 10vw, 2.55rem);
   }
 
   .tendencia-highlights {
@@ -215,15 +215,15 @@
 
 @media (max-width: 767px) {
   .tendencia {
-    padding-block: clamp(2rem, 7vw, 2.8rem);
+    padding-block: clamp(1.85rem, 6vw, 2.5rem);
   }
 
   .tendencia-container {
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .tendencia-media {
-    min-height: clamp(16rem, 44vh, 21rem);
+    min-height: clamp(13.5rem, 36vh, 17.5rem);
   }
 
   .tendencia-image-placeholder span {
@@ -236,7 +236,7 @@
 
   .tendencia-title {
     max-width: 13ch;
-    font-size: clamp(2.1rem, 9.5vw, 3rem);
+    font-size: clamp(2rem, 8.8vw, 2.75rem);
   }
 
   .tendencia-text {
@@ -250,12 +250,12 @@
   }
 
   .tendencia-highlight {
-    min-height: 3.35rem;
-    padding: 0.72rem;
+    min-height: 3rem;
+    padding: 0.62rem;
   }
 
   .tendencia-highlight span {
-    font-size: 0.88rem;
+    font-size: 0.8rem;
   }
 
   .tendencia-actions {

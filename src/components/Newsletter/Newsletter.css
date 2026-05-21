@@ -160,7 +160,7 @@
 @media (max-width: 479px) {
   .newsletter-title {
     max-width: 12ch;
-    font-size: clamp(2.05rem, 11.5vw, 2.8rem);
+    font-size: clamp(1.95rem, 10vw, 2.55rem);
   }
 
   .newsletter-button {
@@ -170,11 +170,11 @@
 
 @media (max-width: 767px) {
   .newsletter {
-    padding-block: clamp(2rem, 7vw, 2.75rem);
+    padding-block: clamp(1.75rem, 6vw, 2.35rem);
   }
 
   .newsletter-container {
-    gap: 1.1rem;
+    gap: 0.9rem;
   }
 
   .newsletter-content {
@@ -183,7 +183,7 @@
 
   .newsletter-title {
     max-width: 12ch;
-    font-size: clamp(2.1rem, 9.5vw, 3rem);
+    font-size: clamp(2rem, 8.8vw, 2.75rem);
   }
 
   .newsletter-text {
@@ -192,12 +192,12 @@
   }
 
   .newsletter-form {
-    gap: 0.7rem;
-    padding: 0.85rem;
+    gap: 0.6rem;
+    padding: 0.75rem;
   }
 
   .newsletter-form::before {
-    aspect-ratio: 16 / 6.6;
+    aspect-ratio: 16 / 6.2;
   }
 
   .newsletter-field {
@@ -209,8 +209,8 @@
   }
 
   .newsletter-field input {
-    min-height: 2.65rem;
-    padding: 0.72rem 0.85rem;
+    min-height: 2.55rem;
+    padding: 0.66rem 0.8rem;
   }
 
   .newsletter-button {

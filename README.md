@@ -304,3 +304,11 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Overlay do Hero foi reduzido novamente na área direita para evitar aparência lavada.
 - Proteção visual ficou concentrada no lado esquerdo, preservando a leitura do texto.
 - Imagem da Ellen recebeu contraste, saturação e brilho sutis para maior presença editorial.
+
+### Rodada Mobile 01 — Ajustes pós-imagens reais
+
+- Header mobile foi compactado, com topbar menor, hamburger alinhado e menu vertical menos alto.
+- Hero mobile recebeu altura menor, título mais controlado e imagem com presença preservada.
+- AboutEllen, SmartStyle, Magazine, Tendência e Newsletter tiveram paddings, imagens e cards ajustados para reduzir scroll excessivo entre 390px e 430px.
+- Footer mobile ficou mais compacto, mantendo a marca Ellen Paiva legível e links confortáveis.
+- Scroll-padding mobile foi ajustado para considerar apenas o header sticky, já que a topbar não acompanha a rolagem.
