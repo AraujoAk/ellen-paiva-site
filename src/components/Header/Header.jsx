@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { assets } from '../../assets/assetsMap.js';
 import './Header.css';
 
-const tendenciaUrl = '/tendencia';
+const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
 
 const navItems = [
   { label: 'Sobre', href: '#sobre' },
@@ -165,7 +165,9 @@ function Header() {
           <a
             className="site-topbar-link"
             href={tendenciaUrl}
-            aria-label="Conheça a página institucional da Tendência Multimarcas"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Conheça a Tendência Multimarcas em nova aba"
           >
             CONHEÇA A TENDÊNCIA MULTIMARCAS →
           </a>

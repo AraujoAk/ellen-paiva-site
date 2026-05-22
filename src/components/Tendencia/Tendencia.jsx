@@ -2,7 +2,7 @@ import { assets } from '../../assets/assetsMap.js';
 import './Tendencia.css';
 
 const instagramUrl = 'https://www.instagram.com/direct/t/107763033955970/';
-const tendenciaUrl = '/tendencia';
+const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
 const whatsappUrl = 'https://tr.ee/-R-sQ_hJqC';
 
 const highlights = [
@@ -54,7 +54,9 @@ function Tendencia() {
             <a
               className="tendencia-button tendencia-button-primary"
               href={tendenciaUrl}
-              aria-label="Conhecer a página institucional da Tendência Multimarcas"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Conhecer a Tendência Multimarcas em nova aba"
             >
               Conhecer a Tendência
             </a>

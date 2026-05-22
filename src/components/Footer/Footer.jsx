@@ -8,7 +8,7 @@ const navigationLinks = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Estilo', href: '#estilo-inteligente' },
   { label: 'Revista', href: '#revista' },
-  { label: 'Tendência', href: '/tendencia' },
+  { label: 'Tendência', href: '#tendencia' },
   { label: 'Newsletter', href: '#newsletter' },
 ];
 

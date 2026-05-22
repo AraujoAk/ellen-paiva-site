@@ -379,3 +379,11 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Estrutura visual da página foi reduzida em aparência de landing modular, com manifesto de marca, galeria editorial e lista de conteúdos mais fluida.
 - A landing principal agora direciona para `/tendencia` pelo topbar, CTA da seção Tendência e navegação do footer.
 - Mantida a base aprovada da landing Ellen, sem instalar novas dependências e sem transformar a experiência em ecommerce.
+
+### Reversão segura — remoção da página /tendencia
+
+- Removida a rota e os arquivos criados exclusivamente para a página institucional `/tendencia`.
+- `App.jsx` voltou a renderizar somente a landing principal da Ellen.
+- Links internos que apontavam para `/tendencia` foram removidos.
+- CTAs “Conhecer a Tendência” voltaram para o Linktree oficial aprovado.
+- Mantidos os refinamentos anteriores da landing principal, incluindo Header, Hero, mobile, motion, imagens reais e links oficiais.
