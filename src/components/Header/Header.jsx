@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { assets } from '../../assets/assetsMap.js';
 import './Header.css';
 
+const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
+
 const navItems = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Estilo', href: '#estilo-inteligente' },
@@ -38,7 +40,7 @@ function Header() {
         <div className="site-topbar-container">
           <p className="site-topbar-social">Instagram · WhatsApp · Facebook</p>
           <p className="site-topbar-message">MODA INTELIGENTE PARA MULHERES REAIS</p>
-          <a className="site-topbar-link" href="#tendencia" onClick={closeMenu}>
+          <a className="site-topbar-link" href={tendenciaUrl} target="_blank" rel="noopener noreferrer">
             CONHEÇA A TENDÊNCIA MULTIMARCAS →
           </a>
         </div>

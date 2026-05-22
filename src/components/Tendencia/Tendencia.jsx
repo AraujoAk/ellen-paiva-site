@@ -1,6 +1,10 @@
 import { assets } from '../../assets/assetsMap.js';
 import './Tendencia.css';
 
+const instagramUrl = 'https://www.instagram.com/direct/t/107763033955970/';
+const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
+const whatsappUrl = 'https://tr.ee/-R-sQ_hJqC';
+
 const highlights = [
   'Curadoria selecionada',
   'Atendimento personalizado',
@@ -47,13 +51,13 @@ function Tendencia() {
           </div>
 
           <div className="tendencia-actions" aria-label="Ações da Tendência Multimarcas">
-            <a className="tendencia-button tendencia-button-primary" href="#tendencia">
+            <a className="tendencia-button tendencia-button-primary" href={tendenciaUrl} target="_blank" rel="noopener noreferrer">
               Conhecer a Tendência
             </a>
-            <a className="tendencia-button" href="#tendencia">
+            <a className="tendencia-button" href={instagramUrl} target="_blank" rel="noopener noreferrer">
               Ver no Instagram
             </a>
-            <a className="tendencia-button" href="#tendencia">
+            <a className="tendencia-button" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
               Falar no WhatsApp
             </a>
           </div>

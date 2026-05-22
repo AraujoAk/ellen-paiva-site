@@ -312,3 +312,10 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - AboutEllen, SmartStyle, Magazine, Tendência e Newsletter tiveram paddings, imagens e cards ajustados para reduzir scroll excessivo entre 390px e 430px.
 - Footer mobile ficou mais compacto, mantendo a marca Ellen Paiva legível e links confortáveis.
 - Scroll-padding mobile foi ajustado para considerar apenas o header sticky, já que a topbar não acompanha a rolagem.
+
+### Ajuste links externos oficiais
+
+- Links de Instagram foram atualizados para o direct oficial informado.
+- Links de Conhecer a Tendência foram atualizados para o Linktree oficial informado.
+- Links de Falar no WhatsApp foram atualizados para o endereço oficial informado.
+- Links externos agora abrem em nova aba com `target="_blank"` e `rel="noopener noreferrer"`.

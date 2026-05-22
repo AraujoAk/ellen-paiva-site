@@ -1,6 +1,9 @@
 import { assets } from '../../assets/assetsMap.js';
 import './Footer.css';
 
+const instagramUrl = 'https://www.instagram.com/direct/t/107763033955970/';
+const whatsappUrl = 'https://tr.ee/-R-sQ_hJqC';
+
 const navigationLinks = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Estilo', href: '#estilo-inteligente' },
@@ -16,7 +19,11 @@ const contentLinks = [
   'Guarda-roupa funcional',
 ];
 
-const contactLinks = ['Instagram', 'WhatsApp', 'Mossoró/RN'];
+const contactLinks = [
+  { label: 'Instagram', href: instagramUrl, isExternal: true },
+  { label: 'WhatsApp', href: whatsappUrl, isExternal: true },
+  { label: 'Mossoró/RN', href: '#newsletter', isExternal: false },
+];
 
 function Footer() {
   return (
@@ -60,8 +67,14 @@ function Footer() {
             <h2>Contato</h2>
             <ul>
               {contactLinks.map((item) => (
-                <li key={item}>
-                  <a href="#newsletter">{item}</a>
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    target={item.isExternal ? '_blank' : undefined}
+                    rel={item.isExternal ? 'noopener noreferrer' : undefined}
+                  >
+                    {item.label}
+                  </a>
                 </li>
               ))}
             </ul>
