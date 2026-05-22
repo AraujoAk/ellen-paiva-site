@@ -257,7 +257,7 @@
 @media (max-width: 479px) {
   .magazine-title {
     max-width: 13ch;
-    font-size: clamp(1.95rem, 10vw, 2.55rem);
+    font-size: clamp(1.82rem, 9.4vw, 2.36rem);
   }
 
   .magazine-category {
@@ -271,11 +271,11 @@
 
 @media (max-width: 767px) {
   .magazine {
-    padding-block: clamp(1.8rem, 6vw, 2.45rem);
+    padding-block: clamp(1.5rem, 5.4vw, 2.08rem);
   }
 
   .magazine-container {
-    gap: 1rem;
+    gap: 0.78rem;
   }
 
   .magazine-heading {
@@ -284,12 +284,12 @@
 
   .magazine-title {
     max-width: 13ch;
-    font-size: clamp(2rem, 8.8vw, 2.75rem);
+    font-size: clamp(1.9rem, 8.3vw, 2.52rem);
   }
 
   .magazine-subtitle {
-    font-size: 0.98rem;
-    line-height: 1.55;
+    font-size: 0.92rem;
+    line-height: 1.48;
   }
 
   .magazine-categories {
@@ -297,9 +297,9 @@
   }
 
   .magazine-category {
-    min-height: 1.85rem;
-    padding: 0.3rem 0.62rem;
-    font-size: 0.78rem;
+    min-height: 1.7rem;
+    padding: 0.24rem 0.52rem;
+    font-size: 0.72rem;
   }
 
   .magazine-grid {
@@ -307,20 +307,42 @@
   }
 
   .magazine-card-media {
-    aspect-ratio: 16 / 7.4;
+    aspect-ratio: 16 / 6.8;
   }
 
   .magazine-card-content {
-    gap: 0.34rem;
-    padding: 0.75rem;
+    gap: 0.28rem;
+    padding: 0.68rem;
   }
 
   .magazine-card-content h3 {
-    font-size: clamp(1.08rem, 5.2vw, 1.32rem);
+    font-size: clamp(1rem, 4.8vw, 1.22rem);
   }
 
   .magazine-card-content p:not(.magazine-card-category) {
-    font-size: 0.84rem;
-    line-height: 1.38;
+    font-size: 0.8rem;
+    line-height: 1.34;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 900px) {
+  .magazine {
+    padding-block: clamp(2rem, 4vw, 2.8rem);
+  }
+
+  .magazine-container {
+    gap: 1rem;
+  }
+
+  .magazine-title {
+    font-size: clamp(2.35rem, 5.8vw, 3rem);
+  }
+
+  .magazine-card-media {
+    aspect-ratio: 16 / 7.6;
+  }
+
+  .magazine-card-content {
+    padding: 0.82rem;
   }
 }

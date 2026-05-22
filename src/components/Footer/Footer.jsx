@@ -8,7 +8,7 @@ const navigationLinks = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Estilo', href: '#estilo-inteligente' },
   { label: 'Revista', href: '#revista' },
-  { label: 'Tendência', href: '#tendencia' },
+  { label: 'Tendência', href: '/tendencia' },
   { label: 'Newsletter', href: '#newsletter' },
 ];
 
@@ -31,7 +31,7 @@ function Footer() {
       <div className="site-footer-container section-container">
         <div className="site-footer-grid">
           <div className="site-footer-brand reveal reveal-fade">
-            <a className="site-footer-logo" href="/" aria-label="Ellen Paiva - página inicial">
+            <a className="site-footer-logo" href="#top" aria-label="Ellen Paiva - voltar ao topo">
               {assets.ellenSignature ? (
                 <img src={assets.ellenSignature} alt="Ellen Paiva" className="site-footer-logo-image" />
               ) : (
@@ -72,6 +72,7 @@ function Footer() {
                     href={item.href}
                     target={item.isExternal ? '_blank' : undefined}
                     rel={item.isExternal ? 'noopener noreferrer' : undefined}
+                    aria-label={item.isExternal ? `${item.label} em nova aba` : undefined}
                   >
                     {item.label}
                   </a>

@@ -1,0 +1,637 @@
+.tendencia-page {
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.tendencia-page h1,
+.tendencia-page h2,
+.tendencia-page h3 {
+  color: inherit;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.tendencia-page p,
+.tendencia-page span {
+  line-height: 1.58;
+}
+
+.tendencia-page-hero {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--color-green-deep);
+  color: var(--color-white);
+}
+
+.tendencia-page-hero-media,
+.tendencia-page-hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.tendencia-page-hero-media img,
+.tendencia-page-atmosphere-media img,
+.tendencia-page-experience-media img,
+.tendencia-page-final-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tendencia-page-hero-image {
+  object-position: 62% center;
+  filter: contrast(1.05) saturate(1.04) brightness(0.94);
+}
+
+.tendencia-page-hero-overlay {
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(15, 46, 37, 0.92) 0%, rgba(15, 46, 37, 0.76) 34%, rgba(15, 46, 37, 0.28) 62%, rgba(15, 46, 37, 0.1) 100%),
+    linear-gradient(180deg, rgba(15, 46, 37, 0.2), transparent 40%, rgba(15, 46, 37, 0.34));
+}
+
+.tendencia-page-hero-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  max-width: 88rem;
+  align-content: center;
+  gap: clamp(0.78rem, 1.4vw, 1.05rem);
+  padding-block: clamp(4.6rem, 10vw, 8rem) clamp(3rem, 6vw, 5rem);
+}
+
+.tendencia-page-hero-content > * {
+  max-width: 41rem;
+}
+
+.tendencia-page-back-link {
+  width: max-content;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-title);
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-weight: 700;
+}
+
+.tendencia-page-back-link:hover,
+.tendencia-page-back-link:focus-visible {
+  color: var(--color-aged-gold);
+}
+
+.tendencia-page-hero-brand {
+  display: inline-grid;
+  width: min(22rem, 52vw);
+  min-height: 6.2rem;
+  place-items: center;
+  margin: 0.15rem 0 0.25rem;
+  padding: 0.95rem 1.15rem;
+  border: 1px solid rgba(216, 199, 179, 0.22);
+  background: rgba(231, 221, 210, 0.92);
+  box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.16);
+}
+
+.tendencia-page-logo {
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+img.tendencia-page-logo {
+  mix-blend-mode: multiply;
+}
+
+span.tendencia-page-logo {
+  color: var(--color-green-deep);
+  font-family: var(--font-title);
+  font-weight: 800;
+  line-height: 0.98;
+}
+
+.tendencia-page-logo-hero {
+  max-height: 5.8rem;
+  font-size: clamp(2.6rem, 5vw, 4.8rem);
+}
+
+.tendencia-page-hero-content .eyebrow,
+.tendencia-page-final .eyebrow {
+  color: var(--color-aged-gold);
+}
+
+.tendencia-page-hero h1 {
+  max-width: 11ch;
+  font-size: clamp(3.4rem, 7.2vw, 7.2rem);
+}
+
+.tendencia-page-hero p:not(.eyebrow) {
+  max-width: 33rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+}
+
+.tendencia-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.72rem;
+  margin-top: 0.2rem;
+}
+
+.tendencia-page-button {
+  display: inline-flex;
+  min-height: 2.95rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.78rem 1.08rem;
+  border: 1px solid rgba(216, 199, 179, 0.58);
+  border-radius: var(--radius-small);
+  color: var(--color-white);
+  font-weight: 800;
+  transition:
+    border-color 320ms ease,
+    background 320ms ease,
+    color 320ms ease,
+    transform 320ms ease;
+}
+
+.tendencia-page-button-primary {
+  border-color: var(--color-aged-gold);
+  background: var(--color-aged-gold);
+}
+
+.tendencia-page-button:hover,
+.tendencia-page-button:focus-visible {
+  border-color: var(--color-aged-gold);
+  background: var(--color-aged-gold);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.tendencia-page-image-fallback {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(176, 138, 82, 0.24), transparent 22%),
+    linear-gradient(135deg, rgba(15, 46, 37, 0.82), rgba(75, 53, 43, 0.24)),
+    linear-gradient(35deg, var(--color-editorial-sand), var(--color-satin-nude), var(--color-aged-gold));
+}
+
+.tendencia-page-manifest {
+  padding-block: clamp(4rem, 7vw, 7rem);
+  background:
+    linear-gradient(180deg, rgba(15, 46, 37, 0.04), transparent 30%),
+    var(--color-satin-nude);
+}
+
+.tendencia-page-manifest-container {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.62fr) minmax(0, 1fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: center;
+}
+
+.tendencia-page-manifest-brand {
+  display: grid;
+  min-height: clamp(18rem, 34vw, 31rem);
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(176, 138, 82, 0.22);
+  border-radius: var(--radius-small);
+  background:
+    radial-gradient(circle at 26% 18%, rgba(176, 138, 82, 0.2), transparent 26%),
+    linear-gradient(145deg, rgba(247, 241, 234, 0.92), rgba(216, 199, 179, 0.5));
+  box-shadow: var(--shadow-editorial-soft);
+}
+
+.tendencia-page-logo-manifest {
+  width: min(82%, 26rem);
+  max-height: 12rem;
+  font-size: clamp(3rem, 7vw, 6rem);
+}
+
+.tendencia-page-manifest-copy {
+  display: grid;
+  gap: 1rem;
+  max-width: 48rem;
+}
+
+.tendencia-page-manifest-copy h2,
+.tendencia-page-atmosphere-heading h2,
+.tendencia-page-experience-copy h2,
+.tendencia-page-editorial-heading h2,
+.tendencia-page-final h2 {
+  max-width: 13ch;
+  color: var(--color-green-deep);
+  font-size: clamp(2.35rem, 4.8vw, 4.8rem);
+}
+
+.tendencia-page-manifest-copy p:not(.eyebrow),
+.tendencia-page-experience-copy > p {
+  color: var(--color-coffee-deep);
+  font-size: clamp(1rem, 1.4vw, 1.12rem);
+}
+
+.tendencia-page-atmosphere {
+  padding-block: clamp(3.6rem, 7vw, 6rem);
+  background: var(--color-paper);
+}
+
+.tendencia-page-atmosphere-heading {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 54rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.3rem);
+}
+
+.tendencia-page-atmosphere-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.72fr);
+  gap: clamp(0.75rem, 1.4vw, 1rem);
+  align-items: stretch;
+}
+
+.tendencia-page-atmosphere-card {
+  position: relative;
+  min-height: 22rem;
+  overflow: hidden;
+  border-radius: var(--radius-small);
+  background: var(--color-satin-nude);
+  box-shadow: var(--shadow-editorial-soft);
+}
+
+.tendencia-page-atmosphere-card-1 {
+  min-height: clamp(30rem, 58vw, 43rem);
+  grid-row: span 2;
+}
+
+.tendencia-page-atmosphere-media {
+  height: 100%;
+  min-height: inherit;
+  overflow: hidden;
+}
+
+.tendencia-page-atmosphere-media img {
+  filter: saturate(0.98) contrast(1.02);
+  transition:
+    filter 620ms var(--reveal-easing),
+    transform 980ms var(--motion-human);
+}
+
+.tendencia-page-atmosphere-card:hover img {
+  filter: saturate(1.04) contrast(1.03);
+  transform: scale(1.014);
+}
+
+.tendencia-page-atmosphere-copy {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  gap: 0.25rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  background: linear-gradient(180deg, transparent, rgba(15, 46, 37, 0.78));
+  color: var(--color-white);
+}
+
+.tendencia-page-atmosphere-copy span,
+.tendencia-page-editorial-card p {
+  color: var(--color-aged-gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tendencia-page-atmosphere-copy h3 {
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+}
+
+.tendencia-page-experience {
+  padding-block: clamp(4rem, 7vw, 7rem);
+  background:
+    radial-gradient(circle at 90% 12%, rgba(176, 138, 82, 0.12), transparent 22%),
+    var(--color-green-deep);
+  color: var(--color-white);
+}
+
+.tendencia-page-experience-container {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(18rem, 0.75fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.tendencia-page-experience-copy {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 46rem;
+}
+
+.tendencia-page-experience-copy h2,
+.tendencia-page-final h2 {
+  color: var(--color-white);
+}
+
+.tendencia-page-experience-copy > p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.tendencia-page-experience-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+.tendencia-page-experience-list span {
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgba(176, 138, 82, 0.34);
+  border-radius: var(--radius-small);
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--color-white);
+  font-weight: 800;
+}
+
+.tendencia-page-experience-media {
+  aspect-ratio: 4 / 5.35;
+  overflow: hidden;
+  border-radius: var(--radius-small);
+  box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.22);
+}
+
+.tendencia-page-experience-media img {
+  object-position: center top;
+}
+
+.tendencia-page-editorial {
+  padding-block: clamp(3.6rem, 7vw, 6rem);
+  background: var(--color-satin-nude);
+}
+
+.tendencia-page-editorial-container {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.tendencia-page-editorial-heading {
+  position: sticky;
+  top: 6.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tendencia-page-editorial-list {
+  display: grid;
+  border-top: 1px solid rgba(176, 138, 82, 0.32);
+}
+
+.tendencia-page-editorial-card {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 0.85fr);
+  gap: clamp(1rem, 3vw, 2rem);
+  padding: clamp(1.05rem, 2vw, 1.5rem) 0;
+  border-bottom: 1px solid rgba(176, 138, 82, 0.32);
+}
+
+.tendencia-page-editorial-card h3 {
+  color: var(--color-green-deep);
+  font-size: clamp(1.4rem, 2.5vw, 2.25rem);
+}
+
+.tendencia-page-editorial-card span {
+  grid-column: 2;
+  max-width: 31rem;
+  color: var(--color-coffee-deep);
+}
+
+.tendencia-page-final {
+  position: relative;
+  min-height: clamp(28rem, 58vw, 42rem);
+  overflow: hidden;
+  background: var(--color-green-deep);
+  color: var(--color-white);
+}
+
+.tendencia-page-final-media {
+  position: absolute;
+  inset: 0;
+}
+
+.tendencia-page-final-media::after {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(15, 46, 37, 0.9), rgba(15, 46, 37, 0.62), rgba(15, 46, 37, 0.24)),
+    linear-gradient(180deg, rgba(15, 46, 37, 0.12), rgba(15, 46, 37, 0.44));
+  content: '';
+}
+
+.tendencia-page-final-media img {
+  object-position: center center;
+  filter: contrast(1.05) saturate(0.98) brightness(0.82);
+}
+
+.tendencia-page-final-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: inherit;
+  align-content: center;
+  gap: 0.9rem;
+}
+
+.tendencia-page-logo-final {
+  width: min(18rem, 54vw);
+  max-height: 7rem;
+  padding: 0.8rem 1rem;
+  background: rgba(231, 221, 210, 0.9);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+}
+
+.tendencia-page-final-actions {
+  margin-top: 0.45rem;
+}
+
+@media (max-width: 767px) {
+  .tendencia-page-hero {
+    min-height: auto;
+  }
+
+  .tendencia-page-hero-media {
+    position: relative;
+    height: clamp(17rem, 52vh, 24rem);
+    order: 2;
+  }
+
+  .tendencia-page-hero {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tendencia-page-hero-overlay {
+    background: linear-gradient(180deg, rgba(15, 46, 37, 0.95), rgba(15, 46, 37, 0.8) 54%, rgba(15, 46, 37, 0.1));
+  }
+
+  .tendencia-page-hero-content {
+    order: 1;
+    gap: 0.68rem;
+    padding-block: clamp(1.25rem, 6vw, 2rem);
+  }
+
+  .tendencia-page-hero-brand {
+    width: min(18rem, 74vw);
+    min-height: 4.9rem;
+    padding: 0.7rem 0.85rem;
+  }
+
+  .tendencia-page-logo-hero {
+    max-height: 4.7rem;
+    font-size: clamp(2.2rem, 10vw, 3.6rem);
+  }
+
+  .tendencia-page-hero h1 {
+    max-width: 12ch;
+    font-size: clamp(2.35rem, 10.5vw, 3.25rem);
+  }
+
+  .tendencia-page-hero p:not(.eyebrow) {
+    font-size: 0.94rem;
+    line-height: 1.5;
+  }
+
+  .tendencia-page-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .tendencia-page-button {
+    width: 100%;
+    min-height: 2.72rem;
+    padding: 0.68rem 0.9rem;
+  }
+
+  .tendencia-page-manifest,
+  .tendencia-page-atmosphere,
+  .tendencia-page-experience,
+  .tendencia-page-editorial {
+    padding-block: clamp(2.35rem, 8vw, 3.25rem);
+  }
+
+  .tendencia-page-manifest-container,
+  .tendencia-page-experience-container,
+  .tendencia-page-editorial-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .tendencia-page-manifest-brand {
+    min-height: 12rem;
+  }
+
+  .tendencia-page-logo-manifest {
+    width: min(80%, 20rem);
+    max-height: 8rem;
+  }
+
+  .tendencia-page-manifest-copy h2,
+  .tendencia-page-atmosphere-heading h2,
+  .tendencia-page-experience-copy h2,
+  .tendencia-page-editorial-heading h2,
+  .tendencia-page-final h2 {
+    font-size: clamp(2rem, 8.5vw, 2.85rem);
+  }
+
+  .tendencia-page-manifest-copy p:not(.eyebrow),
+  .tendencia-page-experience-copy > p,
+  .tendencia-page-editorial-card span {
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+
+  .tendencia-page-atmosphere-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .tendencia-page-atmosphere-card,
+  .tendencia-page-atmosphere-card-1 {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    grid-row: auto;
+  }
+
+  .tendencia-page-atmosphere-media {
+    min-height: 0;
+  }
+
+  .tendencia-page-atmosphere-copy {
+    padding: 0.85rem;
+  }
+
+  .tendencia-page-experience-list {
+    gap: 0.5rem;
+  }
+
+  .tendencia-page-experience-list span {
+    padding: 0.55rem 0.66rem;
+    font-size: 0.78rem;
+  }
+
+  .tendencia-page-experience-media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .tendencia-page-editorial-heading {
+    position: static;
+  }
+
+  .tendencia-page-editorial-card {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .tendencia-page-editorial-card span {
+    grid-column: auto;
+  }
+
+  .tendencia-page-final {
+    min-height: auto;
+  }
+
+  .tendencia-page-final-content {
+    min-height: 26rem;
+    padding-block: 2.4rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tendencia-page-hero-content {
+    padding-block: clamp(4rem, 8vw, 6rem);
+  }
+
+  .tendencia-page-hero h1 {
+    font-size: clamp(3.2rem, 8vw, 5rem);
+  }
+
+  .tendencia-page-manifest-container,
+  .tendencia-page-experience-container,
+  .tendencia-page-editorial-container {
+    grid-template-columns: 1fr;
+  }
+
+  .tendencia-page-atmosphere-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tendencia-page-atmosphere-card-1 {
+    grid-row: auto;
+  }
+
+  .tendencia-page-editorial-heading {
+    position: static;
+  }
+}

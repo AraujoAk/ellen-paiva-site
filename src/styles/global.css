@@ -4,8 +4,8 @@ body {
 }
 
 :root {
-  --reveal-duration: 900ms;
-  --reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-duration: 980ms;
+  --reveal-easing: cubic-bezier(0.2, 0.78, 0.22, 1);
   --motion-human: cubic-bezier(0.19, 1, 0.22, 1);
   --shadow-editorial-soft: 0 1rem 2.5rem rgba(75, 53, 43, 0.08);
   --shadow-editorial-hover: 0 1.25rem 3rem rgba(75, 53, 43, 0.11);
@@ -15,6 +15,7 @@ body {
 .page-section {
   position: relative;
   padding-inline: var(--space-page);
+  scroll-margin-top: 5.75rem;
 }
 
 .section-container {
@@ -39,7 +40,7 @@ body {
 }
 
 .reveal-up {
-  transform: translateY(14px);
+  transform: translateY(16px);
 }
 
 .reveal-fade {
@@ -47,15 +48,15 @@ body {
 }
 
 .reveal-delay-1 {
-  --reveal-delay: 70ms;
+  --reveal-delay: 90ms;
 }
 
 .reveal-delay-2 {
-  --reveal-delay: 140ms;
+  --reveal-delay: 165ms;
 }
 
 .reveal-delay-3 {
-  --reveal-delay: 210ms;
+  --reveal-delay: 240ms;
 }
 
 .reveal.is-visible {
@@ -86,7 +87,8 @@ body {
     background var(--transition-base),
     color var(--transition-base),
     border-color var(--transition-base),
-    transform var(--transition-base);
+    box-shadow 420ms var(--motion-human),
+    transform 520ms var(--motion-human);
 }
 
 .button-link:hover,
@@ -94,7 +96,26 @@ body {
   background: var(--color-green-deep);
   border-color: var(--color-green-deep);
   color: var(--color-white);
+  box-shadow: 0 0.85rem 1.8rem rgba(75, 53, 43, 0.1);
   transform: translateY(-2px);
+}
+
+.button-link:active {
+  box-shadow: 0 0.45rem 1.1rem rgba(75, 53, 43, 0.08);
+  transform: translateY(0);
+}
+
+:is(
+  .button-link,
+  .hero-secondary-link,
+  .tendencia-button,
+  .newsletter-button,
+  .magazine-card-link,
+  .site-footer-column a,
+  .site-footer-logo
+):focus-visible {
+  outline: 2px solid var(--color-aged-gold);
+  outline-offset: 3px;
 }
 
 a,
@@ -103,6 +124,7 @@ button {
     color var(--transition-base),
     background var(--transition-base),
     border-color var(--transition-base),
+    box-shadow 420ms var(--motion-human),
     transform 520ms var(--motion-human),
     opacity var(--transition-base);
 }
@@ -143,7 +165,7 @@ button {
 ):hover {
   border-color: rgba(176, 138, 82, 0.72);
   box-shadow: var(--shadow-editorial-hover);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }
 
 :is(
@@ -161,9 +183,9 @@ button {
 ) {
   backface-visibility: hidden;
   transition:
-    filter 420ms var(--reveal-easing),
+    filter 620ms var(--reveal-easing),
     opacity var(--reveal-duration) var(--reveal-easing),
-    transform 820ms var(--motion-human);
+    transform 980ms var(--motion-human);
   will-change: filter, opacity, transform;
 }
 
@@ -176,7 +198,7 @@ button {
   .tendencia-image-placeholder
 ) {
   opacity: 0.82;
-  transform: translateY(6px);
+  transform: translateY(8px) scale(0.996);
 }
 
 .reveal.is-visible
@@ -188,7 +210,7 @@ button {
   .tendencia-image-placeholder
 ) {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 :is(
@@ -196,17 +218,42 @@ button {
   .about-ellen-media,
   .smart-style-card,
   .magazine-card,
+  .newsletter-media,
   .tendencia-media
 ):hover
 :is(
   .hero-image-placeholder,
   .about-ellen-image-placeholder,
+  .about-ellen-image,
   .smart-style-card-media,
+  .smart-style-card-image,
   .magazine-card-media,
+  .magazine-card-image,
+  .newsletter-image,
+  .tendencia-image,
   .tendencia-image-placeholder
 ) {
-  filter: saturate(1.06) contrast(1.02);
-  transform: scale(1.012);
+  filter: saturate(1.045) contrast(1.018);
+  transform: scale(1.014);
+}
+
+:is(
+  .button-link,
+  .site-header-action,
+  .tendencia-button,
+  .newsletter-button
+):active {
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .hero-content.reveal {
+    --reveal-delay: 40ms;
+  }
+
+  .hero-media.reveal {
+    --reveal-delay: 150ms;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -240,15 +287,60 @@ button {
     transform: none;
     transition: none;
   }
+
+  :is(
+    .about-ellen-card,
+    .smart-style-card,
+    .magazine-card,
+    .tendencia-highlight,
+    .button-link,
+    .site-header-action,
+    .tendencia-button,
+    .newsletter-button
+  ):hover,
+  :is(
+    .about-ellen-card,
+    .smart-style-card,
+    .magazine-card,
+    .tendencia-highlight,
+    .button-link,
+    .site-header-action,
+    .tendencia-button,
+    .newsletter-button
+  ):focus-visible,
+  :is(
+    .about-ellen-card,
+    .smart-style-card,
+    .magazine-card,
+    .tendencia-highlight,
+    .button-link,
+    .site-header-action,
+    .tendencia-button,
+    .newsletter-button
+  ):active {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 1024px) {
+  .hero-image {
+    transform: scaleX(-1);
+  }
+
+  .hero-image-panel:hover .hero-image {
+    transform: scaleX(-1);
+  }
 }
 
 @media (max-width: 767px) {
   :root {
-    scroll-padding-top: 4.6rem;
+    --reveal-duration: 700ms;
+    scroll-padding-top: 4.3rem;
   }
 
   .page-section {
-    padding-inline: clamp(1.15rem, 5vw, 1.5rem);
+    padding-inline: clamp(1rem, 4.8vw, 1.35rem);
+    scroll-margin-top: 4.3rem;
   }
 
   .eyebrow {
@@ -257,18 +349,40 @@ button {
   }
 
   .button-link {
-    min-height: 2.85rem;
-    padding: 0.75rem 1rem;
+    min-height: 2.72rem;
+    padding: 0.68rem 0.95rem;
+  }
+
+  .reveal-up {
+    transform: translateY(10px);
+  }
+
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3 {
+    --reveal-delay: 45ms;
   }
 }
 
 @media (max-width: 479px) {
   .page-section {
-    padding-inline: clamp(1rem, 5vw, 1.25rem);
+    padding-inline: clamp(0.95rem, 4.8vw, 1.16rem);
   }
 
   .button-link {
     width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 900px) {
+  :root {
+    --reveal-duration: 760ms;
+    scroll-padding-top: 5.25rem;
+  }
+
+  .page-section {
+    padding-inline: clamp(1.35rem, 4vw, 2rem);
+    scroll-margin-top: 5.25rem;
   }
 }
 

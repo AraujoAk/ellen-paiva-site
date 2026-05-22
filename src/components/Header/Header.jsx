@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { assets } from '../../assets/assetsMap.js';
 import './Header.css';
 
-const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
+const tendenciaUrl = '/tendencia';
 
 const navItems = [
   { label: 'Sobre', href: '#sobre' },
@@ -11,25 +11,147 @@ const navItems = [
   { label: 'Tendência', href: '#tendencia' },
 ];
 
+const sectionIds = [...navItems.map((item) => item.href.replace('#', '')), 'newsletter'];
+
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const lockedTarget = useRef('');
 
   useEffect(() => {
-    const handleScroll = () => {
+    let animationFrame = 0;
+
+    const updateHeaderState = () => {
       setIsScrolled(window.scrollY > 12);
+
+      const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+
+      if (lockedTarget.current) {
+        const targetSectionId = lockedTarget.current;
+
+        if (lockedTarget.current === 'top') {
+          if (window.scrollY > 24) {
+            animationFrame = 0;
+            return;
+          }
+
+          lockedTarget.current = '';
+          setActiveSection('');
+          animationFrame = 0;
+          return;
+        }
+
+        const targetSection = document.getElementById(targetSectionId);
+
+        if (targetSection) {
+          const targetDistance = Math.abs(targetSection.getBoundingClientRect().top - headerHeight);
+
+          if (targetDistance > 110) {
+            animationFrame = 0;
+            return;
+          }
+        }
+
+        lockedTarget.current = '';
+        setActiveSection(targetSectionId);
+        animationFrame = 0;
+        return;
+      }
+
+      const viewportTop = headerHeight;
+      const viewportBottom = window.innerHeight;
+      const viewportHeight = Math.max(viewportBottom - viewportTop, 1);
+      const viewportCenter = viewportTop + viewportHeight * 0.45;
+      let dominantSection = '';
+      let dominantScore = Number.NEGATIVE_INFINITY;
+
+      sectionIds.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+
+        if (!section) {
+          return;
+        }
+
+        const rect = section.getBoundingClientRect();
+        const visibleTop = Math.max(rect.top, viewportTop);
+        const visibleBottom = Math.min(rect.bottom, viewportBottom);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+        if (!visibleHeight) {
+          return;
+        }
+
+        const sectionCenter = rect.top + rect.height / 2;
+        const visibleRatio = visibleHeight / Math.min(rect.height, viewportHeight);
+        const centerDistance = Math.abs(sectionCenter - viewportCenter) / viewportHeight;
+        const score = visibleRatio - centerDistance * 0.25;
+
+        if (score > dominantScore) {
+          dominantScore = score;
+          dominantSection = sectionId;
+        }
+      });
+
+      setActiveSection(dominantSection);
+      animationFrame = 0;
     };
 
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    const handleScroll = () => {
+      if (animationFrame) {
+        return;
+      }
 
-    return () => window.removeEventListener('scroll', handleScroll);
+      animationFrame = window.requestAnimationFrame(updateHeaderState);
+    };
+
+    const releaseProgrammaticLock = () => {
+      lockedTarget.current = '';
+      handleScroll();
+    };
+
+    const handleKeydown = (event) => {
+      const manualScrollKeys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '];
+
+      if (manualScrollKeys.includes(event.key)) {
+        releaseProgrammaticLock();
+      }
+    };
+
+    updateHeaderState();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    window.addEventListener('wheel', releaseProgrammaticLock, { passive: true });
+    window.addEventListener('touchstart', releaseProgrammaticLock, { passive: true });
+    window.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener('wheel', releaseProgrammaticLock);
+      window.removeEventListener('touchstart', releaseProgrammaticLock);
+      window.removeEventListener('keydown', handleKeydown);
+
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
   }, []);
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const handleNavClick = (href) => {
+    const targetSection = href.replace('#', '');
+
+    lockedTarget.current = targetSection;
+    setActiveSection(targetSection);
+    closeMenu();
+  };
+
   const handleLogoClick = (event) => {
     event.preventDefault();
+    lockedTarget.current = 'top';
+    setActiveSection('');
     closeMenu();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -40,7 +162,11 @@ function Header() {
         <div className="site-topbar-container">
           <p className="site-topbar-social">Instagram · WhatsApp · Facebook</p>
           <p className="site-topbar-message">MODA INTELIGENTE PARA MULHERES REAIS</p>
-          <a className="site-topbar-link" href={tendenciaUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            className="site-topbar-link"
+            href={tendenciaUrl}
+            aria-label="Conheça a página institucional da Tendência Multimarcas"
+          >
             CONHEÇA A TENDÊNCIA MULTIMARCAS →
           </a>
         </div>
@@ -78,17 +204,33 @@ function Header() {
           aria-label="Navegação principal"
         >
           {navItems.map((item) => (
-            <a key={item.href} className="site-nav-link" href={item.href} onClick={closeMenu}>
+            <a
+              key={item.href}
+              className="site-nav-link"
+              href={item.href}
+              aria-current={activeSection === item.href.replace('#', '') ? 'page' : undefined}
+              onClick={() => handleNavClick(item.href)}
+            >
               {item.label}
             </a>
           ))}
 
-          <a className="site-header-action site-header-action-mobile" href="#newsletter" onClick={closeMenu}>
+          <a
+            className="site-header-action site-header-action-mobile"
+            href="#newsletter"
+            aria-current={activeSection === 'newsletter' ? 'page' : undefined}
+            onClick={() => handleNavClick('#newsletter')}
+          >
             Newsletter
           </a>
         </nav>
 
-        <a className="site-header-action site-header-action-desktop" href="#newsletter" onClick={closeMenu}>
+        <a
+          className="site-header-action site-header-action-desktop"
+          href="#newsletter"
+          aria-current={activeSection === 'newsletter' ? 'page' : undefined}
+          onClick={() => handleNavClick('#newsletter')}
+        >
           Newsletter
         </a>
       </div>

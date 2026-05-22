@@ -15,10 +15,10 @@ function HeroSection() {
             sofisticadas para mulheres com rotina ativa e presença própria.
           </p>
           <div className="hero-actions">
-            <a className="button-link" href="#revista">
+            <a className="button-link hero-primary-link" href="#revista" aria-label="Ler editorial da Revista Ellen Paiva">
               Ler editorial
             </a>
-            <a className="hero-secondary-link" href="#sobre">
+            <a className="hero-secondary-link" href="#sobre" aria-label="Conhecer a trajetória de Ellen Paiva">
               Conhecer Ellen
             </a>
           </div>

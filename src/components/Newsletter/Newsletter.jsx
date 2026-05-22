@@ -37,7 +37,7 @@ function Newsletter() {
             <input type="email" name="email" placeholder="seuemail@exemplo.com" autoComplete="email" />
           </label>
 
-          <button className="newsletter-button" type="button">
+          <button className="newsletter-button" type="button" aria-label="Quero receber a newsletter editorial">
             Quero receber
           </button>
 

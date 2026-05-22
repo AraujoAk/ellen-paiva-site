@@ -9,6 +9,7 @@ import coffeeStill from './images/img_ellen1 (4).png';
 import burgundyFabric from './images/img_ellen1 (5).png';
 import jewelryBook from './images/img_ellen1 (6).png';
 import editorialTexture from './images/img_ellen1 (8).png';
+import tendenciaLogoImage from './logos/tendencia-logo.jpeg';
 
 export const assets = {
   ellenHero: heroEditorialSeated,
@@ -25,5 +26,5 @@ export const assets = {
   tendenciaStore: warmInterior,
   newsletterFooter: coffeeStill,
   ellenSignature: null,
-  tendenciaLogo: null,
+  tendenciaLogo: tendenciaLogoImage,
 };

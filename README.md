@@ -319,3 +319,63 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Links de Conhecer a Tendência foram atualizados para o Linktree oficial informado.
 - Links de Falar no WhatsApp foram atualizados para o endereço oficial informado.
 - Links externos agora abrem em nova aba com `target="_blank"` e `rel="noopener noreferrer"`.
+
+### Etapa H1 — Experiência de scroll e movimento silencioso
+
+- Reveal ao scroll recebeu duração, easing e delays mais orgânicos para entradas suaves e editoriais.
+- Hero ganhou cadência inicial mais refinada, com texto surgindo antes da área visual.
+- Imagens, cards e botões receberam microinterações mais discretas, com zoom e feedback tátil suaves.
+- Mobile recebeu animações mais curtas e delays reduzidos para priorizar fluidez e legibilidade.
+- `prefers-reduced-motion` segue respeitado para remover transições quando solicitado pelo usuário.
+
+### Auditoria H1 — Movimento e acessibilidade
+
+- Corrigido comportamento em `prefers-reduced-motion` para preservar a inversão editorial da imagem do Hero no desktop.
+- Hovers e estados ativos passam a remover deslocamentos em modo de movimento reduzido.
+- Mantidos textos, estrutura e layout aprovados.
+
+### Etapa H2 — Navegação e CTAs inteligentes
+
+- Header ganhou estado ativo refinado para links internos e CTA de Newsletter.
+- Seções receberam `scroll-margin-top` para evitar que o header sticky cubra o início do conteúdo.
+- CTAs do Hero, Tendência e Newsletter foram refinados com presença visual, foco e active state discretos.
+- Links externos receberam `aria-label` quando necessário, mantendo `target="_blank"` e `rel="noopener noreferrer"`.
+- Logo do footer passou a apontar para o topo da página sem recarregar a landing.
+
+### Correção H2.1 — navegação ativa sincronizada
+
+- Cálculo de seção ativa passou a considerar a área visível dominante no viewport.
+- Altura do header sticky agora entra no cálculo para evitar marcação da seção anterior.
+- Cliques em links internos atualizam o estado ativo imediatamente enquanto o scroll suave acontece.
+- Scroll e resize usam `requestAnimationFrame` para reduzir flicker e manter apenas um item ativo.
+
+### Correção H2.2 — active state travado durante navegação programática
+
+- Cliques em links internos agora travam temporariamente o item ativo até o destino do scroll suave ficar próximo.
+- Seções intermediárias deixam de assumir o estado ativo durante navegação programática.
+- O lock é liberado ao chegar perto do destino ou quando o usuário faz scroll manual por roda, toque ou teclado.
+- O retorno ao topo pela logo usa a mesma lógica para evitar destaque intermediário.
+
+### Rodada Mobile 02 — Refinamento avançado mobile
+
+- Header, Hero e seções internas foram compactados para melhorar leitura em 390px e 430px.
+- Hero mobile recebeu altura menor, título mais controlado e imagem com mais presença.
+- Cards, thumbnails, microcards e CTAs foram ajustados para reduzir scroll excessivo sem perder toque premium.
+- A faixa de 768px recebeu tratamento de tablet móvel para melhorar composição, respiro e proporção visual.
+- Footer e Newsletter ficaram mais objetivos em mobile, mantendo links e botões confortáveis.
+
+### PRD inicial página institucional Tendência
+
+- Criada rota `/tendencia` com página institucional/editorial premium para Tendência Multimarcas.
+- A nova página usa estrutura isolada em `src/pages/Tendencia/`, reutilizando paleta, tipografia, assets reais e sistema de reveal.
+- Incluídas seções de Hero editorial, filosofia da marca, curadoria, experiência, revista/estilo e CTA final.
+- SEO básico passa a ser ajustado dinamicamente para a página Tendência.
+- Adicionado `vercel.json` com rewrite para suportar acesso direto e refresh em `/tendencia`.
+
+### Refinamento T01 — direção institucional Tendência
+
+- Página `/tendencia` foi refinada para ter direção própria, mais institucional, fotográfica e atmosférica.
+- Logo real da Tendência passou a ser mapeada em `assetsMap.js` e usada com mais presença no Hero, manifesto e CTA final.
+- Estrutura visual da página foi reduzida em aparência de landing modular, com manifesto de marca, galeria editorial e lista de conteúdos mais fluida.
+- A landing principal agora direciona para `/tendencia` pelo topbar, CTA da seção Tendência e navegação do footer.
+- Mantida a base aprovada da landing Ellen, sem instalar novas dependências e sem transformar a experiência em ecommerce.

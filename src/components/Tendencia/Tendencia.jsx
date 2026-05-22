@@ -2,7 +2,7 @@ import { assets } from '../../assets/assetsMap.js';
 import './Tendencia.css';
 
 const instagramUrl = 'https://www.instagram.com/direct/t/107763033955970/';
-const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
+const tendenciaUrl = '/tendencia';
 const whatsappUrl = 'https://tr.ee/-R-sQ_hJqC';
 
 const highlights = [
@@ -51,13 +51,29 @@ function Tendencia() {
           </div>
 
           <div className="tendencia-actions" aria-label="Ações da Tendência Multimarcas">
-            <a className="tendencia-button tendencia-button-primary" href={tendenciaUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              className="tendencia-button tendencia-button-primary"
+              href={tendenciaUrl}
+              aria-label="Conhecer a página institucional da Tendência Multimarcas"
+            >
               Conhecer a Tendência
             </a>
-            <a className="tendencia-button" href={instagramUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              className="tendencia-button"
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ver Instagram da Tendência em nova aba"
+            >
               Ver no Instagram
             </a>
-            <a className="tendencia-button" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              className="tendencia-button tendencia-button-whatsapp"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Falar no WhatsApp em nova aba"
+            >
               Falar no WhatsApp
             </a>
           </div>

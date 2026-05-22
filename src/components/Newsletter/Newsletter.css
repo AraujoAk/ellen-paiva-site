@@ -131,6 +131,9 @@
   color: var(--color-white);
   cursor: pointer;
   font-weight: 800;
+  box-shadow:
+    0 0.85rem 1.8rem rgba(75, 53, 43, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
 .newsletter-button:hover,
@@ -138,7 +141,14 @@
   background: var(--color-green-deep);
   border-color: var(--color-green-deep);
   color: var(--color-white);
+  box-shadow:
+    0 1rem 2rem rgba(75, 53, 43, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
+}
+
+.newsletter-button:active {
+  transform: translateY(0);
 }
 
 .newsletter-note {
@@ -160,7 +170,7 @@
 @media (max-width: 479px) {
   .newsletter-title {
     max-width: 12ch;
-    font-size: clamp(1.95rem, 10vw, 2.55rem);
+    font-size: clamp(1.82rem, 9.4vw, 2.36rem);
   }
 
   .newsletter-button {
@@ -170,11 +180,11 @@
 
 @media (max-width: 767px) {
   .newsletter {
-    padding-block: clamp(1.75rem, 6vw, 2.35rem);
+    padding-block: clamp(1.45rem, 5.4vw, 2rem);
   }
 
   .newsletter-container {
-    gap: 0.9rem;
+    gap: 0.72rem;
   }
 
   .newsletter-content {
@@ -183,21 +193,25 @@
 
   .newsletter-title {
     max-width: 12ch;
-    font-size: clamp(2rem, 8.8vw, 2.75rem);
+    font-size: clamp(1.9rem, 8.3vw, 2.52rem);
   }
 
   .newsletter-text {
-    font-size: 0.98rem;
-    line-height: 1.55;
+    font-size: 0.92rem;
+    line-height: 1.48;
   }
 
   .newsletter-form {
-    gap: 0.6rem;
-    padding: 0.75rem;
+    gap: 0.52rem;
+    padding: 0.66rem;
   }
 
   .newsletter-form::before {
-    aspect-ratio: 16 / 6.2;
+    aspect-ratio: 16 / 5.6;
+  }
+
+  .newsletter-media {
+    aspect-ratio: 16 / 5.8;
   }
 
   .newsletter-field {
@@ -209,17 +223,42 @@
   }
 
   .newsletter-field input {
-    min-height: 2.55rem;
-    padding: 0.66rem 0.8rem;
+    min-height: 2.42rem;
+    padding: 0.58rem 0.75rem;
   }
 
   .newsletter-button {
     width: 100%;
-    min-height: 2.7rem;
+    min-height: 2.54rem;
   }
 
   .newsletter-note {
     font-size: 0.84rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 900px) {
+  .newsletter {
+    padding-block: clamp(2rem, 4vw, 2.7rem);
+  }
+
+  .newsletter-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .newsletter-title {
+    max-width: 13ch;
+    font-size: clamp(2.35rem, 5.8vw, 3rem);
+  }
+
+  .newsletter-form {
+    max-width: 34rem;
+    transform: none;
+  }
+
+  .newsletter-media {
+    aspect-ratio: 16 / 5.8;
   }
 }
 
