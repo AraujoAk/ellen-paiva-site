@@ -64,6 +64,13 @@ body {
   transform: translateY(0);
 }
 
+.hero-content.reveal,
+.hero-media.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 .eyebrow {
   color: var(--color-aged-gold);
   font-size: 0.74rem;
@@ -248,11 +255,15 @@ button {
 
 @media (min-width: 768px) {
   .hero-content.reveal {
-    --reveal-delay: 40ms;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .hero-media.reveal {
-    --reveal-delay: 150ms;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

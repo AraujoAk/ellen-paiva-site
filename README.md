@@ -430,3 +430,11 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - `aria-labels` de CTAs foram ajustados para incluir exatamente o texto visível.
 - Criado `public/favicon.ico` e linkado no `index.html` para remover o 404 de favicon.
 - Mantidos layout, textos visíveis, imagens otimizadas e dependências atuais.
+
+### Etapa M2 — Refinamento final de LCP
+
+- Fontes do Google foram movidas do `@import` CSS para links no `index.html` com `preconnect`.
+- Hero passou a renderizar sem atraso inicial do sistema de reveal, preservando a composição visual final.
+- Imagem crítica do Hero manteve preload, `fetchPriority="high"` e recebeu `decoding="sync"`.
+- Imagens abaixo da dobra seguem com `loading="lazy"` e `decoding="async"`.
+- Mantidos layout, textos, identidade visual, imagens otimizadas e dependências atuais.

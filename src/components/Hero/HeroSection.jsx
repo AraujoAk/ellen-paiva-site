@@ -32,6 +32,7 @@ function HeroSection() {
                   src={assets.ellenHero}
                   alt="Retrato editorial de Ellen Paiva"
                   className="hero-image"
+                  decoding="sync"
                   fetchPriority="high"
                 />
               ) : (
