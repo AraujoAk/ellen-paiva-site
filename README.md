@@ -438,3 +438,43 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Imagem crítica do Hero manteve preload, `fetchPriority="high"` e recebeu `decoding="sync"`.
 - Imagens abaixo da dobra seguem com `loading="lazy"` e `decoding="async"`.
 - Mantidos layout, textos, identidade visual, imagens otimizadas e dependências atuais.
+
+### Fase CMS 01 — Planejamento Supabase Revista
+
+- Criada documentação técnica para transformar a seção Revista em CMS dinâmico com Supabase.
+- Planejados fluxo público, fluxo admin, fallback estático, permissões, upload e limite de 10 posts ativos.
+- Criado SQL planejado com tabelas, índices, triggers, RLS e políticas de storage.
+- Criado `.env.example` com variáveis futuras do Supabase.
+- Nenhuma dependência foi instalada e a landing pública permanece sem conexão com Supabase nesta fase.
+
+### Fase CMS 02 — Auditoria SQL Supabase Revista
+
+- SQL planejado foi auditado antes da execução no Supabase real.
+- Corrigido risco de recursão em policy de `profiles` usando helper `public.is_admin()`.
+- Autoria de posts da Revista passou a ser preenchida automaticamente e preservada em updates.
+- Políticas de storage foram restringidas à pasta `magazine/` dentro do bucket `magazine-images`.
+- Mantida leitura pública apenas para posts ativos e escrita restrita a usuários com `can_edit_magazine = true`.
+
+### Fase CMS 05 — Conexão React + Supabase
+
+- Instalado `@supabase/supabase-js` para preparar a conexão com o projeto `ellen-paiva-hub`.
+- Criado `src/lib/supabase.js` usando `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`.
+- Criado `src/services/magazineService.js` com `getPublishedPosts()`, `getFeaturedPost()` e `getPostsByCategory()`.
+- Conteúdo estático da Revista foi preservado em fallback seguro.
+- A seção Revista passa a usar posts publicados do Supabase apenas quando houver dados; caso contrário, mantém o conteúdo atual.
+- Nenhum layout, texto visível, navegação ou painel admin foi alterado nesta fase.
+
+### Fase CMS 06 — Seed de teste Revista Supabase
+
+- Criado seed controlado em `docs/supabase-magazine-seed.sql` com 3 posts ativos de teste.
+- O seed usa o campo real `description`, equivalente à descrição curta/excerpt planejada.
+- URLs de imagem temporárias apontam para assets públicos já publicados na Vercel.
+- O seed não foi executado automaticamente; deve ser revisado e rodado manualmente no Supabase.
+- A conexão React segue preservando fallback estático quando o Supabase estiver vazio, indisponível ou sem variáveis de ambiente.
+
+### Fase CMS 06.2 — Seed com imagens públicas estáveis
+
+- Criada pasta `public/magazine/` com 3 imagens WebP estáveis para seed/teste.
+- `docs/supabase-magazine-seed.sql` passou a usar URLs sem hash de build do Vite.
+- Documentado que `public/magazine/` é apenas para validação inicial.
+- Operação real dos posts da Revista deve usar o bucket `magazine-images` do Supabase Storage.

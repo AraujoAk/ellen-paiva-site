@@ -1,54 +1,29 @@
-import { assets } from '../../assets/assetsMap.js';
+import { useEffect, useState } from 'react';
+import { getPublishedPosts } from '../../services/magazineService.js';
+import { magazineCategories, magazineFallbackArticles } from './magazineFallback.js';
 import './Magazine.css';
 
-const categories = [
-  'Todos',
-  'Estilo inteligente',
-  'Tendências',
-  'Moda real',
-  'Beleza e bem-estar',
-  'Lifestyle',
-];
-
-const articles = [
-  {
-    category: 'Estilo inteligente',
-    title: 'Como usar alfaiataria no calor do Nordeste',
-    description: 'Tecidos, modelagens e combinações para manter sofisticação com leveza.',
-    image: assets.magazine01,
-    imageAlt: 'Editorial sobre alfaiataria no calor do Nordeste',
-  },
-  {
-    category: 'Moda real',
-    title: '5 peças que deixam o look mais sofisticado',
-    description: 'Escolhas simples que elevam o visual sem exigir produções complicadas.',
-    image: assets.magazine02,
-    imageAlt: 'Editorial sobre peças sofisticadas para moda real',
-  },
-  {
-    category: 'Estilo inteligente',
-    title: 'Moda depois dos 35: menos excesso, mais identidade',
-    description: 'Um olhar maduro sobre proporção, intenção e presença no vestir.',
-    image: assets.magazine03,
-    imageAlt: 'Editorial sobre moda depois dos 35',
-  },
-  {
-    category: 'Tendências',
-    title: 'Como transformar peças básicas em looks elegantes',
-    description: 'O poder dos acabamentos, das cores e dos acessórios bem escolhidos.',
-    image: assets.magazine04,
-    imageAlt: 'Editorial sobre peças básicas em looks elegantes',
-  },
-  {
-    category: 'Moda real',
-    title: 'O erro que deixa o look visualmente cansado',
-    description: 'Ajustes práticos para trazer harmonia, frescor e refinamento ao visual.',
-    image: assets.magazine05,
-    imageAlt: 'Editorial sobre harmonia visual no look',
-  },
-];
-
 function Magazine() {
+  const [articles, setArticles] = useState(magazineFallbackArticles);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadPublishedPosts() {
+      const posts = await getPublishedPosts();
+
+      if (isMounted && posts.length > 0) {
+        setArticles(posts);
+      }
+    }
+
+    loadPublishedPosts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <section className="magazine page-section" id="revista" aria-labelledby="magazine-title">
       <div className="magazine-container section-container">
@@ -64,7 +39,7 @@ function Magazine() {
         </div>
 
         <div className="magazine-categories" aria-label="Categorias editoriais">
-          {categories.map((category) => (
+          {magazineCategories.map((category) => (
             <span className="magazine-category" key={category}>
               {category}
             </span>
@@ -72,10 +47,10 @@ function Magazine() {
         </div>
 
         <div className="magazine-grid">
-          {articles.map((article) => (
-            <article className="magazine-card reveal reveal-up reveal-delay-1" key={article.title}>
+          {articles.map((article, index) => (
+            <article className="magazine-card reveal reveal-up reveal-delay-1" key={article.id ?? article.title}>
               <div
-                className={`magazine-card-media magazine-card-media-${articles.indexOf(article) + 1}`}
+                className={`magazine-card-media magazine-card-media-${(index % magazineFallbackArticles.length) + 1}`}
                 aria-hidden={!article.image}
               >
                 {article.image && (
