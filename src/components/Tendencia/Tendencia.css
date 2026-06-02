@@ -87,6 +87,10 @@
   max-width: 43rem;
 }
 
+.tendencia-content.reveal {
+  opacity: 1;
+}
+
 .tendencia-logo {
   width: auto;
   max-width: 14rem;
