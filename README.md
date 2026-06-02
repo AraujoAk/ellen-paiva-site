@@ -422,3 +422,11 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Adicionado Schema.org básico do tipo `Person` para Ellen Paiva.
 - Criados `public/robots.txt` e `public/sitemap.xml` apontando para a URL principal do projeto.
 - Mantidos layout, textos visíveis, imagens do layout e dependências atuais.
+
+### Etapa M1 — Correções finais pós-Lighthouse
+
+- Contraste do logo textual Ellen Paiva foi reforçado sem alterar estrutura.
+- CTA principal do Hero e botão primário da Tendência receberam cores com contraste mais seguro.
+- `aria-labels` de CTAs foram ajustados para incluir exatamente o texto visível.
+- Criado `public/favicon.ico` e linkado no `index.html` para remover o 404 de favicon.
+- Mantidos layout, textos visíveis, imagens otimizadas e dependências atuais.

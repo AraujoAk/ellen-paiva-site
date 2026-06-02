@@ -80,7 +80,7 @@ body {
   padding: 0.78rem 1.25rem;
   border: 1px solid var(--color-aged-gold);
   border-radius: var(--radius-small);
-  background: var(--color-aged-gold);
+  background: var(--color-green-deep);
   color: var(--color-white);
   font-weight: 700;
   transition:
@@ -93,8 +93,8 @@ body {
 
 .button-link:hover,
 .button-link:focus-visible {
-  background: var(--color-green-deep);
-  border-color: var(--color-green-deep);
+  background: var(--color-coffee-deep);
+  border-color: var(--color-coffee-deep);
   color: var(--color-white);
   box-shadow: 0 0.85rem 1.8rem rgba(75, 53, 43, 0.1);
   transform: translateY(-2px);

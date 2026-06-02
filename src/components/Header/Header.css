@@ -78,7 +78,7 @@
 
 .site-logo {
   position: relative;
-  color: var(--color-aged-gold);
+  color: var(--color-terracotta);
   font-family: var(--font-title);
   font-size: clamp(1.9rem, 3vw, 2.35rem);
   font-weight: 700;

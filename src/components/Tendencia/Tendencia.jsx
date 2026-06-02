@@ -74,7 +74,7 @@ function Tendencia() {
               href={tendenciaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Conhecer a Tendência Multimarcas em nova aba"
+              aria-label="Conhecer a Tendência"
             >
               Conhecer a Tendência
             </a>
@@ -83,7 +83,7 @@ function Tendencia() {
               href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Ver Instagram da Tendência em nova aba"
+              aria-label="Ver no Instagram"
             >
               Ver no Instagram
             </a>
@@ -92,7 +92,7 @@ function Tendencia() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Falar no WhatsApp em nova aba"
+              aria-label="Falar no WhatsApp"
             >
               Falar no WhatsApp
             </a>

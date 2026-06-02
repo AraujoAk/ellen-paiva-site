@@ -179,11 +179,20 @@
 }
 
 .tendencia-button-primary {
-  background: var(--color-aged-gold);
-  color: var(--color-white);
+  border-color: var(--color-editorial-sand);
+  background: var(--color-editorial-sand);
+  color: var(--color-green-deep);
+  text-shadow: none;
   box-shadow:
     0 1rem 2.2rem rgba(0, 0, 0, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.tendencia-button-primary:hover,
+.tendencia-button-primary:focus-visible {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-green-deep);
 }
 
 .tendencia-button-whatsapp {
@@ -191,11 +200,14 @@
   background: rgba(255, 255, 255, 0.055);
 }
 
-.tendencia-button:hover,
-.tendencia-button:focus-visible {
+.tendencia-button:not(.tendencia-button-primary):hover,
+.tendencia-button:not(.tendencia-button-primary):focus-visible {
   background: var(--color-aged-gold);
   border-color: var(--color-aged-gold);
   color: var(--color-white);
+  box-shadow:
+    0 0.9rem 2rem rgba(0, 0, 0, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
 }
 
