@@ -23,6 +23,8 @@ function Newsletter() {
                 src={assets.newsletterFooter}
                 alt="Editorial Ellen Paiva para newsletter"
                 className="newsletter-image"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           )}

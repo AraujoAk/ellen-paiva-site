@@ -1,14 +1,14 @@
-import ellenAboutNude from './images/ellen-about-nude.jpeg';
-import ellenEditorialClose from './images/ellen-editorial-close.jpeg';
-import ellenWhiteRed from './images/ellen-white-red.jpeg';
-import heroEditorialSeated from './images/img_ellen1 (1).jpg';
-import editorialStanding from './images/img_ellen1 (2).jpg';
-import warmInterior from './images/img_ellen1 (2).png';
-import fashionAccessories from './images/img_ellen1 (3).PNG';
-import coffeeStill from './images/img_ellen1 (4).png';
-import burgundyFabric from './images/img_ellen1 (5).png';
-import jewelryBook from './images/img_ellen1 (6).png';
-import editorialTexture from './images/img_ellen1 (8).png';
+import ellenAboutNude from './images/ellen-about-nude.webp';
+import ellenEditorialClose from './images/ellen-editorial-close.webp';
+import ellenWhiteRed from './images/ellen-white-red.webp';
+import heroEditorialSeated from './images/ellen-hero-editorial-seated.webp';
+import editorialStanding from './images/ellen-editorial-standing.webp';
+import warmInterior from './images/tendencia-warm-interior.webp';
+import fashionAccessories from './images/fashion-accessories.webp';
+import coffeeStill from './images/coffee-still.webp';
+import burgundyFabric from './images/burgundy-fabric.webp';
+import jewelryBook from './images/jewelry-book.webp';
+import editorialTexture from './images/editorial-texture.webp';
 
 export const assets = {
   ellenHero: heroEditorialSeated,

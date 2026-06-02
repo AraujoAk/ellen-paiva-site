@@ -19,9 +19,21 @@ function Tendencia() {
         <div className="tendencia-media reveal reveal-up" aria-label="Imagem editorial temporária da Tendência Multimarcas">
           <div className="tendencia-image-placeholder">
             {assets.tendenciaStore ? (
-              <img src={assets.tendenciaStore} alt="Loja Tendência Multimarcas" className="tendencia-image" />
+              <img
+                src={assets.tendenciaStore}
+                alt="Loja Tendência Multimarcas"
+                className="tendencia-image"
+                loading="lazy"
+                decoding="async"
+              />
             ) : assets.tendenciaLogo ? (
-              <img src={assets.tendenciaLogo} alt="Tendência Multimarcas" className="tendencia-placeholder-logo" />
+              <img
+                src={assets.tendenciaLogo}
+                alt="Tendência Multimarcas"
+                className="tendencia-placeholder-logo"
+                loading="lazy"
+                decoding="async"
+              />
             ) : (
               <span>Tendência Multimarcas</span>
             )}
@@ -30,7 +42,13 @@ function Tendencia() {
 
         <div className="tendencia-content reveal reveal-up reveal-delay-1">
           {assets.tendenciaLogo && (
-            <img src={assets.tendenciaLogo} alt="Tendência Multimarcas" className="tendencia-logo" />
+            <img
+              src={assets.tendenciaLogo}
+              alt="Tendência Multimarcas"
+              className="tendencia-logo"
+              loading="lazy"
+              decoding="async"
+            />
           )}
           <p className="tendencia-eyebrow">Tendência Multimarcas</p>
           <h2 id="tendencia-title" className="tendencia-title">

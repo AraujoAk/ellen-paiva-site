@@ -387,3 +387,38 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Links internos que apontavam para `/tendencia` foram removidos.
 - CTAs “Conhecer a Tendência” voltaram para o Linktree oficial aprovado.
 - Mantidos os refinamentos anteriores da landing principal, incluindo Header, Hero, mobile, motion, imagens reais e links oficiais.
+
+### Etapa J1 — Editorialização de About, Tendência e Newsletter
+
+- About Ellen teve os microblocos suavizados para parecerem elementos editoriais integrados, sem alterar os quatro conteúdos.
+- Tendência recebeu mais atmosfera de marca, profundidade no painel visual e diferenciais menos parecidos com cards soltos.
+- Newsletter foi refinada para funcionar mais como convite editorial, mantendo campos e botão funcionais.
+- Hero, Header, navegação, textos principais, SmartStyle e estrutura geral foram preservados.
+- Nenhuma imagem foi convertida nesta etapa; performance ficou preparada para uma rodada futura.
+
+### Etapa K1 — Otimização de imagens e performance
+
+- Imagens reais usadas pela landing foram convertidas para WebP e passaram a ser consumidas pelo `assetsMap.js`.
+- A imagem principal do Hero recebeu preload no `index.html` e `fetchPriority="high"` no componente.
+- Imagens abaixo da primeira dobra receberam `loading="lazy"` e `decoding="async"`.
+- Arquivos originais foram preservados como fallback/arquivo-fonte, sem alterar layout, textos ou direção visual.
+- A conversão foi feita sem manter nova dependência instalada no projeto.
+
+#### Redução estimada dos assets usados
+
+- `img_ellen1 (1).jpg` → `ellen-hero-editorial-seated.webp`: 977 KB para 209 KB.
+- `img_ellen1 (2).png` → `tendencia-warm-interior.webp`: 2.46 MB para 202 KB.
+- `img_ellen1 (3).PNG` → `fashion-accessories.webp`: 1.95 MB para 54 KB.
+- `img_ellen1 (4).png` → `coffee-still.webp`: 2.22 MB para 133 KB.
+- `img_ellen1 (5).png` → `burgundy-fabric.webp`: 2.07 MB para 119 KB.
+- `img_ellen1 (6).png` → `jewelry-book.webp`: 2.58 MB para 199 KB.
+- `img_ellen1 (8).png` → `editorial-texture.webp`: 2.32 MB para 123 KB.
+- Fotos editoriais JPEG menores também foram convertidas, com redução média entre 63% e 66%.
+
+### Etapa K2 — SEO base e Open Graph
+
+- `index.html` recebeu description com acentos, canonical, Open Graph completo e Twitter Card.
+- Criada imagem pública de compartilhamento em `public/og-ellen-paiva.webp`, baseada no Hero otimizado.
+- Adicionado Schema.org básico do tipo `Person` para Ellen Paiva.
+- Criados `public/robots.txt` e `public/sitemap.xml` apontando para a URL principal do projeto.
+- Mantidos layout, textos visíveis, imagens do layout e dependências atuais.

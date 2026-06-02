@@ -55,7 +55,13 @@ function SmartStyle() {
                 aria-hidden={!moment.image}
               >
                 {moment.image ? (
-                  <img src={moment.image} alt={moment.imageAlt} className="smart-style-card-image" />
+                  <img
+                    src={moment.image}
+                    alt={moment.imageAlt}
+                    className="smart-style-card-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 ) : (
                   <span />
                 )}

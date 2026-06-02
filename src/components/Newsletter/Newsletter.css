@@ -1,7 +1,8 @@
 .newsletter {
   padding-block: clamp(2.1rem, 3.6vw, 3.2rem);
   background:
-    radial-gradient(circle at 80% 20%, rgba(176, 138, 82, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(231, 221, 210, 0.28), transparent 42%),
+    radial-gradient(circle at 80% 20%, rgba(176, 138, 82, 0.1), transparent 22%),
     var(--color-paper);
 }
 
@@ -35,12 +36,14 @@
 .newsletter-form {
   position: relative;
   display: grid;
-  gap: 0.68rem;
-  padding: clamp(0.85rem, 2vw, 1.1rem);
+  gap: 0.62rem;
+  padding: clamp(0.95rem, 2.2vw, 1.25rem);
   border: 1px solid rgba(176, 138, 82, 0.28);
   border-radius: var(--radius-small);
-  background: rgba(231, 221, 210, 0.42);
-  box-shadow: var(--shadow-editorial-soft);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.34), transparent 42%),
+    rgba(231, 221, 210, 0.48);
+  box-shadow: 0 1.2rem 3rem rgba(75, 53, 43, 0.09);
 }
 
 .newsletter-form::before {
@@ -65,13 +68,16 @@
   border-radius: var(--radius-small);
   background: var(--color-satin-nude);
   position: relative;
+  margin-bottom: 0.2rem;
 }
 
 .newsletter-media::before {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, transparent 58%, rgba(75, 53, 43, 0.18));
+  background:
+    linear-gradient(180deg, transparent 54%, rgba(75, 53, 43, 0.22)),
+    linear-gradient(90deg, rgba(247, 241, 234, 0.08), transparent 44%);
   content: '';
   pointer-events: none;
 }
@@ -81,11 +87,12 @@
   height: 100%;
   object-fit: cover;
   object-position: center center;
+  filter: contrast(1.025) saturate(1.015) brightness(0.98);
 }
 
 .newsletter-field {
   display: grid;
-  gap: 0.45rem;
+  gap: 0.38rem;
 }
 
 .newsletter-field span {
@@ -99,7 +106,7 @@
   min-height: 2.75rem;
   border: 1px solid rgba(75, 53, 43, 0.14);
   border-radius: var(--radius-small);
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(255, 255, 255, 0.58);
   color: var(--color-ink);
   padding: 0.8rem 0.95rem;
   outline: none;
@@ -121,7 +128,7 @@
 
 .newsletter-button {
   display: inline-flex;
-  min-height: 2.8rem;
+  min-height: 2.9rem;
   align-items: center;
   justify-content: center;
   padding: 0.8rem 1.1rem;
@@ -132,7 +139,7 @@
   cursor: pointer;
   font-weight: 800;
   box-shadow:
-    0 0.85rem 1.8rem rgba(75, 53, 43, 0.1),
+    0 0.95rem 2rem rgba(75, 53, 43, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
@@ -155,6 +162,7 @@
   color: var(--color-terracotta);
   font-size: 0.9rem;
   font-weight: 700;
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -204,6 +212,7 @@
   .newsletter-form {
     gap: 0.52rem;
     padding: 0.66rem;
+    box-shadow: var(--shadow-editorial-soft);
   }
 
   .newsletter-form::before {
@@ -212,6 +221,7 @@
 
   .newsletter-media {
     aspect-ratio: 16 / 5.8;
+    margin-bottom: 0;
   }
 
   .newsletter-field {

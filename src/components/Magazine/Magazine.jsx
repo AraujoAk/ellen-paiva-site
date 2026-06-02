@@ -79,7 +79,13 @@ function Magazine() {
                 aria-hidden={!article.image}
               >
                 {article.image && (
-                  <img src={article.image} alt={article.imageAlt} className="magazine-card-image" />
+                  <img
+                    src={article.image}
+                    alt={article.imageAlt}
+                    className="magazine-card-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 )}
               </div>
               <div className="magazine-card-content">

@@ -41,7 +41,13 @@ function AboutEllen() {
         <div className="about-ellen-media reveal reveal-up reveal-delay-1" aria-label="Retrato editorial temporário de Ellen Paiva">
           <div className="about-ellen-image-placeholder">
             {assets.ellenAbout ? (
-              <img src={assets.ellenAbout} alt="Ellen Paiva em retrato editorial" className="about-ellen-image" />
+              <img
+                src={assets.ellenAbout}
+                alt="Ellen Paiva em retrato editorial"
+                className="about-ellen-image"
+                loading="lazy"
+                decoding="async"
+              />
             ) : (
               <span>Ellen Paiva</span>
             )}

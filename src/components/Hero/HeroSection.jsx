@@ -28,7 +28,12 @@ function HeroSection() {
           <div className="hero-image-panel">
             <div className="hero-image-placeholder">
               {assets.ellenHero ? (
-                <img src={assets.ellenHero} alt="Retrato editorial de Ellen Paiva" className="hero-image" />
+                <img
+                  src={assets.ellenHero}
+                  alt="Retrato editorial de Ellen Paiva"
+                  className="hero-image"
+                  fetchPriority="high"
+                />
               ) : (
                 <span>Editorial Ellen Paiva</span>
               )}
