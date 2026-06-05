@@ -10,6 +10,7 @@ const navigationLinks = [
   { label: 'Revista', href: '#revista' },
   { label: 'Tendência', href: '#tendencia' },
   { label: 'Newsletter', href: '#newsletter' },
+  { label: 'Área editorial', href: '/admin', ariaLabel: 'Área editorial da Revista Ellen Paiva' },
 ];
 
 const contentLinks = [
@@ -46,7 +47,9 @@ function Footer() {
             <ul>
               {navigationLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href}>{link.label}</a>
+                  <a href={link.href} aria-label={link.ariaLabel}>
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -83,6 +86,9 @@ function Footer() {
         </div>
 
         <div className="site-footer-bottom">
+          <a className="site-footer-admin-link" href="/admin" aria-label="Área editorial da Revista Ellen Paiva">
+            Área editorial
+          </a>
           <p>© 2026 Ellen Paiva. Todos os direitos reservados.</p>
         </div>
       </div>

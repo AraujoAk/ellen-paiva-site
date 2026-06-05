@@ -45,7 +45,10 @@
   padding: 0.38rem 0.75rem;
   border: 1px solid rgba(176, 138, 82, 0.45);
   border-radius: var(--radius-small);
+  background: transparent;
   color: var(--color-green-deep);
+  cursor: pointer;
+  font: inherit;
   font-size: 0.86rem;
   font-weight: 800;
   transition:
@@ -55,14 +58,21 @@
     transform 520ms var(--motion-human);
 }
 
-.magazine-category:first-child {
+.magazine-category.is-active {
   background: var(--color-green-deep);
   border-color: var(--color-green-deep);
   color: var(--color-white);
 }
 
-.magazine-category:hover {
+.magazine-category:hover,
+.magazine-category:focus-visible {
+  border-color: var(--color-aged-gold);
   transform: translateY(-2px);
+}
+
+.magazine-category:focus-visible {
+  outline: 2px solid var(--color-aged-gold);
+  outline-offset: 3px;
 }
 
 .magazine-grid {

@@ -99,6 +99,31 @@
   font-size: 0.88rem;
 }
 
+.site-footer-admin-link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.65rem;
+  padding-bottom: 0.14rem;
+  border-bottom: 1px solid rgba(176, 138, 82, 0.72);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  transition:
+    color var(--transition-base),
+    border-color var(--transition-base),
+    opacity var(--transition-base);
+}
+
+.site-footer-admin-link:hover,
+.site-footer-admin-link:focus-visible {
+  border-color: var(--color-aged-gold);
+  color: var(--color-aged-gold);
+  opacity: 0.95;
+}
+
 @media (min-width: 768px) {
   .site-footer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -206,6 +231,12 @@
 
   .site-footer-bottom {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+  }
+
+  .site-footer-admin-link {
+    order: 2;
+    margin-top: 0;
   }
 }

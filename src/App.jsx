@@ -7,10 +7,21 @@ import Magazine from './components/Magazine/Magazine.jsx';
 import Tendencia from './components/Tendencia/Tendencia.jsx';
 import Newsletter from './components/Newsletter/Newsletter.jsx';
 import Footer from './components/Footer/Footer.jsx';
+import AdminPage from './pages/Admin/AdminPage.jsx';
+import MagazineArticlePage from './pages/MagazineArticle/MagazineArticlePage.jsx';
 import { initRevealOnScroll } from './utils/revealOnScroll.js';
 
 function App() {
+  const currentPath = window.location.pathname;
+  const isAdminRoute = currentPath === '/admin';
+  const articleSlug = currentPath.startsWith('/revista/') ? decodeURIComponent(currentPath.replace('/revista/', '')) : '';
+  const isArticleRoute = Boolean(articleSlug);
+
   useEffect(() => {
+    if (isAdminRoute || isArticleRoute) {
+      return undefined;
+    }
+
     const previousScrollRestoration = window.history.scrollRestoration;
 
     if ('scrollRestoration' in window.history) {
@@ -24,9 +35,23 @@ function App() {
         window.history.scrollRestoration = previousScrollRestoration;
       }
     };
-  }, []);
+  }, [isAdminRoute, isArticleRoute]);
 
-  useEffect(() => initRevealOnScroll(), []);
+  useEffect(() => {
+    if (isAdminRoute || isArticleRoute) {
+      return undefined;
+    }
+
+    return initRevealOnScroll();
+  }, [isAdminRoute, isArticleRoute]);
+
+  if (isAdminRoute) {
+    return <AdminPage />;
+  }
+
+  if (isArticleRoute) {
+    return <MagazineArticlePage slug={articleSlug} />;
+  }
 
   return (
     <>

@@ -478,3 +478,154 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - `docs/supabase-magazine-seed.sql` passou a usar URLs sem hash de build do Vite.
 - Documentado que `public/magazine/` é apenas para validação inicial.
 - Operação real dos posts da Revista deve usar o bucket `magazine-images` do Supabase Storage.
+
+### Fase CMS 06.3 — Revista dinâmica conectada ao Supabase
+
+- Criado `.env.local` local com placeholders para `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`.
+- Auditados `src/lib/supabase.js`, `src/services/magazineService.js`, `Magazine.jsx` e `docs/supabase-magazine-seed.sql`.
+- Confirmado que o service consulta `magazine_posts` com campos reais: `title`, `category`, `description`, `image_url`, `status` e `published_at`.
+- Confirmado que o fallback estático permanece ativo quando o Supabase não estiver configurado ou não retornar posts.
+- Seed ainda não foi executado no Supabase real; execução depende de confirmação manual e das variáveis do projeto.
+
+### Fase CMS 06.5 — Revista conectada ao Supabase real
+
+- `.env.local` recebeu a URL corrigida do projeto Supabase `ellen-paiva-hub`.
+- `.env.local` recebeu a publishable/anon key real localmente; a chave permanece fora do Git por estar em arquivo ignorado.
+- A consulta direta ao endpoint REST do Supabase foi validada com sucesso.
+- Confirmados 3 posts ativos em `public.magazine_posts`: "Detalhes que elevam uma produção simples", "Peças versáteis para dias reais" e "Como usar alfaiataria leve na rotina".
+- Como há posts ativos retornando da API, a seção Revista passa a consumir Supabase; o fallback estático permanece preservado para ausência de env, erro de conexão ou tabela vazia.
+- Build, lint e localhost foram validados após reiniciar o ambiente de desenvolvimento.
+
+### Fase CMS 06.6 — Validação em produção
+
+- Produção em `https://ellen-paiva-site.vercel.app/` respondeu HTTP 200.
+- Bundle publicado contém a URL correta do Supabase, a referência à tabela `magazine_posts` e a lógica dinâmica da Revista.
+- API pública do Supabase retornou 3 posts ativos em `public.magazine_posts`.
+- Como o deploy possui variáveis válidas e a API retorna posts, a seção Revista em produção usa Supabase; fallback permanece apenas como contingência.
+- Build e lint locais seguem aprovados após a validação.
+
+### Fase CMS 07 — Login e painel administrativo da Revista
+
+- Criada rota `/admin` para acesso restrito ao painel editorial da Revista Ellen Paiva.
+- Adicionado login/logout com Supabase Auth usando apenas a publishable/anon key.
+- Criada proteção de acesso baseada em `profiles.can_edit_magazine`.
+- Criados serviços `authService.js` e `magazineAdminService.js` para sessão, perfil, listagem, criação, edição, arquivamento e upload de imagens.
+- Criados componentes administrativos para login, guard, lista de posts e formulário editorial.
+- O painel permite editar `title`, `category`, `description`, `image_url`, imagem via upload, `status` e `published_at`.
+- A opção visual "Rascunho" usa o status real `inactive`, conforme schema atual do Supabase.
+- Posts publicados usam `active`; posts arquivados usam `archived`; o limite de 10 ativos segue controlado pelo banco.
+- Uploads usam o bucket `magazine-images` dentro da pasta obrigatória `magazine/`.
+- Adicionado rewrite em `vercel.json` para permitir acesso direto a `/admin` em produção.
+- A landing pública, Hero, Header, Footer, SEO, animações e fallback estático da Revista foram preservados.
+
+### CMS 07.1 — Correção visual da Revista dinâmica e acesso editorial
+
+- Corrigido bug visual em que cards dinâmicos da Revista ficavam quase invisíveis após carregar dados do Supabase.
+- Causa identificada: os posts dinâmicos entravam depois da inicialização do reveal ao scroll e não recebiam o estado `.is-visible`.
+- Posts vindos do Supabase seguem normalizados para o mesmo formato do fallback: `title`, `category`, `description`, `image` e `imageAlt`.
+- Categorias da Revista passaram a funcionar como filtros acessíveis, mantendo a mesma linguagem visual aprovada.
+- Mantido fallback estático quando Supabase falhar, estiver vazio ou sem variáveis de ambiente.
+- Adicionado link discreto "Área editorial" no Footer apontando para `/admin`.
+- Build, lint, localhost `/` e localhost `/admin` foram validados.
+
+### CMS 07.2 — Refinamento Sobre Ellen e acesso editorial
+
+- Hover dos microblocos da seção Sobre Ellen foi refinado para remover aparência de caixa/card de interface.
+- Efeito global de card foi neutralizado localmente nos microblocos, mantendo apenas marcador e leitura editorial discreta.
+- Acesso "Área editorial" foi reforçado no rodapé inferior do Footer, mantendo o link também na navegação.
+- Link do admin segue discreto, abre na mesma aba e aponta para `/admin`.
+- Revista dinâmica segue conectada ao Supabase, com 3 posts ativos retornando da API.
+- Build, lint, localhost `/` e localhost `/admin` foram validados.
+
+### CMS 07.3 — Acesso editorial no Header e limpeza visual Sobre Ellen
+
+- Microblocos da seção Sobre Ellen tiveram qualquer aparência de box/card removida com sobrescrita local explícita.
+- Background, sombra, borda externa e deslocamento herdados do efeito global de cards foram neutralizados.
+- Hover dos microblocos agora mantém apenas texto, marcador discreto e linha divisória fina.
+- Adicionado link "Área editorial" no Header principal, visível no desktop e no menu mobile.
+- O acesso editorial aponta para `/admin`, abre na mesma aba e usa `aria-label="Acessar área editorial"`.
+- Hero, Revista dinâmica, Supabase, SEO, banco/RLS e fallback foram preservados.
+- Build, lint, localhost `/`, localhost `/admin` e leitura de 3 posts ativos no Supabase foram validados.
+
+### Fase CMS 08 — Profissionalização do painel editorial
+
+- Topo do painel administrativo recebeu dashboard editorial com total de conteúdos, publicados, rascunhos, arquivados e última publicação.
+- Lista de posts passou a exibir contador editorial completo: total, publicados, rascunhos, arquivados e limite de 10 ativos.
+- Títulos da lista deixam de ser truncados em uma linha e passam a quebrar com elegância em até duas linhas.
+- Status dos posts foram transformados em badges visuais compatíveis com a identidade Ellen Paiva.
+- Upload de imagem recebeu validações de tipo e tamanho, mensagens de progresso e erros amigáveis.
+- Serviço administrativo passou a tratar erros de bucket, permissão/RLS, sessão expirada, conexão e Supabase com mensagens mais claras.
+- Landing pública, Header, Hero, Footer, SEO, Auth, Profiles, RLS, Supabase e fallback público da Revista foram preservados.
+- Build, lint, localhost `/`, localhost `/admin` e leitura pública de posts ativos foram validados.
+
+### Fase CMS 08.1 — Ajustes de UX e fluxo editorial
+
+- Formulário do admin passou a validar campos individualmente com mensagens específicas por campo.
+- Publicação sem imagem agora exibe "Envie uma imagem para publicar este conteudo." próximo ao upload.
+- Título ausente, categoria ausente, descrição curta insuficiente e data inválida recebem mensagens próprias.
+- Campos inválidos recebem destaque visual discreto com `aria-invalid` e `aria-describedby`.
+- Após salvar rascunho ou publicar com sucesso, o formulário volta para "Novo conteudo".
+- Reset completo limpa título, categoria, descrição, status, data, URL, preview, mensagens internas e arquivo selecionado.
+- Input file passou a ser limpo via ref para remover também o nome do arquivo exibido pelo navegador.
+- Categorias do admin passaram a reutilizar a mesma fonte da Revista pública para evitar divergência de filtros.
+- Landing pública, Supabase, SEO, banco/RLS e integração validada foram preservados.
+- Build, lint, localhost `/` e localhost `/admin` foram validados.
+
+### Fase CMS 09 — Produtividade editorial
+
+- Painel administrativo recebeu busca instantânea por título, categoria e descrição.
+- Adicionados filtros rápidos por status: Todos, Publicados, Rascunhos e Arquivados, com contagem dinâmica.
+- Lista de posts passou a permitir ordenação por Mais recentes, Mais antigos, A-Z e Z-A.
+- Cards do dashboard editorial agora são clicáveis e aplicam filtros por status.
+- Adicionada ação "Duplicar", criando uma cópia do conteúdo como rascunho.
+- Adicionada ação "Excluir" com confirmação antes da remoção definitiva do banco.
+- Formulário recebeu pré-visualização do card da Revista com imagem, categoria, título e descrição.
+- Mensagens de sucesso foram refinadas para salvar, publicar, arquivar, duplicar e excluir.
+- Landing pública, Supabase, SEO, banco/RLS, identidade visual pública e fallback foram preservados.
+- Build, lint, localhost `/`, localhost `/admin` e leitura pública de posts ativos foram validados.
+
+### Fase CMS 10 - Artigos individuais e SEO editorial
+
+- Criada rota `/revista/:slug` para artigos individuais da Revista Ellen Paiva.
+- Cards da Revista passaram a apontar para a pagina propria do artigo, preservando o layout visual aprovado.
+- Adicionado utilitario de slug para gerar URLs editoriais a partir dos titulos.
+- Servico publico da Revista passou a normalizar `slug` e `content`, mantendo fallback compativel com o schema anterior.
+- Pagina de artigo recebeu breadcrumb, tempo estimado de leitura, compartilhamento em WhatsApp/Facebook/LinkedIn e posts relacionados da mesma categoria.
+- SEO dinamico por artigo preparado com title, description, canonical, Open Graph e Twitter Card.
+- Painel administrativo passou a permitir edicao manual de `slug` e `content` sem alterar a landing publica.
+- Criada migracao planejada em `docs/supabase-magazine-article-migration.sql` para adicionar `slug`, `content`, indices e constraints no Supabase.
+- A migracao do banco nao foi executada automaticamente; deve ser aplicada manualmente no Supabase SQL Editor antes do uso editorial completo em producao.
+
+### CMS 10.1 - Migracao de artigos executada no Supabase
+
+- Migração `docs/supabase-magazine-article-migration.sql` ajustada para não depender da coluna `created_at` no Supabase real.
+- Supabase real recebeu as colunas `slug` e `content` em `public.magazine_posts`.
+- Posts existentes receberam slug editorial baseado no titulo, com sufixo automatico para duplicados.
+- Campo `content` foi preenchido com fallback de `description` para preservar os posts antigos.
+- Validação em leitura confirmou 10 registros retornando com `id`, `title`, `slug`, `content` e `status`.
+- Rota local `/revista/detalhes-que-elevam-uma-producao-simples` respondeu HTTP 200 com slug real.
+- Landing publica, Auth, RLS, SEO visual, layout e CMS existente foram preservados.
+
+### Fase CMS 11 - Newsletter conectada ao Supabase
+
+- Criado SQL planejado em `docs/supabase-newsletter.sql` para a tabela `newsletter_subscribers`.
+- A tabela planejada possui `id`, `email`, `name`, `source`, `status`, `created_at` e `updated_at`.
+- SQL ativa RLS, permite insert publico controlado e bloqueia leitura publica dos inscritos.
+- Leitura/atualizacao futura de leads fica restrita a usuarios autenticados com `profiles.can_edit_magazine = true`.
+- Criado `src/services/newsletterService.js` com validacao de e-mail, tratamento de duplicidade e mensagens amigaveis.
+- Formulario publico da Newsletter foi conectado ao servico, com estados de carregamento, sucesso e erro.
+- Mensagens previstas: inscricao realizada, e-mail duplicado, e-mail invalido e erro geral amigavel.
+- Se Supabase nao estiver configurado ou a tabela ainda nao existir, a landing continua funcionando e exibe erro amigavel.
+- SQL real ainda nao foi executado no Supabase; executar `docs/supabase-newsletter.sql` antes de validar captura real.
+- Dashboard de leads fica pendente para uma fase futura.
+
+### Fase CMS 11.1 - Newsletter real validada
+
+- Tabela `newsletter_subscribers` criada no Supabase real e validada pela API.
+- Envio real de lead pela rota publica do Supabase retornou `201 Created`.
+- Persistencia foi confirmada pelo bloqueio posterior do mesmo e-mail na constraint unica.
+- E-mail duplicado retornou erro `23505`, tratado pelo service como "Este e-mail ja esta cadastrado.".
+- E-mail invalido foi bloqueado pela constraint do banco e tambem e bloqueado no frontend pelo service.
+- Leitura publica de leads retornou lista vazia, confirmando que a RLS nao expoe inscritos.
+- Formulario publico mantem mensagens de sucesso, erro amigavel, carregamento e validacao sem alterar identidade visual.
+- Dashboard de leads segue pendente para fase futura.

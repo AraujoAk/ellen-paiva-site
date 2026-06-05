@@ -45,10 +45,15 @@
   min-height: 3.35rem;
   align-items: center;
   padding: 0.35rem 0 0.55rem;
-  border: 0;
-  border-bottom: 1px solid rgba(176, 138, 82, 0.24);
+  border: 0 !important;
+  border-bottom: 1px solid rgba(176, 138, 82, 0.24) !important;
   border-radius: 0;
-  background: transparent;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition:
+    border-color var(--transition-base),
+    opacity var(--transition-base);
 }
 
 .about-ellen-card::before {
@@ -63,11 +68,32 @@
   opacity: 0.72;
 }
 
+.about-ellen-card:hover,
+.about-ellen-card:focus-within {
+  border: 0 !important;
+  border-bottom: 1px solid rgba(176, 138, 82, 0.38) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.about-ellen-card:hover::before,
+.about-ellen-card:focus-within::before {
+  opacity: 1;
+  transform: scale(0.82);
+}
+
 .about-ellen-card span {
   color: var(--color-green-deep);
   font-size: 0.92rem;
   font-weight: 800;
   line-height: 1.25;
+  transition: color var(--transition-base);
+}
+
+.about-ellen-card:hover span,
+.about-ellen-card:focus-within span {
+  color: var(--color-coffee-deep);
 }
 
 .about-ellen-media {

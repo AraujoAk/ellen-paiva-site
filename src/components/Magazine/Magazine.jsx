@@ -5,6 +5,8 @@ import './Magazine.css';
 
 function Magazine() {
   const [articles, setArticles] = useState(magazineFallbackArticles);
+  const [activeCategory, setActiveCategory] = useState('Todos');
+  const [hasLoadedDynamicPosts, setHasLoadedDynamicPosts] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -14,6 +16,7 @@ function Magazine() {
 
       if (isMounted && posts.length > 0) {
         setArticles(posts);
+        setHasLoadedDynamicPosts(true);
       }
     }
 
@@ -23,6 +26,9 @@ function Magazine() {
       isMounted = false;
     };
   }, []);
+
+  const visibleArticles =
+    activeCategory === 'Todos' ? articles : articles.filter((article) => article.category === activeCategory);
 
   return (
     <section className="magazine page-section" id="revista" aria-labelledby="magazine-title">
@@ -40,15 +46,26 @@ function Magazine() {
 
         <div className="magazine-categories" aria-label="Categorias editoriais">
           {magazineCategories.map((category) => (
-            <span className="magazine-category" key={category}>
+            <button
+              className={`magazine-category ${activeCategory === category ? 'is-active' : ''}`}
+              key={category}
+              type="button"
+              onClick={() => setActiveCategory(category)}
+              aria-pressed={activeCategory === category}
+            >
               {category}
-            </span>
+            </button>
           ))}
         </div>
 
         <div className="magazine-grid">
-          {articles.map((article, index) => (
-            <article className="magazine-card reveal reveal-up reveal-delay-1" key={article.id ?? article.title}>
+          {visibleArticles.map((article, index) => (
+            <article
+              className={`magazine-card reveal reveal-up reveal-delay-1 ${
+                hasLoadedDynamicPosts ? 'is-visible' : ''
+              }`}
+              key={article.id ?? article.title}
+            >
               <div
                 className={`magazine-card-media magazine-card-media-${(index % magazineFallbackArticles.length) + 1}`}
                 aria-hidden={!article.image}
@@ -67,7 +84,7 @@ function Magazine() {
                 <p className="magazine-card-category">{article.category}</p>
                 <h3>{article.title}</h3>
                 <p>{article.description}</p>
-                <a href="#revista" className="magazine-card-link">
+                <a href={article.slug ? `/revista/${article.slug}` : '#revista'} className="magazine-card-link">
                   Leia mais
                 </a>
               </div>
