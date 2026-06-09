@@ -1,8 +1,12 @@
 .smart-style {
   padding-block: clamp(2.4rem, 4.4vw, 4rem);
   background:
-    radial-gradient(circle at 88% 16%, rgba(176, 138, 82, 0.08), transparent 21%),
-    var(--color-paper);
+    radial-gradient(circle at 88% 16%, rgba(176, 138, 82, 0.14), transparent 23%),
+    radial-gradient(circle at 10% 78%, rgba(216, 199, 179, 0.07), transparent 24%),
+    linear-gradient(135deg, rgba(75, 53, 43, 0.3), transparent 42%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), transparent 26%, rgba(0, 0, 0, 0.06)),
+    var(--color-green-deep);
+  color: var(--color-white);
 }
 
 .smart-style-container {
@@ -21,7 +25,7 @@
 }
 
 .smart-style-title {
-  color: var(--color-green-deep);
+  color: var(--color-white);
   font-size: clamp(2rem, 4vw, 3.35rem);
   line-height: 1;
   letter-spacing: 0;
@@ -29,7 +33,7 @@
 
 .smart-style-subtitle {
   max-width: 40rem;
-  color: var(--color-coffee-deep);
+  color: rgba(247, 241, 234, 0.82);
   font-size: clamp(1rem, 2vw, 1.12rem);
 }
 
@@ -43,10 +47,12 @@
   position: relative;
   display: grid;
   overflow: hidden;
-  border: 1px solid rgba(176, 138, 82, 0.2);
+  border: 1px solid rgba(216, 199, 179, 0.2);
   border-radius: var(--radius-small);
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 0.75rem 2rem rgba(75, 53, 43, 0.04);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 38%),
+    rgba(231, 221, 210, 0.08);
+  box-shadow: 0 0.85rem 2.2rem rgba(0, 0, 0, 0.11);
 }
 
 .smart-style-card-media {
@@ -130,13 +136,13 @@
 }
 
 .smart-style-card-content h3 {
-  color: var(--color-green-deep);
+  color: var(--color-editorial-sand);
   font-size: 1.2rem;
   line-height: 1.1;
 }
 
 .smart-style-card-content p {
-  color: var(--color-coffee-deep);
+  color: rgba(247, 241, 234, 0.76);
   font-size: 0.9rem;
   line-height: 1.45;
 }
@@ -238,8 +244,9 @@
 
   .smart-style-card {
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 38%),
-      rgba(255, 255, 255, 0.84);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 38%),
+      rgba(231, 221, 210, 0.085);
+    box-shadow: 0 0.9rem 2.3rem rgba(0, 0, 0, 0.1);
   }
 
   .smart-style-card-media {
@@ -250,7 +257,7 @@
     min-height: 8.1rem;
     align-content: start;
     padding: 1rem;
-    border-top: 1px solid rgba(176, 138, 82, 0.16);
+    border-top: 1px solid rgba(216, 199, 179, 0.18);
   }
 
   .smart-style-card-content h3 {

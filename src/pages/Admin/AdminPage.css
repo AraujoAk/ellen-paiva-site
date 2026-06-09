@@ -48,6 +48,60 @@
   line-height: 1.65;
 }
 
+.admin-auth-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 1rem 0;
+  padding: 0.28rem;
+  border: 1px solid rgba(176, 138, 82, 0.24);
+  border-radius: var(--radius-small);
+  background: rgba(231, 221, 210, 0.32);
+}
+
+.admin-auth-tabs button {
+  min-height: 2.4rem;
+  border: 0;
+  border-radius: calc(var(--radius-small) - 2px);
+  background: transparent;
+  color: rgba(33, 27, 23, 0.7);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.55rem 0.65rem;
+}
+
+.admin-auth-tabs button.is-active,
+.admin-auth-tabs button:hover,
+.admin-auth-tabs button:focus-visible {
+  background: var(--color-green-deep);
+  color: var(--color-white);
+}
+
+.admin-auth-tabs button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.admin-auth-note {
+  margin: -0.15rem 0 0;
+  color: rgba(75, 53, 43, 0.68);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.admin-denied-actions {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1.25rem;
+}
+
+.admin-denied-actions .admin-button {
+  text-decoration: none;
+}
+
 .admin-kicker {
   margin: 0;
   color: var(--color-aged-gold);
@@ -113,6 +167,7 @@
 
 .admin-dashboard button {
   display: grid;
+  min-width: 0;
   min-height: 5.65rem;
   align-content: space-between;
   gap: 0.5rem;
@@ -148,6 +203,18 @@
   font-size: clamp(1.55rem, 2.8vw, 2.25rem);
   font-weight: 600;
   line-height: 1;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.admin-dashboard-latest {
+  overflow: hidden;
+}
+
+.admin-dashboard .admin-dashboard-date {
+  font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+  line-height: 0.98;
+  word-break: normal;
 }
 
 .admin-post-tools {
@@ -427,7 +494,8 @@
 .admin-form textarea:focus,
 .admin-button:focus-visible,
 .admin-post-actions button:focus-visible,
-.admin-brand:focus-visible {
+.admin-brand:focus-visible,
+.admin-auth-tabs button:focus-visible {
   outline: 2px solid var(--color-aged-gold);
   outline-offset: 3px;
 }
@@ -609,7 +677,8 @@
   }
 
   .admin-dashboard,
-  .admin-editorial-counter {
+  .admin-editorial-counter,
+  .admin-auth-tabs {
     grid-template-columns: 1fr;
   }
 

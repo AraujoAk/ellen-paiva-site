@@ -34,40 +34,45 @@
 .magazine-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  padding-block: 0.15rem 0.3rem;
+  border-bottom: 1px solid rgba(176, 138, 82, 0.22);
 }
 
 .magazine-category {
   display: inline-flex;
-  min-height: 2rem;
+  min-height: 1.9rem;
   align-items: center;
   justify-content: center;
-  padding: 0.38rem 0.75rem;
-  border: 1px solid rgba(176, 138, 82, 0.45);
-  border-radius: var(--radius-small);
+  padding: 0.24rem 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
   background: transparent;
-  color: var(--color-green-deep);
+  color: rgba(75, 53, 43, 0.72);
   cursor: pointer;
   font: inherit;
-  font-size: 0.86rem;
+  font-size: 0.78rem;
   font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   transition:
-    background var(--transition-base),
     border-color var(--transition-base),
     color var(--transition-base),
     transform 520ms var(--motion-human);
 }
 
 .magazine-category.is-active {
-  background: var(--color-green-deep);
-  border-color: var(--color-green-deep);
-  color: var(--color-white);
+  border-color: var(--color-aged-gold);
+  color: var(--color-green-deep);
 }
 
 .magazine-category:hover,
 .magazine-category:focus-visible {
   border-color: var(--color-aged-gold);
-  transform: translateY(-2px);
+  color: var(--color-aged-gold);
+  transform: translateY(-1px);
 }
 
 .magazine-category:focus-visible {
@@ -75,26 +80,42 @@
   outline-offset: 3px;
 }
 
-.magazine-grid {
+.magazine-layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.85rem;
+  gap: 1rem;
+  align-items: start;
+}
+
+.magazine-secondary-list {
+  display: grid;
+  gap: 0.72rem;
 }
 
 .magazine-card {
   position: relative;
   display: grid;
   overflow: hidden;
-  border: 1px solid rgba(176, 138, 82, 0.2);
-  border-radius: var(--radius-small);
-  background: rgba(247, 241, 234, 0.7);
-  box-shadow: 0 0.8rem 2rem rgba(75, 53, 43, 0.045);
+  border: 0;
+  border-bottom: 1px solid rgba(176, 138, 82, 0.22);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.magazine-card-featured {
+  border-bottom: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 42%),
+    rgba(247, 241, 234, 0.45);
+  box-shadow: 0 1.1rem 2.8rem rgba(75, 53, 43, 0.07);
 }
 
 .magazine-card-media {
   position: relative;
-  aspect-ratio: 16 / 8.8;
+  aspect-ratio: 16 / 8.1;
   overflow: hidden;
+  border-radius: var(--radius-small);
   background:
     linear-gradient(150deg, rgba(15, 46, 37, 0.72), rgba(75, 53, 43, 0.16)),
     linear-gradient(45deg, var(--color-editorial-sand), var(--color-satin-nude) 48%, var(--color-aged-gold));
@@ -135,7 +156,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  border: 1px solid rgba(176, 138, 82, 0.2);
+  border: 1px solid rgba(176, 138, 82, 0.16);
   background: linear-gradient(180deg, transparent 58%, rgba(15, 46, 37, 0.14));
   content: '';
   pointer-events: none;
@@ -167,8 +188,26 @@
 
 .magazine-card-content {
   display: grid;
-  gap: 0.5rem;
-  padding: 0.9rem;
+  gap: 0.45rem;
+  padding: 0.82rem 0 0.9rem;
+}
+
+.magazine-card-featured .magazine-card-content {
+  padding: clamp(0.9rem, 2vw, 1.28rem);
+}
+
+.magazine-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  align-items: center;
+}
+
+.magazine-card-meta span {
+  color: rgba(75, 53, 43, 0.64);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .magazine-card-category {
@@ -182,7 +221,7 @@
 
 .magazine-card-content h3 {
   color: var(--color-green-deep);
-  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-size: clamp(1.08rem, 1.8vw, 1.34rem);
   line-height: 1.08;
 }
 
@@ -196,7 +235,7 @@
   width: max-content;
   margin-top: 0.25rem;
   color: var(--color-green-deep);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 800;
   border-bottom: 1px solid var(--color-aged-gold);
   transition:
@@ -213,54 +252,102 @@
   transform: translateX(0.18rem);
 }
 
+.magazine-empty-state {
+  display: grid;
+  max-width: 44rem;
+  gap: 0.65rem;
+  padding: clamp(1.15rem, 3vw, 1.75rem) 0;
+  border-top: 1px solid rgba(176, 138, 82, 0.28);
+  border-bottom: 1px solid rgba(176, 138, 82, 0.2);
+}
+
+.magazine-empty-kicker {
+  margin: 0;
+  color: var(--color-aged-gold);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.magazine-empty-state h3 {
+  margin: 0;
+  color: var(--color-green-deep);
+  font-family: var(--font-title);
+  font-size: clamp(1.55rem, 3vw, 2.3rem);
+  line-height: 1.05;
+}
+
+.magazine-empty-state p:not(.magazine-empty-kicker) {
+  max-width: 36rem;
+  margin: 0;
+  color: var(--color-coffee-deep);
+  line-height: 1.58;
+}
+
+.magazine-empty-link {
+  width: max-content;
+  margin-top: 0.25rem;
+  color: var(--color-green-deep);
+  font-size: 0.9rem;
+  font-weight: 800;
+  border-bottom: 1px solid var(--color-aged-gold);
+}
+
+.magazine-empty-link:hover,
+.magazine-empty-link:focus-visible {
+  color: var(--color-aged-gold);
+}
+
 @media (min-width: 768px) {
-  .magazine-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .magazine-layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+    gap: clamp(1.1rem, 2.8vw, 2rem);
+  }
+
+  .magazine-card-secondary {
+    grid-template-columns: minmax(6.8rem, 0.42fr) minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: start;
+    padding-bottom: 0.72rem;
+  }
+
+  .magazine-card-secondary .magazine-card-media {
+    aspect-ratio: 4 / 3.15;
+  }
+
+  .magazine-card-secondary .magazine-card-content {
+    padding: 0;
   }
 }
 
 @media (min-width: 1024px) {
-  .magazine-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: start;
+  .magazine-layout {
+    grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 0.65fr);
   }
 
-  .magazine-card:first-child {
-    grid-column: span 2;
-    box-shadow: 0 1.35rem 3.1rem rgba(75, 53, 43, 0.1);
+  .magazine-card-featured .magazine-card-media {
+    aspect-ratio: 16 / 9;
   }
 
-  .magazine-card:first-child .magazine-card-media {
-    aspect-ratio: 16 / 8;
+  .magazine-card-featured .magazine-card-content h3 {
+    font-size: clamp(1.55rem, 2.35vw, 2.15rem);
+    max-width: 17ch;
   }
 
-  .magazine-card:first-child .magazine-card-content {
-    grid-template-columns: 1fr;
-    gap: 0.55rem;
-    padding: 1.05rem 1.1rem;
+  .magazine-card-featured .magazine-card-content p:not(.magazine-card-category) {
+    max-width: 42rem;
+    font-size: 0.96rem;
   }
 
-  .magazine-card:first-child .magazine-card-content h3 {
-    font-size: clamp(1.35rem, 2.1vw, 1.75rem);
-  }
-
-  .magazine-card:hover {
-    background: rgba(247, 241, 234, 0.86);
-  }
-
-  .magazine-card:nth-child(3),
-  .magazine-card:nth-child(5) {
-    margin-top: 0.85rem;
+  .magazine-card-secondary:hover {
+    border-color: rgba(176, 138, 82, 0.44);
   }
 }
 
 @media (min-width: 1440px) {
-  .magazine-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  .magazine-card:first-child {
-    grid-column: span 2;
+  .magazine-layout {
+    grid-template-columns: minmax(0, 1.45fr) minmax(22rem, 0.55fr);
   }
 }
 
@@ -271,10 +358,14 @@
   }
 
   .magazine-category {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
   }
 
   .magazine-card-link {
+    width: auto;
+  }
+
+  .magazine-empty-link {
     width: auto;
   }
 }
@@ -312,7 +403,8 @@
     font-size: 0.72rem;
   }
 
-  .magazine-grid {
+  .magazine-layout,
+  .magazine-secondary-list {
     gap: 0.75rem;
   }
 
@@ -322,7 +414,15 @@
 
   .magazine-card-content {
     gap: 0.28rem;
-    padding: 0.68rem;
+    padding: 0.62rem 0 0.68rem;
+  }
+
+  .magazine-card-featured .magazine-card-content {
+    padding: 0.68rem 0 0.75rem;
+  }
+
+  .magazine-card-meta span {
+    font-size: 0.68rem;
   }
 
   .magazine-card-content h3 {

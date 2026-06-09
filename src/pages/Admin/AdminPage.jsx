@@ -26,7 +26,7 @@ const newPost = {
 
 function formatLastPublication(date) {
   if (!date) {
-    return 'Sem publicacao';
+    return 'Sem publicação';
   }
 
   return new Intl.DateTimeFormat('pt-BR', {
@@ -249,9 +249,9 @@ function AdminPanel({ profile }) {
             <span>Arquivados</span>
             <strong>{stats.archived}</strong>
           </button>
-          <button type="button" onClick={() => setSortMode('newest')}>
+          <button type="button" className="admin-dashboard-latest" onClick={() => setSortMode('newest')}>
             <span>Ultima publicacao</span>
-            <strong>{formatLastPublication(stats.latestPublication)}</strong>
+            <strong className="admin-dashboard-date">{formatLastPublication(stats.latestPublication)}</strong>
           </button>
         </div>
       </section>

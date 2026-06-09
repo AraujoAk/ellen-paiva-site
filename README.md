@@ -629,3 +629,115 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Leitura publica de leads retornou lista vazia, confirmando que a RLS nao expoe inscritos.
 - Formulario publico mantem mensagens de sucesso, erro amigavel, carregamento e validacao sem alterar identidade visual.
 - Dashboard de leads segue pendente para fase futura.
+
+### CMS 12.1 - Revista com leitura editorial premium
+
+- Secao Revista refinada para leitura mais proxima de blog/editorial de moda premium.
+- Primeiro post ativo passou a funcionar como materia principal em destaque, com imagem maior, categoria, tempo estimado de leitura, titulo, descricao e CTA "Ler editorial".
+- Demais posts passaram para uma lista editorial secundaria mais leve, preservando imagem, categoria, titulo, descricao e link para `/revista/:slug`.
+- Filtros de categoria foram refinados para parecerem editorias de revista, com menos aparencia de botao.
+- Aparencia de cards comuns foi reduzida com menos borda, menos caixa e mais respiro tipografico.
+- Supabase, fallback estatico, filtros, slugs, links dos artigos, Smart Style escuro, SEO e area admin foram preservados.
+
+### CMS 12.2 - Cadastro controlado de editores
+
+- Tela `/admin` passou a ter dois modos: "Entrar" e "Solicitar acesso editorial".
+- Cadastro solicita nome, e-mail, senha e confirmação de senha com validações amigáveis.
+- Serviço de autenticação recebeu `signUpEditor` e `createPendingProfile`.
+- Novo cadastro cria usuário no Supabase Auth e tenta criar profile com `role = 'editor'` e `can_edit_magazine = false`.
+- Após cadastro, o usuário recebe a mensagem "Cadastro recebido. Aguarde aprovação para acessar a área editorial.".
+- Cadastro não chama `onAuthenticated`, não libera painel automaticamente e faz logout após criar o profile pendente.
+- Guard do admin segue exigindo `profiles.can_edit_magazine = true`; usuário pendente continua sem acesso.
+- Criado SQL separado em `docs/supabase-editor-signup-policy.sql` para permitir insert controlado do próprio profile pendente.
+- Aprovação continua manual nesta fase: Supabase > Table Editor > `profiles` > alterar `can_edit_magazine` para `true`.
+- Tela de aprovação de usuários fica pendente para fase futura.
+
+### CMS 12.2.1 - Correção do cadastro pendente de editor
+
+- Fluxo de cadastro editorial passou a criar o profile pendente usando exatamente `data.user.email` retornado pelo Supabase Auth.
+- Insert em `public.profiles` envia apenas `id`, `email`, `name`, `role = 'editor'` e `can_edit_magazine = false`.
+- Nenhum campo `created_at`, `updated_at` ou permissão editorial é enviado pelo frontend.
+- Cadastro agora verifica se o `signUp` retornou sessão válida antes de tentar inserir o profile.
+- Se o projeto exigir confirmação de e-mail antes de sessão autenticada, o app não tenta inserir profile e informa o motivo.
+- Logs técnicos em desenvolvimento foram adicionados para mostrar `message`, `code`, `details` e `hint` do Supabase sem expor esses dados em produção.
+- Login antigo, admin atual e bloqueio por `can_edit_magazine` foram preservados.
+
+### CMS 12.2.2 - Correção da validação de e-mail no cadastro editorial
+
+- Validação local de e-mail do cadastro editorial foi revisada em `AdminLogin.jsx`.
+- E-mail agora é normalizado com remoção de caracteres invisíveis, `trim()` e lowercase antes da validação.
+- Regex foi ajustada para aceitar formatos comuns como `nome@gmail.com`, `nome.sobrenome@gmail.com`, `nome+teste@gmail.com` e `nome@empresa.com.br`.
+- O envio para `signUpEditor` usa o e-mail já normalizado.
+- Login, Auth, policies, profiles, Revista e landing pública foram preservados.
+- Teste local da regex confirmou: e-mail vazio e inválido bloqueados; e-mails válidos aceitos.
+
+### CMS 12.2.3 - Debug e centralizacao da validacao de e-mail
+
+- Criado `src/utils/emailValidation.js` para centralizar normalizacao, regex e diagnostico da validacao editorial.
+- `AdminLogin.jsx` deixou de ter regex local duplicada e passou a usar o utilitario compartilhado.
+- `authService.js` passou a usar o mesmo normalizador antes do `signUp` no Supabase.
+- Em desenvolvimento, o cadastro editorial registra no console `emailRaw`, `emailNormalized`, `regexResult` e `reason` antes de bloquear ou aceitar o envio.
+- O formato `nosfied@gmail.com` foi validado explicitamente como e-mail aceito pela regex centralizada.
+- Landing publica, Supabase, Revista, Auth e layout visual foram preservados.
+
+### CMS 12.2.4 - Rastreamento da mensagem de e-mail do cadastro editorial
+
+- Projeto auditado para localizar todas as ocorrencias de "Informe um e-mail valido".
+- Ocorrencias confirmadas em `AdminLogin.jsx`, `authService.js` e `newsletterService.js`.
+- Formulario do admin recebeu `noValidate` para impedir que validacao HTML5 nativa masque o fluxo React.
+- `AdminLogin.jsx` passou a registrar em desenvolvimento o handler chamado, e-mail bruto, e-mail normalizado, resultado da regex e origem exata de cada `setError`.
+- Erro do Supabase deixou de mapear qualquer mensagem contendo "email" para e-mail invalido; agora apenas mensagens realmente relacionadas a formato invalido usam essa copy.
+- Erros comuns do Supabase Auth passaram a ter mensagens especificas para cadastro desativado, falha de SMTP/confirmacao, rate limit e erro ao salvar usuario.
+- Em desenvolvimento, erros desconhecidos do Auth mostram o detalhe bruto em `[DEV: ...]` para diagnostico direto no painel.
+- Troca de modo e digitacao continuam limpando mensagens antigas do formulario.
+- Landing publica, Supabase, Revista, SEO e visual foram preservados.
+
+### CMS 12.2.4 - Logout em acesso negado e expiracao de sessao admin
+
+- Tela de acesso negado do `/admin` recebeu os botoes "Sair e voltar ao login" e "Voltar para o site".
+- Usuario autenticado sem `can_edit_magazine = true` pode encerrar a sessao e voltar ao login sem ficar preso.
+- Area administrativa passou a registrar atividade local do editor em `localStorage`.
+- Sessao autorizada expira apos 30 minutos sem atividade no painel, executando `signOut` e exibindo "Sua sessao expirou. Faca login novamente.".
+- Atividade no painel atualiza o tempo local por clique, teclado, scroll e movimento do mouse.
+- Landing publica, Revista, Supabase schema, posts, RLS e SEO foram preservados.
+
+### CMS 12.3 - Tendencia como ponte comercial
+
+- Secao Tendencia refinada para funcionar como ponte comercial elegante entre a autoridade da Ellen e a loja Tendencia Multimarcas.
+- Narrativa passou a conectar a curadoria da Ellen a escolhas prontas para a vida real.
+- CTA principal foi ajustado para "Conhecer a curadoria", mantendo o Linktree oficial aprovado.
+- Diferenciais foram reposicionados como valor editorial: curadoria, rotina real, atendimento proximo e escolhas que facilitam o vestir.
+- Hierarquia visual, contraste escuro, imagem, espacamento e responsividade da secao foram refinados sem alterar Revista, Admin, Supabase ou SEO.
+
+### CMS 12.4 - Newsletter como convite de curadoria
+
+- Newsletter refinada para comunicar convite de curadoria, nao apenas formulario de e-mail.
+- Copy passou a destacar curadoria da Ellen, tendencias praticas, combinacoes inteligentes, novidades da Tendencia e conteudos da Revista.
+- CTA foi ajustado para "Entrar para a curadoria".
+- Microcopy passou para "Sem excesso. Apenas escolhas bem pensadas.".
+- Estados de carregamento, sucesso, erro, duplicidade e e-mail invalido foram preservados pelo mesmo servico Supabase.
+- Revista publica passou a diferenciar Supabase vazio de fallback: se o banco estiver configurado e sem posts ativos, exibe estado vazio com link para `/admin` em vez de mostrar posts estaticos antigos.
+- Fallback estatico da Revista permanece apenas para ausencia de env, erro de conexao ou indisponibilidade do Supabase.
+
+### CMS 12.5 - Refinamento da secao Sobre Ellen
+
+- Secao Sobre Ellen recebeu pausa autoral com a frase "Vestir bem a vida real comeca por entender quem se e.".
+- Hierarquia editorial foi refinada com melhor ritmo entre titulo, textos, frase de assinatura e notas finais.
+- Microblocos finais foram preservados como notas editoriais sem aparencia de card/box.
+- Fundo claro, dourado envelhecido, verde profundo, imagem editorial e responsividade foram mantidos.
+- Hero, Smart Style, Revista, Tendencia, Newsletter, Admin, Supabase e SEO foram preservados.
+
+### CMS 12.6 - Polimento visual global da landing
+
+- Ajustes globais de foco visivel foram ampliados para filtros da Revista, campos da Newsletter, links editoriais e acesso administrativo discreto.
+- CTAs principais receberam microconsistencia de tracking, altura minima mobile e leitura mais uniforme.
+- Smart Style e Tendencia foram levemente diferenciadas nas atmosferas escuras para manter unidade sem repeticao visual.
+- Newsletter teve CTA refinado em escala e leitura mobile.
+- Estado vazio da Revista recebeu ajuste de largura no link para melhorar responsividade.
+- Admin, Supabase, SEO, estrutura, textos principais e funcionalidades foram preservados.
+
+### Ajuste Admin - card de ultima publicacao
+
+- Card "Ultima publicacao" recebeu classe propria para conter datas e o estado "Sem publicacao" sem estourar a area do dashboard.
+- Texto longo agora quebra dentro do card com escala menor que os contadores numericos.
+- Ajuste limitado ao painel administrativo; landing publica, Revista, Supabase e SEO foram preservados.

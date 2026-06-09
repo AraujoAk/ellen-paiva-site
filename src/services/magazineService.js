@@ -45,23 +45,57 @@ async function getPublishedPostsData(client, category) {
 }
 
 export async function getPublishedPosts() {
+  const result = await getPublishedPostsResult();
+  return result.posts;
+}
+
+export async function getPublishedPostsResult() {
   if (!isSupabaseConfigured) {
-    return [];
+    return {
+      posts: [],
+      shouldUseFallback: true,
+      isEmpty: false,
+      error: null,
+    };
   }
 
   const client = await getSupabaseClient();
 
   if (!client) {
-    return [];
+    return {
+      posts: [],
+      shouldUseFallback: true,
+      isEmpty: false,
+      error: null,
+    };
   }
 
   const { data, error } = await getPublishedPostsData(client);
 
-  if (error || !data?.length) {
-    return [];
+  if (error) {
+    return {
+      posts: [],
+      shouldUseFallback: true,
+      isEmpty: false,
+      error,
+    };
   }
 
-  return data.map(normalizePost);
+  if (!data?.length) {
+    return {
+      posts: [],
+      shouldUseFallback: false,
+      isEmpty: true,
+      error: null,
+    };
+  }
+
+  return {
+    posts: data.map(normalizePost),
+    shouldUseFallback: false,
+    isEmpty: false,
+    error: null,
+  };
 }
 
 export async function getFeaturedPost() {

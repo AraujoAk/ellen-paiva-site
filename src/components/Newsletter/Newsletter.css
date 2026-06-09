@@ -20,10 +20,10 @@
 }
 
 .newsletter-title {
-  max-width: 11ch;
+  max-width: 12ch;
   color: var(--color-green-deep);
-  font-size: clamp(2rem, 4vw, 3.35rem);
-  line-height: 1;
+  font-size: clamp(2rem, 4vw, 3.28rem);
+  line-height: 0.98;
   letter-spacing: 0;
 }
 
@@ -31,12 +31,21 @@
   max-width: 38rem;
   color: var(--color-coffee-deep);
   font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 1.58;
+}
+
+.newsletter-value {
+  max-width: 34rem;
+  color: rgba(75, 53, 43, 0.72);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.52;
 }
 
 .newsletter-form {
   position: relative;
   display: grid;
-  gap: 0.62rem;
+  gap: 0.66rem;
   padding: clamp(0.95rem, 2.2vw, 1.25rem);
   border: 1px solid rgba(176, 138, 82, 0.28);
   border-radius: var(--radius-small);
@@ -137,7 +146,9 @@
   background: var(--color-aged-gold);
   color: var(--color-white);
   cursor: pointer;
+  font-size: 0.92rem;
   font-weight: 800;
+  line-height: 1.12;
   box-shadow:
     0 0.95rem 2rem rgba(75, 53, 43, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.12);
@@ -237,6 +248,11 @@
     line-height: 1.48;
   }
 
+  .newsletter-value {
+    font-size: 0.84rem;
+    line-height: 1.42;
+  }
+
   .newsletter-form {
     gap: 0.52rem;
     padding: 0.66rem;
@@ -268,6 +284,7 @@
   .newsletter-button {
     width: 100%;
     min-height: 2.54rem;
+    font-size: 0.84rem;
   }
 
   .newsletter-note {

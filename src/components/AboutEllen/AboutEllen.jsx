@@ -29,6 +29,10 @@ function AboutEllen() {
             diferentes rotinas.
           </p>
 
+          <blockquote className="about-ellen-quote">
+            Vestir bem a vida real começa por entender quem se é.
+          </blockquote>
+
           <div className="about-ellen-cards" aria-label="Diferenciais de Ellen Paiva">
             {credentials.map((credential) => (
               <article className="about-ellen-card" key={credential}>
@@ -38,7 +42,7 @@ function AboutEllen() {
           </div>
         </div>
 
-        <div className="about-ellen-media reveal reveal-up reveal-delay-1" aria-label="Retrato editorial temporário de Ellen Paiva">
+        <div className="about-ellen-media reveal reveal-up reveal-delay-1" aria-label="Retrato editorial de Ellen Paiva">
           <div className="about-ellen-image-placeholder">
             {assets.ellenAbout ? (
               <img

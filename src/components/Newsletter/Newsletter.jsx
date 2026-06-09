@@ -59,11 +59,14 @@ function Newsletter() {
         <div className="newsletter-content reveal reveal-up">
           <p className="eyebrow">Newsletter Editorial</p>
           <h2 id="newsletter-title" className="newsletter-title">
-            Elegância também é constância.
+            Receba a curadoria da Ellen no seu e-mail.
           </h2>
           <p className="newsletter-text">
-            Receba inspirações, tendências e conteúdos pensados para mulheres que desejam se vestir bem sem perder
-            autenticidade.
+            Uma seleção de ideias, tendências práticas, combinações inteligentes e novidades da Tendência para vestir
+            melhor a vida real.
+          </p>
+          <p className="newsletter-value">
+            Conteúdos editoriais da Revista, escolhas de curadoria e referências antes das redes.
           </p>
         </div>
 
@@ -112,10 +115,10 @@ function Newsletter() {
           <button
             className="newsletter-button"
             type="submit"
-            aria-label="Quero receber a newsletter editorial"
+            aria-label="Entrar para a curadoria editorial da Ellen Paiva"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Enviando...' : 'Quero receber'}
+            {isSubmitting ? 'Enviando...' : 'Entrar para a curadoria'}
           </button>
 
           {formStatus.message && (
@@ -124,7 +127,7 @@ function Newsletter() {
             </p>
           )}
 
-          <p className="newsletter-note">Conteúdo leve, sofisticado e sem excessos.</p>
+          <p className="newsletter-note">Sem excesso. Apenas escolhas bem pensadas.</p>
         </form>
       </div>
     </section>

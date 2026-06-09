@@ -117,12 +117,24 @@ body {
   .hero-secondary-link,
   .tendencia-button,
   .newsletter-button,
+  .newsletter-field input,
+  .magazine-category,
   .magazine-card-link,
+  .magazine-empty-link,
   .site-footer-column a,
-  .site-footer-logo
+  .site-footer-logo,
+  .site-admin-link
 ):focus-visible {
   outline: 2px solid var(--color-aged-gold);
   outline-offset: 3px;
+}
+
+:is(
+  .button-link,
+  .tendencia-button,
+  .newsletter-button
+) {
+  letter-spacing: 0.01em;
 }
 
 a,
@@ -362,6 +374,14 @@ button {
   .button-link {
     min-height: 2.72rem;
     padding: 0.68rem 0.95rem;
+  }
+
+  :is(
+    .button-link,
+    .tendencia-button,
+    .newsletter-button
+  ) {
+    min-height: 2.72rem;
   }
 
   .reveal-up {

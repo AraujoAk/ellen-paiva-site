@@ -6,22 +6,22 @@ const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_
 const whatsappUrl = 'https://tr.ee/-R-sQ_hJqC';
 
 const highlights = [
-  'Curadoria selecionada',
-  'Atendimento personalizado',
-  'Moda funcional e versátil',
-  'Experiência feminina',
+  'Moda feminina com curadoria',
+  'Peças para rotina real',
+  'Atendimento próximo',
+  'Escolhas que facilitam o vestir',
 ];
 
 function Tendencia() {
   return (
     <section className="tendencia page-section" id="tendencia" aria-labelledby="tendencia-title">
       <div className="tendencia-container section-container">
-        <div className="tendencia-media reveal reveal-up" aria-label="Imagem editorial temporária da Tendência Multimarcas">
+        <div className="tendencia-media reveal reveal-up" aria-label="Imagem editorial da Tendência Multimarcas">
           <div className="tendencia-image-placeholder">
             {assets.tendenciaStore ? (
               <img
                 src={assets.tendenciaStore}
-                alt="Loja Tendência Multimarcas"
+                alt="Ambiente sofisticado da Tendência Multimarcas"
                 className="tendencia-image"
                 loading="lazy"
                 decoding="async"
@@ -52,12 +52,12 @@ function Tendencia() {
           )}
           <p className="tendencia-eyebrow">Tendência Multimarcas</p>
           <h2 id="tendencia-title" className="tendencia-title">
-            Curadoria que transforma estilo em experiência.
+            As escolhas da Ellen ganham vida na Tendência.
           </h2>
           <p className="tendencia-text">
-            Há anos selecionando peças que acompanham a vida real de mulheres
-            maduras, sofisticadas e práticas, a Tendência Multimarcas nasceu do
-            desejo de unir elegância, conforto e identidade em um único espaço.
+            A Tendência Multimarcas traduz a curadoria de estilo em peças prontas
+            para a vida real: elegantes, funcionais e escolhidas para mulheres que
+            valorizam presença, conforto e identidade no vestir.
           </p>
 
           <div className="tendencia-highlights" aria-label="Diferenciais da Tendência Multimarcas">
@@ -74,9 +74,9 @@ function Tendencia() {
               href={tendenciaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Conhecer a Tendência"
+              aria-label="Conhecer a curadoria da Tendência"
             >
-              Conhecer a Tendência
+              Conhecer a curadoria
             </a>
             <a
               className="tendencia-button"
