@@ -123,7 +123,7 @@ body {
   .magazine-empty-link,
   .site-footer-column a,
   .site-footer-logo,
-  .site-admin-link
+  .site-footer-admin-link
 ):focus-visible {
   outline: 2px solid var(--color-aged-gold);
   outline-offset: 3px;
@@ -362,7 +362,7 @@ button {
   }
 
   .page-section {
-    padding-inline: clamp(1rem, 4.8vw, 1.35rem);
+    padding-inline: var(--container-padding-mobile);
     scroll-margin-top: 4.3rem;
   }
 
@@ -372,8 +372,8 @@ button {
   }
 
   .button-link {
-    min-height: 2.72rem;
-    padding: 0.68rem 0.95rem;
+    min-height: 2.86rem;
+    padding: 0.74rem 1rem;
   }
 
   :is(
@@ -381,7 +381,7 @@ button {
     .tendencia-button,
     .newsletter-button
   ) {
-    min-height: 2.72rem;
+    min-height: 2.86rem;
   }
 
   .reveal-up {
@@ -397,7 +397,7 @@ button {
 
 @media (max-width: 479px) {
   .page-section {
-    padding-inline: clamp(0.95rem, 4.8vw, 1.16rem);
+    padding-inline: clamp(1rem, 5vw, 1.18rem);
   }
 
   .button-link {
@@ -412,7 +412,7 @@ button {
   }
 
   .page-section {
-    padding-inline: clamp(1.35rem, 4vw, 2rem);
+    padding-inline: clamp(1.5rem, 4vw, 2.25rem);
     scroll-margin-top: 5.25rem;
   }
 }

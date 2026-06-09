@@ -46,7 +46,7 @@ function AdminPostList({
           <p className="admin-kicker">Conteudos</p>
           <h2 id="admin-post-list-title">Posts da Revista</h2>
         </div>
-        <button className="admin-button admin-button-primary" type="button" onClick={onNewPost}>
+        <button className="admin-button admin-button-primary" type="button" onClick={onNewPost} data-tour="new-content">
           Novo post
         </button>
       </div>
@@ -133,4 +133,3 @@ function AdminPostList({
 }
 
 export default AdminPostList;
-

@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { getCurrentProfile, getSession, signOut } from '../../services/authService.js';
+import {
+  createFallbackProfileFromSessionUser,
+  getCurrentProfile,
+  getMagazineAccessStatus,
+  getSession,
+  signOut,
+} from '../../services/authService.js';
 import AdminLogin from './AdminLogin.jsx';
 
 const ADMIN_SESSION_ACTIVITY_KEY = 'ellen_admin_last_activity_at';
@@ -21,6 +27,7 @@ function clearAdminActivity() {
 }
 
 function AdminGuard({ children }) {
+  const isPasswordResetRoute = window.location.pathname === '/admin/reset-password';
   const [authState, setAuthState] = useState({
     isLoading: true,
     session: null,
@@ -49,8 +56,10 @@ function AdminGuard({ children }) {
       notice,
     }));
 
+    let session = null;
+
     try {
-      const session = await getSession();
+      session = await getSession();
 
       if (!session) {
         setAuthState({
@@ -62,8 +71,29 @@ function AdminGuard({ children }) {
         });
         return;
       }
+    } catch (sessionError) {
+      if (import.meta.env.DEV) {
+        console.error('[admin-auth-guard] session', {
+          message: sessionError?.message,
+          code: sessionError?.code,
+          status: sessionError?.status,
+          name: sessionError?.name,
+          authStage: sessionError?.authStage,
+        });
+      }
 
-      const profile = await getCurrentProfile();
+      setAuthState({
+        isLoading: false,
+        session: null,
+        profile: null,
+        error: 'Nao foi possivel validar a sessao.',
+        notice: '',
+      });
+      return;
+    }
+
+    try {
+      const profile = await getCurrentProfile(session.user);
 
       if (profile?.can_edit_magazine) {
         const lastActivityTime = getStoredActivityTime();
@@ -84,12 +114,50 @@ function AdminGuard({ children }) {
         error: '',
         notice,
       });
-    } catch {
+    } catch (profileError) {
+      if (import.meta.env.DEV) {
+        console.error('[admin-auth-guard] profile', {
+          message: profileError?.message,
+          code: profileError?.code,
+          status: profileError?.status,
+          name: profileError?.name,
+          authStage: profileError?.authStage,
+        });
+      }
+
+      try {
+        const canAccessMagazine = await getMagazineAccessStatus();
+
+        if (canAccessMagazine) {
+          const fallbackProfile = createFallbackProfileFromSessionUser(session.user);
+          markAdminActivity();
+
+          setAuthState({
+            isLoading: false,
+            session,
+            profile: fallbackProfile,
+            error: '',
+            notice: '',
+          });
+          return;
+        }
+      } catch (accessError) {
+        if (import.meta.env.DEV) {
+          console.error('[admin-auth-guard] access-rpc', {
+            message: accessError?.message,
+            code: accessError?.code,
+            status: accessError?.status,
+            name: accessError?.name,
+            authStage: accessError?.authStage,
+          });
+        }
+      }
+
       setAuthState({
         isLoading: false,
-        session: null,
+        session,
         profile: null,
-        error: 'Nao foi possivel validar o acesso.',
+        error: 'Nao foi possivel carregar seu perfil editorial. Saia e entre novamente ou verifique a permissao.',
         notice: '',
       });
     }
@@ -146,6 +214,10 @@ function AdminGuard({ children }) {
     );
   }
 
+  if (isPasswordResetRoute) {
+    return <AdminLogin initialError={authState.notice} onAuthenticated={refreshAuthState} />;
+  }
+
   if (!authState.session) {
     return <AdminLogin initialError={authState.notice} onAuthenticated={refreshAuthState} />;
   }
@@ -156,7 +228,7 @@ function AdminGuard({ children }) {
         <section className="admin-denied">
           <p className="admin-kicker">Acesso restrito</p>
           <h1>Acesso negado</h1>
-          <p>Este usuario nao tem permissao para editar a Revista Ellen Paiva.</p>
+          <p>{authState.error || 'Este usuario nao tem permissao para editar a Revista Ellen Paiva.'}</p>
           <div className="admin-denied-actions">
             <button className="admin-button admin-button-primary" type="button" onClick={handleDeniedSignOut}>
               Sair e voltar ao login

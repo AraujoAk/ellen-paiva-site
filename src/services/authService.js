@@ -67,21 +67,72 @@ function logAuthError(context, error) {
   });
 }
 
+function attachAuthStage(error, stage) {
+  if (error && typeof error === 'object') {
+    error.authStage = stage;
+  }
+
+  return error;
+}
+
 export async function signIn(email, password) {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    const configError = new Error('Supabase nao configurado.');
+    throw attachAuthStage(configError, 'getSupabaseClient');
+  }
+
+  const { data, error } = await client.auth.signInWithPassword({
+    email: normalizeEmailInput(email),
+    password,
+  });
+
+  if (error) {
+    logAuthError('signInWithPassword', error);
+    throw attachAuthStage(error, 'signInWithPassword');
+  }
+
+  return data;
+}
+
+export async function requestPasswordReset(email) {
   const client = await getSupabaseClient();
 
   if (!client) {
     throw new Error('Supabase nao configurado.');
   }
 
-  const { data, error } = await client.auth.signInWithPassword({
-    email,
+  const redirectTo = `${window.location.origin}/admin/reset-password`;
+  const { data, error } = await client.auth.resetPasswordForEmail(normalizeEmailInput(email), {
+    redirectTo,
+  });
+
+  if (error) {
+    logAuthError('requestPasswordReset', error);
+    throw toFriendlyAuthError(error, 'Nao foi possivel enviar o e-mail de recuperacao agora.');
+  }
+
+  return data;
+}
+
+export async function updateCurrentUserPassword(password) {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    throw new Error('Supabase nao configurado.');
+  }
+
+  const { data, error } = await client.auth.updateUser({
     password,
   });
 
   if (error) {
-    throw error;
+    logAuthError('updateCurrentUserPassword', error);
+    throw toFriendlyAuthError(error, 'Nao foi possivel atualizar a senha.');
   }
+
+  await signOut();
 
   return data;
 }
@@ -194,7 +245,8 @@ export async function getSession() {
   const { data, error } = await client.auth.getSession();
 
   if (error) {
-    throw error;
+    logAuthError('getSession', error);
+    throw attachAuthStage(error, 'getSession');
   }
 
   return data.session;
@@ -210,16 +262,15 @@ export async function getCurrentUser() {
   const { data, error } = await client.auth.getUser();
 
   if (error) {
-    throw error;
+    logAuthError('getUser', error);
+    throw attachAuthStage(error, 'getUser');
   }
 
   return data.user;
 }
 
-export async function getCurrentProfile() {
-  const user = await getCurrentUser();
-
-  if (!user) {
+export async function getProfileByUserId(userId) {
+  if (!userId) {
     return null;
   }
 
@@ -228,17 +279,136 @@ export async function getCurrentProfile() {
   const { data, error } = await client
     .from('profiles')
     .select('id, email, name, role, can_edit_magazine')
-    .eq('id', user.id)
+    .eq('id', userId)
     .maybeSingle();
 
   if (error) {
-    throw error;
+    logAuthError('profiles.select.current', error);
+    throw attachAuthStage(error, 'profiles.select.current');
   }
 
   return data;
 }
 
+export async function getCurrentProfile(user = null) {
+  const currentUser = user || (await getCurrentUser());
+
+  if (!currentUser) {
+    return null;
+  }
+
+  return getProfileByUserId(currentUser.id);
+}
+
+export async function getMagazineAccessStatus() {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    return false;
+  }
+
+  const { data, error } = await client.rpc('can_edit_magazine');
+
+  if (error) {
+    logAuthError('can_edit_magazine.rpc', error);
+    throw attachAuthStage(error, 'can_edit_magazine.rpc');
+  }
+
+  return Boolean(data);
+}
+
+export function createFallbackProfileFromSessionUser(user) {
+  if (!user) {
+    return null;
+  }
+
+  return {
+    id: user.id,
+    email: user.email || '',
+    name: user.user_metadata?.name || user.email || 'Editor',
+    role: user.user_metadata?.role || 'editor',
+    can_edit_magazine: true,
+    isFallbackProfile: true,
+  };
+}
+
 export async function canEditMagazine() {
-  const profile = await getCurrentProfile();
-  return Boolean(profile?.can_edit_magazine);
+  try {
+    const profile = await getCurrentProfile();
+    return Boolean(profile?.can_edit_magazine);
+  } catch {
+    return getMagazineAccessStatus();
+  }
+}
+
+export async function listPendingEditors() {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    throw new Error('Supabase nao configurado.');
+  }
+
+  const { data, error } = await client
+    .from('profiles')
+    .select('id, email, name, role, can_edit_magazine, created_at')
+    .eq('role', 'editor')
+    .eq('can_edit_magazine', false)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    logAuthError('listPendingEditors', error);
+    throw toFriendlyAuthError(error, 'Nao foi possivel carregar as solicitacoes editoriais.');
+  }
+
+  return data ?? [];
+}
+
+export async function approveEditor(profileId) {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    throw new Error('Supabase nao configurado.');
+  }
+
+  const { data, error } = await client
+    .from('profiles')
+    .update({
+      can_edit_magazine: true,
+    })
+    .eq('id', profileId)
+    .eq('role', 'editor')
+    .select('id, email, name, role, can_edit_magazine')
+    .single();
+
+  if (error) {
+    logAuthError('approveEditor', error);
+    throw toFriendlyAuthError(error, 'Nao foi possivel aprovar este editor.');
+  }
+
+  return data;
+}
+
+export async function rejectEditor(profileId) {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    throw new Error('Supabase nao configurado.');
+  }
+
+  const { data, error } = await client
+    .from('profiles')
+    .update({
+      can_edit_magazine: false,
+    })
+    .eq('id', profileId)
+    .eq('role', 'editor')
+    .select('id, email, name, role, can_edit_magazine')
+    .single();
+
+  if (error) {
+    logAuthError('rejectEditor', error);
+    throw toFriendlyAuthError(error, 'Nao foi possivel reprovar este editor.');
+  }
+
+  return data;
 }

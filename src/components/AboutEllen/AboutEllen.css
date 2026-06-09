@@ -193,15 +193,15 @@
 
 @media (max-width: 767px) {
   .about-ellen {
-    padding-block: clamp(1.45rem, 5.4vw, 2rem);
+    padding-block: var(--section-padding-mobile);
   }
 
   .about-ellen-container {
-    gap: 0.82rem;
+    gap: var(--gap-mobile);
   }
 
   .about-ellen-content {
-    gap: 0.64rem;
+    gap: 0.82rem;
   }
 
   .about-ellen-title {
@@ -209,8 +209,8 @@
   }
 
   .about-ellen-text {
-    font-size: 0.92rem;
-    line-height: 1.5;
+    font-size: 0.94rem;
+    line-height: 1.58;
   }
 
   .about-ellen-quote {
@@ -222,14 +222,14 @@
   }
 
   .about-ellen-cards {
-    gap: 0.15rem 0.75rem;
-    margin-top: 0.28rem;
-    padding-top: 0.55rem;
+    gap: 0.28rem 0.85rem;
+    margin-top: 0.38rem;
+    padding-top: 0.72rem;
   }
 
   .about-ellen-card {
-    min-height: 2.45rem;
-    padding: 0.3rem 0 0.42rem;
+    min-height: 2.65rem;
+    padding: 0.34rem 0 0.5rem;
   }
 
   .about-ellen-card::before {
@@ -243,7 +243,7 @@
   }
 
   .about-ellen-media {
-    min-height: clamp(12.4rem, 32vh, 15.8rem);
+    min-height: clamp(14rem, 36vh, 18rem);
   }
 
   .about-ellen-image-placeholder span {

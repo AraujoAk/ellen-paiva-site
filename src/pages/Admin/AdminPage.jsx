@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import AdminGuard from '../../components/Admin/AdminGuard.jsx';
+import EditorialAssistant from '../../components/Admin/EditorialAssistant.jsx';
 import AdminPostForm from '../../components/Admin/AdminPostForm.jsx';
 import AdminPostList from '../../components/Admin/AdminPostList.jsx';
-import { signOut } from '../../services/authService.js';
+import { approveEditor, listPendingEditors, rejectEditor, signOut } from '../../services/authService.js';
 import {
   archiveMagazinePost,
   createMagazinePost,
@@ -101,8 +102,11 @@ function AdminPanel({ profile }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [sortMode, setSortMode] = useState('newest');
+  const [pendingEditors, setPendingEditors] = useState([]);
+  const [isLoadingEditors, setIsLoadingEditors] = useState(false);
 
   const editorName = useMemo(() => profile.name || profile.email || 'Editor', [profile]);
+  const isAdminProfile = profile.role === 'admin';
   const stats = useMemo(() => getMagazineStats(posts), [posts]);
   const filteredPosts = useMemo(
     () => sortPosts(filterPosts(posts, searchTerm, statusFilter), sortMode),
@@ -123,9 +127,30 @@ function AdminPanel({ profile }) {
     }
   }
 
+  const loadEditorRequests = useCallback(async () => {
+    if (!isAdminProfile) {
+      return;
+    }
+
+    setIsLoadingEditors(true);
+
+    try {
+      const data = await listPendingEditors();
+      setPendingEditors(data);
+    } catch (loadError) {
+      setError(loadError.message || 'Nao foi possivel carregar as solicitacoes editoriais.');
+    } finally {
+      setIsLoadingEditors(false);
+    }
+  }, [isAdminProfile]);
+
   useEffect(() => {
     loadPosts();
   }, []);
+
+  useEffect(() => {
+    loadEditorRequests();
+  }, [loadEditorRequests]);
 
   async function handleSave(postPayload) {
     setIsSaving(true);
@@ -211,6 +236,32 @@ function AdminPanel({ profile }) {
     window.location.reload();
   }
 
+  async function handleApproveEditor(profileId) {
+    setMessage('');
+    setError('');
+
+    try {
+      await approveEditor(profileId);
+      setPendingEditors((current) => current.filter((editor) => editor.id !== profileId));
+      setMessage('Editor aprovado com sucesso.');
+    } catch (approvalError) {
+      setError(approvalError.message || 'Nao foi possivel aprovar este editor.');
+    }
+  }
+
+  async function handleRejectEditor(profileId) {
+    setMessage('');
+    setError('');
+
+    try {
+      await rejectEditor(profileId);
+      setPendingEditors((current) => current.filter((editor) => editor.id !== profileId));
+      setMessage('Solicitacao mantida sem acesso editorial.');
+    } catch (rejectionError) {
+      setError(rejectionError.message || 'Nao foi possivel reprovar este editor.');
+    }
+  }
+
   return (
     <main className="admin-shell">
       <header className="admin-header">
@@ -232,7 +283,7 @@ function AdminPanel({ profile }) {
           <p>Gerencie os posts exibidos na secao Revista sem alterar layout, cores ou estrutura da landing.</p>
         </div>
 
-        <div className="admin-dashboard" aria-label="Dashboard editorial da Revista">
+        <div className="admin-dashboard" aria-label="Dashboard editorial da Revista" data-tour="dashboard">
           <button type="button" onClick={() => setStatusFilter('all')} className={statusFilter === 'all' ? 'is-active' : ''}>
             <span>Total de conteudos</span>
             <strong>{stats.total}</strong>
@@ -261,6 +312,54 @@ function AdminPanel({ profile }) {
           {error || message}
         </div>
       )}
+
+      {isAdminProfile && (
+        <section className="admin-editor-requests" aria-labelledby="admin-editor-requests-title">
+          <div className="admin-editor-requests-header">
+            <div>
+              <p className="admin-kicker">Acessos</p>
+              <h2 id="admin-editor-requests-title">Solicitações editoriais</h2>
+            </div>
+            <button className="admin-button admin-button-secondary" type="button" onClick={loadEditorRequests}>
+              Atualizar
+            </button>
+          </div>
+
+          {isLoadingEditors ? (
+            <p className="admin-empty">Carregando solicitações...</p>
+          ) : pendingEditors.length ? (
+            <div className="admin-editor-request-list">
+              {pendingEditors.map((editor) => (
+                <article className="admin-editor-request" key={editor.id}>
+                  <div>
+                    <strong>{editor.name || 'Sem nome informado'}</strong>
+                    <span>{editor.email}</span>
+                    <small>{editor.created_at ? new Intl.DateTimeFormat('pt-BR').format(new Date(editor.created_at)) : 'Sem data'}</small>
+                  </div>
+                  <div className="admin-editor-request-actions">
+                    <button className="admin-button admin-button-primary" type="button" onClick={() => handleApproveEditor(editor.id)}>
+                      Aprovar
+                    </button>
+                    <button className="admin-button admin-button-secondary" type="button" onClick={() => handleRejectEditor(editor.id)}>
+                      Reprovar
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="admin-empty">Nenhuma solicitação editorial pendente.</p>
+          )}
+        </section>
+      )}
+
+      <section className="admin-newsletter-insight" data-tour="newsletter" aria-labelledby="admin-newsletter-title">
+        <div>
+          <p className="admin-kicker">Audiência</p>
+          <h2 id="admin-newsletter-title">Newsletter</h2>
+        </div>
+        <p>Os inscritos da Newsletter formam uma base própria para relacionamento editorial e futuras campanhas.</p>
+      </section>
 
       <div className="admin-workspace">
         {isLoadingPosts ? (
@@ -293,6 +392,7 @@ function AdminPanel({ profile }) {
           onResetComplete={() => setSelectedPost(newPost)}
         />
       </div>
+      <EditorialAssistant />
     </main>
   );
 }

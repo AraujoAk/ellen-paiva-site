@@ -13,7 +13,7 @@ import { initRevealOnScroll } from './utils/revealOnScroll.js';
 
 function App() {
   const currentPath = window.location.pathname;
-  const isAdminRoute = currentPath === '/admin';
+  const isAdminRoute = currentPath === '/admin' || currentPath === '/admin/reset-password';
   const articleSlug = currentPath.startsWith('/revista/') ? decodeURIComponent(currentPath.replace('/revista/', '')) : '';
   const isArticleRoute = Boolean(articleSlug);
 

@@ -174,15 +174,15 @@
 
 @media (max-width: 767px) {
   .hero-section {
-    padding-block: clamp(1.08rem, 4.5vw, 1.65rem);
+    padding-block: clamp(1.45rem, 6vw, 2.15rem) clamp(2.1rem, 8vw, 2.8rem);
   }
 
   .hero-container {
-    gap: 0.82rem;
+    gap: 1.08rem;
   }
 
   .hero-content {
-    gap: 0.62rem;
+    gap: 0.82rem;
     max-width: 100%;
   }
 
@@ -194,13 +194,13 @@
 
   .hero-description {
     max-width: 33rem;
-    font-size: 0.9rem;
-    line-height: 1.44;
+    font-size: 0.94rem;
+    line-height: 1.56;
   }
 
   .hero-actions {
-    gap: 0.5rem;
-    margin-top: 0.1rem;
+    gap: 0.62rem;
+    margin-top: 0.2rem;
   }
 
   .hero-secondary-link {
@@ -209,7 +209,7 @@
   }
 
   .hero-media {
-    height: clamp(12.2rem, 34vh, 16.2rem);
+    height: clamp(14rem, 38vh, 18.25rem);
   }
 
   .hero-image-panel {

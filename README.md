@@ -741,3 +741,34 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Card "Ultima publicacao" recebeu classe propria para conter datas e o estado "Sem publicacao" sem estourar a area do dashboard.
 - Texto longo agora quebra dentro do card com escala menor que os contadores numericos.
 - Ajuste limitado ao painel administrativo; landing publica, Revista, Supabase e SEO foram preservados.
+
+### Responsive UX 01 - Reestruturacao mobile e respiro global
+
+- Criada escala global de espacamento para padding de container, secoes e gaps responsivos.
+- Landing recebeu mais respiro mobile entre Hero, Sobre Ellen, Smart Style, Revista, Tendencia, Newsletter e Footer.
+- Header mobile teve menu e CTA ajustados para melhor toque e leitura.
+- Pagina de artigo `/revista/:slug` recebeu escala mobile propria para breadcrumb, titulo, imagem, conteudo, compartilhamento e relacionados.
+- Admin `/admin` recebeu melhorias responsivas no login, dashboard, lista, formulario, filtros e botoes.
+- Supabase, Auth, Revista dinamica, Newsletter, SEO, rotas, banco, RLS e textos principais foram preservados.
+
+### CMS 13.0 - Seguranca editorial, recuperacao de senha e aprovacao de editores
+
+- Link "Area editorial" foi removido do Header publico; o admin continua acessivel por URL direta em `/admin` e por acessos discretos ja previstos fora do Header.
+- Newsletter auditada: o formulario envia para `newsletter_subscribers` os campos `name`, `email`, `source = landing-newsletter` e `status = active`; `created_at` fica a cargo do default do banco.
+- Newsletter preserva tratamento de e-mail invalido, duplicidade, sucesso e erro amigavel. Teste manual sugerido: Nome `Teste Newsletter`, Email `teste-newsletter@teste.com`, validar em `newsletter_subscribers`.
+- Login e cadastro editorial receberam controle acessivel de mostrar/ocultar senha.
+- Criado fluxo "Esqueceu sua senha?" usando Supabase Auth `resetPasswordForEmail` com retorno para `/admin/reset-password`.
+- Criado formulario de nova senha em `/admin/reset-password`, usando Supabase Auth `updateUser`, sem service role ou secret key.
+- Painel admin passou a exibir "Solicitacoes editoriais" apenas para `role = admin`, com acoes de aprovar e reprovar mantendo `can_edit_magazine` como regra central.
+- Criado SQL pendente `docs/supabase-editor-approval-policies.sql` para permitir que admins leiam e atualizem profiles editoriais via RLS.
+- Landing publica, Hero, Sobre, Smart Style, Revista publica, Tendencia, visual da Newsletter, SEO, posts, banco da Revista e RLS existente foram preservados.
+
+### CMS 14.0 - Assistente Editorial Interativo
+
+- Criado Assistente Editorial opcional para orientar novos usuarios do `/admin` sem alterar a landing publica.
+- Primeiro acesso exibe modal "Bem-vinda a area editorial" com opcoes "Iniciar tour", "Agora nao" e "Nao mostrar novamente".
+- Preferencia "Nao mostrar novamente" e persistida em `localStorage` pela chave `editorial-tour-dismissed`.
+- Botao permanente "Primeiros passos" permite reabrir o tour a qualquer momento.
+- Tour guiado destaca Novo conteudo, Titulo, Categoria, Imagem, Conteudo, Publicar, Dashboard e Newsletter.
+- Assistente pode ser fechado com `Esc` e funciona em desktop/mobile sem alterar Supabase, banco, SEO, login, Revista publica ou Newsletter publica.
+- Campos principais do formulario receberam tooltips discretos para Slug, Categoria, Imagem e Publicacao.

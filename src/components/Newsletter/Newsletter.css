@@ -227,15 +227,15 @@
 
 @media (max-width: 767px) {
   .newsletter {
-    padding-block: clamp(1.45rem, 5.4vw, 2rem);
+    padding-block: var(--section-padding-mobile);
   }
 
   .newsletter-container {
-    gap: 0.72rem;
+    gap: var(--gap-mobile);
   }
 
   .newsletter-content {
-    gap: 0.6rem;
+    gap: 0.78rem;
   }
 
   .newsletter-title {
@@ -244,18 +244,18 @@
   }
 
   .newsletter-text {
-    font-size: 0.92rem;
-    line-height: 1.48;
+    font-size: 0.94rem;
+    line-height: 1.56;
   }
 
   .newsletter-value {
-    font-size: 0.84rem;
-    line-height: 1.42;
+    font-size: 0.88rem;
+    line-height: 1.5;
   }
 
   .newsletter-form {
-    gap: 0.52rem;
-    padding: 0.66rem;
+    gap: 0.72rem;
+    padding: 0.84rem;
     box-shadow: var(--shadow-editorial-soft);
   }
 
@@ -277,13 +277,13 @@
   }
 
   .newsletter-field input {
-    min-height: 2.42rem;
-    padding: 0.58rem 0.75rem;
+    min-height: 2.72rem;
+    padding: 0.68rem 0.82rem;
   }
 
   .newsletter-button {
     width: 100%;
-    min-height: 2.54rem;
+    min-height: 2.82rem;
     font-size: 0.84rem;
   }
 

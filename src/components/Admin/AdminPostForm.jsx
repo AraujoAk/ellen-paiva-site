@@ -18,6 +18,20 @@ const emptyPost = {
   published_at: '',
 };
 
+function FieldTitle({ children, tooltip }) {
+  return (
+    <span className="admin-field-title">
+      {children}
+      {tooltip && (
+        <span className="admin-field-tooltip" tabIndex="0" aria-label={tooltip}>
+          ⓘ
+          <span role="tooltip">{tooltip}</span>
+        </span>
+      )}
+    </span>
+  );
+}
+
 function toDatetimeLocal(date) {
   if (!date) {
     return '';
@@ -243,8 +257,8 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
       </div>
 
       <form className="admin-form admin-editor-form" onSubmit={handleSubmit}>
-        <label>
-          Titulo
+        <label data-tour="title">
+          <FieldTitle>Titulo</FieldTitle>
           <input
             type="text"
             maxLength="120"
@@ -262,7 +276,9 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
         </label>
 
         <label>
-          Slug
+          <FieldTitle tooltip="Endereço do artigo na internet. Exemplo: /revista/como-usar-alfaiataria">
+            Slug
+          </FieldTitle>
           <input
             type="text"
             maxLength="140"
@@ -280,8 +296,8 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
         </label>
 
         <div className="admin-form-grid">
-          <label>
-            Categoria
+          <label data-tour="category">
+            <FieldTitle tooltip="Utilizada para organização e recomendação de conteúdos.">Categoria</FieldTitle>
             <select
               value={formData.category}
               onChange={(event) => updateField('category', event.target.value)}
@@ -303,7 +319,7 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
           </label>
 
           <label>
-            Status
+            <FieldTitle tooltip="Conteúdos publicados ficam visíveis ao público.">Status</FieldTitle>
             <select value={formData.status} onChange={(event) => updateField('status', event.target.value)} required>
               <option value="inactive">Rascunho</option>
               <option value="active">Publicado</option>
@@ -313,7 +329,7 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
         </div>
 
         <label>
-          Descricao curta
+          <FieldTitle>Descricao curta</FieldTitle>
           <textarea
             maxLength="240"
             rows="4"
@@ -330,8 +346,8 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
           )}
         </label>
 
-        <label>
-          Texto completo do artigo
+        <label data-tour="content">
+          <FieldTitle>Texto completo do artigo</FieldTitle>
           <textarea
             className="admin-content-textarea"
             rows="10"
@@ -349,7 +365,7 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
         </label>
 
         <label>
-          Data de publicacao
+          <FieldTitle tooltip="Conteúdos publicados ficam visíveis ao público.">Data de publicacao</FieldTitle>
           <input
             type="datetime-local"
             value={formData.published_at}
@@ -364,8 +380,8 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
           )}
         </label>
 
-        <label>
-          Imagem do post
+        <label data-tour="image">
+          <FieldTitle tooltip="Imagem principal utilizada na Revista e compartilhamentos.">Imagem do post</FieldTitle>
           <input
             type="file"
             accept="image/webp,image/jpeg,image/png"
@@ -382,7 +398,7 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
         </label>
 
         <label>
-          URL da imagem
+          <FieldTitle tooltip="Imagem principal utilizada na Revista e compartilhamentos.">URL da imagem</FieldTitle>
           <input
             type="url"
             value={formData.image_url}
@@ -421,7 +437,7 @@ function AdminPostForm({ post, isSaving, onSave, onUploadImage, onResetComplete 
           >
             Salvar rascunho
           </button>
-          <button className="admin-button admin-button-primary" type="submit" disabled={isSaving}>
+          <button className="admin-button admin-button-primary" type="submit" disabled={isSaving} data-tour="publish">
             {isSaving ? 'Salvando...' : formData.status === 'active' ? 'Publicar' : 'Salvar'}
           </button>
         </div>

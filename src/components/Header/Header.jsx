@@ -217,10 +217,6 @@ function Header() {
             </a>
           ))}
 
-          <a className="site-admin-link site-admin-link-mobile" href="/admin" aria-label="Acessar área editorial">
-            Área editorial
-          </a>
-
           <a
             className="site-header-action site-header-action-mobile"
             href="#newsletter"
@@ -238,10 +234,6 @@ function Header() {
           onClick={() => handleNavClick('#newsletter')}
         >
           Newsletter
-        </a>
-
-        <a className="site-admin-link site-admin-link-desktop" href="/admin" aria-label="Acessar área editorial">
-          Área editorial
         </a>
       </div>
       </header>
