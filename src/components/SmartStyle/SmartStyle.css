@@ -197,12 +197,12 @@
   }
 
   .smart-style-card-media {
-    aspect-ratio: 16 / 7.4;
+    aspect-ratio: 16 / 7.9;
   }
 
   .smart-style-card-content {
     gap: 0.38rem;
-    padding: 0.88rem;
+    padding: 0.82rem;
   }
 
   .smart-style-card-content h3 {

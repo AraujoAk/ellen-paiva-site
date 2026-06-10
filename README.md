@@ -69,6 +69,80 @@ O arquivo `vercel.json` já deixa essas configurações explícitas para o ambie
 
 O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não comerciais. Para uso comercial da marca, valide as regras atuais do plano antes da publicação definitiva.
 
+## Entrega ao cliente
+
+### URLs
+
+- Site público: `https://ellen-paiva-site.vercel.app/`
+- Área editorial: `https://ellen-paiva-site.vercel.app/admin`
+- Reset de senha: `https://ellen-paiva-site.vercel.app/admin/reset-password`
+
+### Dependências externas
+
+- Vercel: hospedagem, build e deploy da aplicação Vite.
+- Supabase: Auth, banco de dados, RLS, Storage da Revista e Newsletter.
+- Google Fonts: carregamento das fontes Inter e Playfair Display.
+
+### Domínio recomendado
+
+- Conectar um domínio próprio da marca antes da divulgação final.
+- Após conectar o domínio, atualizar canonical, Open Graph, Twitter Card, `robots.txt`, `sitemap.xml` e variáveis de redirect do Supabase Auth, se necessário.
+
+### Variáveis de ambiente
+
+Configurar na Vercel:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+O arquivo `.env.local` é apenas local e está protegido pelo `.gitignore`.
+
+### Como aprovar editor
+
+1. A pessoa acessa `/admin` e solicita acesso editorial.
+2. O cadastro cria um usuário no Supabase Auth e um profile pendente.
+3. Um usuário com `role = admin` acessa o painel.
+4. Na área "Solicitações editoriais", clicar em "Aprovar".
+5. O profile aprovado fica com `can_edit_magazine = true`.
+
+### Como publicar artigo
+
+1. Acessar `/admin` com usuário aprovado.
+2. Clicar em "Novo post".
+3. Preencher título, slug, categoria, descrição, conteúdo completo e imagem.
+4. Escolher status publicado.
+5. Salvar/publicar.
+6. O post publicado aparece na Revista e ganha URL em `/revista/:slug`.
+
+### Como testar Newsletter
+
+1. Abrir a landing pública.
+2. Ir até a seção Newsletter.
+3. Testar e-mail inválido e validar mensagem amigável.
+4. Testar um e-mail real controlado.
+5. Confirmar no Supabase a tabela `newsletter_subscribers` com `name`, `email`, `source = landing-newsletter` e `status = active`.
+6. Evitar criar leads de teste permanentes antes da entrega final; remover ou identificar testes no Supabase se necessário.
+
+### Pendências futuras recomendadas
+
+- Conectar domínio próprio.
+- Configurar Google Search Console.
+- Configurar Google Analytics ou outra mensuração, se desejado.
+- Publicar posts reais da Revista antes da divulgação.
+- Criar política operacional para backup e guarda segura de acessos.
+- Revisar metatags e sitemap após troca para domínio final.
+
+### Checklist final
+
+- [ ] Domínio próprio conectado
+- [ ] Posts reais publicados
+- [ ] Usuário da cliente criado
+- [ ] Usuário da cliente aprovado
+- [ ] Newsletter testada
+- [ ] Search Console configurado
+- [ ] Google Analytics configurado, se desejado
+- [ ] Backup das credenciais entregue com segurança
+
 ## Changelog
 
 ### Fase 01.1 — Ajuste Header + Hero
@@ -772,3 +846,20 @@ O plano Hobby da Vercel é gratuito e indicado para projetos pessoais ou não co
 - Tour guiado destaca Novo conteudo, Titulo, Categoria, Imagem, Conteudo, Publicar, Dashboard e Newsletter.
 - Assistente pode ser fechado com `Esc` e funciona em desktop/mobile sem alterar Supabase, banco, SEO, login, Revista publica ou Newsletter publica.
 - Campos principais do formulario receberam tooltips discretos para Slug, Categoria, Imagem e Publicacao.
+
+### MOBILE QA 02 - Auditoria e refinamento mobile completo
+
+- Ajustada a escala global de padding mobile para dar mais respiro entre secoes.
+- Header mobile passou a usar `100dvh` no painel de navegacao e CTA com largura plena.
+- Revista recebeu editorias/filtros com rolagem horizontal no mobile para reduzir altura e melhorar consumo.
+- Admin mobile foi refinado com dashboard mais compacto, titulo menos agressivo, cards/formularios com menor densidade visual e melhor hierarquia.
+- Pagina de artigo `/revista/:slug` recebeu titulo, breadcrumb, imagem e leitura ajustados para 390px/430px.
+- Newsletter, Smart Style e Tendencia tiveram proporcoes mobile refinadas em titulos, midias, formularios e CTAs.
+- Supabase, Auth, RLS, rotas, SEO, conteudos principais e logica do CMS foram preservados.
+
+### DELIVERY QA 01 - Preparacao final para entrega ao cliente
+
+- Adicionada secao "Entrega ao cliente" com URLs, dependencias externas, variaveis de ambiente, orientacao de dominio, aprovacao de editor, publicacao de artigo, teste da Newsletter e checklist final.
+- Estado vazio da Revista foi ajustado para comunicar ausencia de editoriais ativos sem expor CTA tecnico para o painel administrativo.
+- `vercel.json` recebeu rewrite para `/admin/(.*)`, garantindo acesso direto e refresh em `/admin/reset-password`.
+- `.env.local` segue protegido pelo `.gitignore`; lint, build e rotas locais principais foram validados.

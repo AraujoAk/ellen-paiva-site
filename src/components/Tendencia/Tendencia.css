@@ -279,7 +279,7 @@
   }
 
   .tendencia-media {
-    min-height: clamp(14rem, 34vh, 18rem);
+    min-height: clamp(13rem, 32vh, 17rem);
   }
 
   .tendencia-image-placeholder span {
@@ -301,7 +301,7 @@
   }
 
   .tendencia-highlights {
-    gap: 0.28rem 0.75rem;
+    gap: 0.24rem 0.7rem;
     margin-top: 0.38rem;
     padding-top: 0.72rem;
   }
@@ -327,8 +327,8 @@
   }
 
   .tendencia-button {
-    min-height: 2.76rem;
-    padding: 0.66rem 0.84rem;
+    min-height: 2.66rem;
+    padding: 0.62rem 0.78rem;
     font-size: 0.86rem;
   }
 

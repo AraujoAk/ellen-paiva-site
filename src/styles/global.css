@@ -376,6 +376,18 @@ button {
     padding: 0.74rem 1rem;
   }
 
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    overflow-wrap: anywhere;
+  }
+
   :is(
     .button-link,
     .tendencia-button,

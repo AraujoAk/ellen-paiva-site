@@ -85,11 +85,10 @@ function Magazine() {
             <p className="magazine-empty-kicker">Revista em atualização</p>
             <h3>Nenhum editorial publicado no momento.</h3>
             <p>
-              Os conteúdos ativos foram removidos ou arquivados. A área editorial pode publicar novos posts pelo painel
-              administrativo.
+              Os conteúdos ativos foram removidos ou arquivados. Novos editoriais serão publicados em breve pela equipe.
             </p>
-            <a href="/admin" className="magazine-empty-link" aria-label="Acessar área editorial para criar posts">
-              Acessar área editorial
+            <a href="#newsletter" className="magazine-empty-link" aria-label="Ir para newsletter editorial">
+              Receber novidades
             </a>
           </div>
         ) : featuredArticle ? (

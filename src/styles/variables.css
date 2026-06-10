@@ -15,7 +15,7 @@
   --container-width: 1180px;
   --space-page: clamp(1rem, 4vw, 3rem);
   --container-padding-mobile: clamp(1.08rem, 5vw, 1.35rem);
-  --section-padding-mobile: clamp(2.35rem, 9vw, 3.2rem);
+  --section-padding-mobile: clamp(2.65rem, 10vw, 3.65rem);
   --section-padding-tablet: clamp(2.8rem, 6vw, 4rem);
   --section-padding-desktop: clamp(3rem, 5vw, 4.5rem);
   --gap-mobile: clamp(1rem, 4.5vw, 1.35rem);

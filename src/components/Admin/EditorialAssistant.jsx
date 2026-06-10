@@ -67,7 +67,10 @@ function getBoundedValue(value, min, max) {
 
 function scrollToTarget(target) {
   const rect = target.getBoundingClientRect();
-  const targetTop = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+  const isMobile = window.innerWidth <= 640;
+  const bottomSheetSpace = isMobile ? Math.min(window.innerHeight * 0.44, 300) : 0;
+  const usableHeight = Math.max(window.innerHeight - bottomSheetSpace, 280);
+  const targetTop = window.scrollY + rect.top - (usableHeight - rect.height) / 2 - (isMobile ? 12 : 0);
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
   window.scrollTo({
@@ -101,11 +104,11 @@ function getCardStyle(rect) {
 
   if (isMobile) {
     return {
-      bottom: `${viewportMargin}px`,
-      left: `${viewportMargin}px`,
-      maxHeight: `min(48vh, ${cardEstimatedHeight}px)`,
+      bottom: 'calc(12px + env(safe-area-inset-bottom))',
+      left: '12px',
+      maxHeight: 'calc(100dvh - 32px)',
       maxWidth: `${cardWidth}px`,
-      right: `${viewportMargin}px`,
+      right: '12px',
     };
   }
 

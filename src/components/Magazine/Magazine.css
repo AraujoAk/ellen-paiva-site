@@ -394,14 +394,26 @@
   }
 
   .magazine-categories {
-    gap: 0.52rem 0.7rem;
+    flex-wrap: nowrap;
+    gap: 0.62rem;
+    margin-inline: calc(var(--container-padding-mobile) * -1);
     padding-block: 0.1rem 0.55rem;
+    padding-inline: var(--container-padding-mobile);
+    overflow-x: auto;
+    scroll-padding-inline: var(--container-padding-mobile);
+    scrollbar-width: none;
+  }
+
+  .magazine-categories::-webkit-scrollbar {
+    display: none;
   }
 
   .magazine-category {
+    flex: 0 0 auto;
     min-height: 2rem;
-    padding: 0.28rem 0.58rem;
+    padding: 0.28rem 0;
     font-size: 0.72rem;
+    white-space: nowrap;
   }
 
   .magazine-layout,
@@ -410,7 +422,7 @@
   }
 
   .magazine-card-media {
-    aspect-ratio: 16 / 7.6;
+    aspect-ratio: 16 / 8.5;
   }
 
   .magazine-card-content {
@@ -427,7 +439,8 @@
   }
 
   .magazine-card-content h3 {
-    font-size: clamp(1rem, 4.8vw, 1.22rem);
+    font-size: clamp(1.04rem, 4.8vw, 1.26rem);
+    line-height: 1.12;
   }
 
   .magazine-card-content p:not(.magazine-card-category) {

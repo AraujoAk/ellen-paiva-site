@@ -332,7 +332,7 @@
     right: var(--container-padding-mobile);
     left: var(--container-padding-mobile);
     gap: 0.16rem;
-    max-height: calc(100vh - 4.1rem);
+    max-height: calc(100dvh - 4.1rem);
     padding: 0.68rem;
     overflow-y: auto;
     border-color: rgba(176, 138, 82, 0.34);
@@ -350,6 +350,7 @@
   .site-header-action-mobile {
     min-height: 2.54rem;
     margin-top: 0.22rem;
+    width: 100%;
   }
 
 }
