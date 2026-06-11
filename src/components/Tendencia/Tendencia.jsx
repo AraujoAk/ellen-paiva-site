@@ -1,9 +1,6 @@
 import { assets } from '../../assets/assetsMap.js';
+import { publicSiteSettingsFallback } from '../../services/siteSettingsPublicService.js';
 import './Tendencia.css';
-
-const instagramUrl = 'https://www.instagram.com/direct/t/107763033955970/';
-const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
-const whatsappUrl = 'https://tr.ee/-R-sQ_hJqC';
 
 const highlights = [
   'Moda feminina com curadoria',
@@ -12,7 +9,7 @@ const highlights = [
   'Escolhas que facilitam o vestir',
 ];
 
-function Tendencia() {
+function Tendencia({ settings = publicSiteSettingsFallback }) {
   return (
     <section className="tendencia page-section" id="tendencia" aria-labelledby="tendencia-title">
       <div className="tendencia-container section-container">
@@ -71,7 +68,7 @@ function Tendencia() {
           <div className="tendencia-actions" aria-label="Ações da Tendência Multimarcas">
             <a
               className="tendencia-button tendencia-button-primary"
-              href={tendenciaUrl}
+              href={settings.tendencia_url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Conhecer a curadoria da Tendência"
@@ -80,7 +77,7 @@ function Tendencia() {
             </a>
             <a
               className="tendencia-button"
-              href={instagramUrl}
+              href={settings.instagram_url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Ver no Instagram"
@@ -89,7 +86,7 @@ function Tendencia() {
             </a>
             <a
               className="tendencia-button tendencia-button-whatsapp"
-              href={whatsappUrl}
+              href={settings.whatsapp_url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Falar no WhatsApp"

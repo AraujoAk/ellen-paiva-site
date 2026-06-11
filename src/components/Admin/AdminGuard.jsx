@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   createFallbackProfileFromSessionUser,
+  getAdminAccessStatus,
   getCurrentProfile,
   getMagazineAccessStatus,
   getSession,
@@ -129,7 +130,25 @@ function AdminGuard({ children }) {
         const canAccessMagazine = await getMagazineAccessStatus();
 
         if (canAccessMagazine) {
-          const fallbackProfile = createFallbackProfileFromSessionUser(session.user);
+          let isAdminProfile = false;
+
+          try {
+            isAdminProfile = await getAdminAccessStatus();
+          } catch (adminAccessError) {
+            if (import.meta.env.DEV) {
+              console.error('[admin-auth-guard] admin-rpc', {
+                message: adminAccessError?.message,
+                code: adminAccessError?.code,
+                status: adminAccessError?.status,
+                name: adminAccessError?.name,
+                authStage: adminAccessError?.authStage,
+              });
+            }
+          }
+
+          const fallbackProfile = createFallbackProfileFromSessionUser(session.user, {
+            role: isAdminProfile ? 'admin' : 'editor',
+          });
           markAdminActivity();
 
           setAuthState({

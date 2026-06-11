@@ -52,6 +52,51 @@ const sanitizeFileName = (fileName) =>
     .replace(/^-|-$/g, '')
     .toLowerCase();
 
+const getFileExtension = (file) => {
+  const extensionFromName = file.name?.split('.').pop()?.toLowerCase();
+
+  if (extensionFromName && ['webp', 'jpg', 'jpeg', 'png'].includes(extensionFromName)) {
+    return extensionFromName === 'jpeg' ? 'jpg' : extensionFromName;
+  }
+
+  if (file.type === 'image/webp') {
+    return 'webp';
+  }
+
+  if (file.type === 'image/png') {
+    return 'png';
+  }
+
+  return 'jpg';
+};
+
+async function getFileHash(file) {
+  if (!globalThis.crypto?.subtle) {
+    return sanitizeFileName(`${file.name}-${file.size}-${file.lastModified}`);
+  }
+
+  const buffer = await file.arrayBuffer();
+  const hashBuffer = await globalThis.crypto.subtle.digest('SHA-256', buffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+  return hashArray.map((byte) => byte.toString(16).padStart(2, '0')).join('').slice(0, 32);
+}
+
+const getStorageDuplicateKey = (item) => {
+  const normalizedName = item.name?.replace(/^\d+-/, '').replace(/\.[^.]+$/, '') || item.name;
+  const hashMatch = item.name?.match(/^([a-f0-9]{24,64})\.(webp|jpg|jpeg|png)$/i);
+
+  if (hashMatch?.[1]) {
+    return `hash:${hashMatch[1]}`;
+  }
+
+  if (item.metadata?.eTag) {
+    return `etag:${item.metadata.eTag}`;
+  }
+
+  return `legacy:${normalizedName}:${item.metadata?.size || 'unknown'}`;
+};
+
 const ensureSupabaseClient = async () => {
   const client = await getSupabaseClient();
 
@@ -300,15 +345,18 @@ export async function uploadMagazineImage(file) {
   }
 
   const client = await ensureSupabaseClient();
-  const safeName = sanitizeFileName(file.name || 'imagem-revista');
-  const filePath = `${MAGAZINE_FOLDER}/${Date.now()}-${safeName}`;
+  const fileHash = await getFileHash(file);
+  const extension = getFileExtension(file);
+  const filePath = `${MAGAZINE_FOLDER}/${fileHash}.${extension}`;
 
   const { error } = await client.storage.from(MAGAZINE_BUCKET).upload(filePath, file, {
     cacheControl: '31536000',
     upsert: false,
   });
 
-  if (error) {
+  const isExistingFile = /already exists|duplicate|resource already exists/i.test(error?.message || '');
+
+  if (error && !isExistingFile) {
     throw toAdminError(error, 'Nao foi possivel enviar a imagem para o bucket da Revista.');
   }
 
@@ -321,5 +369,56 @@ export async function uploadMagazineImage(file) {
   return {
     image_url: data.publicUrl,
     image_path: filePath,
+    reused: isExistingFile,
   };
+}
+
+export async function listMagazineImages() {
+  const client = await ensureSupabaseClient();
+
+  const { data, error } = await client.storage.from(MAGAZINE_BUCKET).list(MAGAZINE_FOLDER, {
+    limit: 80,
+    sortBy: {
+      column: 'created_at',
+      order: 'desc',
+    },
+  });
+
+  if (error) {
+    throw toAdminError(error, 'Nao foi possivel carregar a biblioteca de imagens.');
+  }
+
+  const uniqueImages = [];
+  const seenKeys = new Set();
+
+  for (const item of data ?? []) {
+    if (!item.name || item.name === '.emptyFolderPlaceholder') {
+      continue;
+    }
+
+    const duplicateKey = getStorageDuplicateKey(item);
+
+    if (seenKeys.has(duplicateKey)) {
+      continue;
+    }
+
+    seenKeys.add(duplicateKey);
+
+    uniqueImages.push(item);
+  }
+
+  return uniqueImages.map((item) => {
+      const path = `${MAGAZINE_FOLDER}/${item.name}`;
+      const { data: publicUrlData } = client.storage.from(MAGAZINE_BUCKET).getPublicUrl(path);
+
+      return {
+        id: item.id || path,
+        name: item.name,
+        path,
+        url: publicUrlData.publicUrl,
+        createdAt: item.created_at || item.updated_at || null,
+        updatedAt: item.updated_at || null,
+        size: item.metadata?.size || null,
+      };
+    });
 }

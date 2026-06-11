@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header/Header.jsx';
 import HeroSection from './components/Hero/HeroSection.jsx';
 import AboutEllen from './components/AboutEllen/AboutEllen.jsx';
@@ -10,8 +10,10 @@ import Footer from './components/Footer/Footer.jsx';
 import AdminPage from './pages/Admin/AdminPage.jsx';
 import MagazineArticlePage from './pages/MagazineArticle/MagazineArticlePage.jsx';
 import { initRevealOnScroll } from './utils/revealOnScroll.js';
+import { getSiteSettings, publicSiteSettingsFallback } from './services/siteSettingsPublicService.js';
 
 function App() {
+  const [siteSettings, setSiteSettings] = useState(publicSiteSettingsFallback);
   const currentPath = window.location.pathname;
   const isAdminRoute = currentPath === '/admin' || currentPath === '/admin/reset-password';
   const articleSlug = currentPath.startsWith('/revista/') ? decodeURIComponent(currentPath.replace('/revista/', '')) : '';
@@ -45,6 +47,28 @@ function App() {
     return initRevealOnScroll();
   }, [isAdminRoute, isArticleRoute]);
 
+  useEffect(() => {
+    if (isAdminRoute || isArticleRoute) {
+      return undefined;
+    }
+
+    let isMounted = true;
+
+    async function loadSiteSettings() {
+      const settings = await getSiteSettings();
+
+      if (isMounted) {
+        setSiteSettings(settings);
+      }
+    }
+
+    loadSiteSettings();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isAdminRoute, isArticleRoute]);
+
   if (isAdminRoute) {
     return <AdminPage />;
   }
@@ -55,16 +79,16 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header settings={siteSettings} />
       <main id="top">
         <HeroSection />
-        <AboutEllen />
+        <AboutEllen settings={siteSettings} />
         <SmartStyle />
         <Magazine />
-        <Tendencia />
-        <Newsletter />
+        <Tendencia settings={siteSettings} />
+        <Newsletter settings={siteSettings} />
       </main>
-      <Footer />
+      <Footer settings={siteSettings} />
     </>
   );
 }

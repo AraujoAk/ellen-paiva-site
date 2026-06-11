@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 const TOUR_DISMISSED_KEY = 'editorial-tour-dismissed';
 
@@ -150,13 +150,25 @@ function EditorialAssistant() {
     setIsIntroOpen(false);
   }
 
-  function startTour() {
+  const startTour = useCallback(() => {
     window.localStorage.removeItem(TOUR_DISMISSED_KEY);
     setIsIntroOpen(false);
     setIsComplete(false);
     setStepIndex(0);
     setIsTourOpen(true);
-  }
+  }, []);
+
+  useEffect(() => {
+    function handleOpenTour() {
+      startTour();
+    }
+
+    window.addEventListener('open-editorial-tour', handleOpenTour);
+
+    return () => {
+      window.removeEventListener('open-editorial-tour', handleOpenTour);
+    };
+  }, [startTour]);
 
   function closeTour() {
     setIsTourOpen(false);

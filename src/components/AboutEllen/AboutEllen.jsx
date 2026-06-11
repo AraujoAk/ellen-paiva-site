@@ -1,4 +1,5 @@
 import { assets } from '../../assets/assetsMap.js';
+import { publicSiteSettingsFallback } from '../../services/siteSettingsPublicService.js';
 import './AboutEllen.css';
 
 const credentials = [
@@ -8,7 +9,7 @@ const credentials = [
   'Moda funcional',
 ];
 
-function AboutEllen() {
+function AboutEllen({ settings = publicSiteSettingsFallback }) {
   return (
     <section className="about-ellen page-section" id="sobre" aria-labelledby="about-ellen-title">
       <div className="about-ellen-container section-container">
@@ -30,7 +31,7 @@ function AboutEllen() {
           </p>
 
           <blockquote className="about-ellen-quote">
-            Vestir bem a vida real começa por entender quem se é.
+            {settings.signature_text}
           </blockquote>
 
           <div className="about-ellen-cards" aria-label="Diferenciais de Ellen Paiva">

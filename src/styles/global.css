@@ -361,6 +361,12 @@ button {
     scroll-padding-top: 4.3rem;
   }
 
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
   .page-section {
     padding-inline: var(--container-padding-mobile);
     scroll-margin-top: 4.3rem;

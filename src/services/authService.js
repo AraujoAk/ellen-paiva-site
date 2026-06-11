@@ -317,7 +317,24 @@ export async function getMagazineAccessStatus() {
   return Boolean(data);
 }
 
-export function createFallbackProfileFromSessionUser(user) {
+export async function getAdminAccessStatus() {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    return false;
+  }
+
+  const { data, error } = await client.rpc('is_admin');
+
+  if (error) {
+    logAuthError('is_admin.rpc', error);
+    throw attachAuthStage(error, 'is_admin.rpc');
+  }
+
+  return Boolean(data);
+}
+
+export function createFallbackProfileFromSessionUser(user, overrides = {}) {
   if (!user) {
     return null;
   }
@@ -326,7 +343,7 @@ export function createFallbackProfileFromSessionUser(user) {
     id: user.id,
     email: user.email || '',
     name: user.user_metadata?.name || user.email || 'Editor',
-    role: user.user_metadata?.role || 'editor',
+    role: overrides.role || user.user_metadata?.role || 'editor',
     can_edit_magazine: true,
     isFallbackProfile: true,
   };

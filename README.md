@@ -863,3 +863,132 @@ O arquivo `.env.local` é apenas local e está protegido pelo `.gitignore`.
 - Estado vazio da Revista foi ajustado para comunicar ausencia de editoriais ativos sem expor CTA tecnico para o painel administrativo.
 - `vercel.json` recebeu rewrite para `/admin/(.*)`, garantindo acesso direto e refresh em `/admin/reset-password`.
 - `.env.local` segue protegido pelo `.gitignore`; lint, build e rotas locais principais foram validados.
+
+### CMS 15.0 - Dashboard Executivo
+
+- Topo do Admin passou a exibir dashboard executivo com dados de Newsletter, Conteudo e Editorial.
+- Newsletter exibe total de inscritos, novos inscritos dos ultimos 30 dias e lista dos ultimos 10 inscritos quando a permissao de leitura estiver disponivel.
+- Conteudo preserva os filtros clicaveis por total, publicados, rascunhos e arquivados.
+- Editorial mostra ultima publicacao, ultimo conteudo criado e ultima atualizacao usando apenas consultas de leitura.
+- Supabase schema, Auth, RLS, Revista publica, Newsletter publica e SEO foram preservados.
+
+### CMS 15.1 - Biblioteca de Imagens Editorial
+
+- Formulario de posts recebeu upload imediato para o bucket `magazine-images`, pasta `magazine/`, aplicando a URL publica automaticamente no post.
+- Adicionado botao "Escolher da biblioteca" com modal responsivo para listar as imagens ja enviadas e reutilizar arquivos existentes.
+- Campo de URL manual permanece disponivel como opcao avancada, sem ser o fluxo principal da cliente.
+- Criado `docs/supabase-storage-library-policies.sql` como SQL opcional caso a listagem do Storage seja bloqueada por policy.
+- Ajustado `font-size: 16px` em campos no mobile para impedir zoom automatico do iPhone ao focar senha, inputs, selects e textareas.
+
+### HOTFIX 15.1.1 - Biblioteca de imagens com rolagem
+
+- Modal da Biblioteca Editorial passou a respeitar `max-height: 90dvh`.
+- Grid de imagens agora possui rolagem vertical independente com `overflow-y: auto`.
+- Cabecalho da biblioteca e botao "Fechar" permanecem visiveis com comportamento sticky.
+- Ajuste preserva upload, selecao de imagem, preview, Supabase Storage, Auth, RLS, Revista e Newsletter.
+
+### HOTFIX 15.1.2 - Scroll real interno da Biblioteca Editorial
+
+- Overlay da biblioteca passou a bloquear rolagem do fundo enquanto o modal esta aberto.
+- Modal foi reestruturado como coluna flex com `height: min(90dvh, 860px)` e `overflow: hidden`.
+- Criada area interna `.admin-library-body` com scroll proprio, `min-height: 0` e `overscroll-behavior: contain`.
+- Cards da biblioteca deixaram de comprimir imagens; miniaturas usam altura fixa por breakpoint: 180px desktop, 140px tablet e 120px mobile.
+
+### HOTFIX 15.1.3 - Deduplicacao da Biblioteca Editorial
+
+- Upload de imagens agora calcula uma assinatura SHA-256 no navegador e salva novos arquivos como `magazine/{hash}.{ext}`.
+- Ao enviar novamente a mesma imagem, o Storage reutiliza a URL publica existente em vez de criar novo arquivo.
+- Biblioteca oculta duplicados visuais na listagem usando hash, `eTag` quando disponivel ou combinacao de nome legado normalizado e tamanho.
+- Arquivos duplicados antigos nao sao apagados automaticamente; apenas deixam de poluir a interface quando identificaveis.
+
+### CMS 15.2 - Organizacao premium da Biblioteca de Imagens
+
+- Biblioteca Editorial recebeu campo "Buscar imagem" por nome amigavel, nome real e data.
+- Adicionados filtros/ordenacao por Todas, Mais recentes, Mais antigas, PNG, JPG e WebP.
+- Cards exibem nomes mais limpos, mantendo o nome real em `title` para consulta tecnica.
+- Imagem atualmente aplicada ao post aparece marcada como "Selecionada" com borda sutil.
+- Contador informa total da biblioteca ou quantidade de resultados filtrados.
+- Estado vazio orienta a cliente a enviar a primeira imagem pelo formulario do post.
+
+### CMS 15.3 - Central de Ajuda Editorial
+
+- Admin recebeu uma Central de Ajuda com orientacoes curtas para primeiros passos, criacao, publicacao, biblioteca de imagens, Newsletter, aprovacao de editores e seguranca.
+- Central abre em modal responsivo com scroll interno e botao Fechar sempre acessivel.
+- Incluido botao "Reabrir tour guiado", integrado ao Assistente Editorial Interativo existente.
+- Landing publica, Supabase, Auth, banco, RLS, Revista publica, Newsletter e SEO foram preservados.
+
+### CMS 15.4 - Configuracoes basicas da marca no Admin
+
+- Criado SQL planejado em `docs/supabase-site-settings.sql` para tabela de registro unico `site_settings`.
+- Admin recebeu bloco "Configuracoes" visivel apenas para `role = admin`.
+- Formulario permite visualizar e salvar nome da marca, responsavel, Instagram, WhatsApp, link da Tendencia, e-mail de contato e texto curto de curadoria.
+- Se a tabela ainda nao existir no Supabase, o Admin mostra mensagem amigavel orientando executar o SQL indicado.
+- A landing publica ainda nao consome essas configuracoes; esta fase cria apenas a base administrativa.
+- Auditoria CMS 15.4: confirmado que o bloco depende de `profile.role === 'admin'`, fica abaixo do Dashboard Executivo e foi renomeado para "Configurações da Marca" para ficar mais claro no painel.
+
+### CMS 15.5 - Landing consumindo Configuracoes da Marca
+
+- Criado `src/services/siteSettingsPublicService.js` para leitura publica segura de `site_settings` com fallback local.
+- Landing passa a usar configuracoes em Header, Footer, Tendencia, Newsletter e assinatura autoral do Sobre Ellen sem alterar layout aprovado.
+- Fallback preserva nome Ellen Paiva e links oficiais de Instagram, WhatsApp e Tendencia quando Supabase, tabela ou policy falharem.
+- Criado `docs/supabase-site-settings-public-policy.sql` como SQL opcional para permitir leitura publica apenas dos dados nao sensiveis da tabela.
+- Admin, Auth, RLS existente, Revista, Newsletter, SEO estrutural e banco foram preservados.
+
+### HOTFIX CMS 15.4.1 - Configuracoes da Marca acessivel no Admin
+
+- Admin recebeu navegacao interna abaixo do Dashboard Executivo com atalhos para Conteudo, Newsletter, Editores e Configuracoes.
+- A aba Configuracoes aparece apenas para usuarios com `profile.role === 'admin'`.
+- Clique em Configuracoes rola suavemente ate o bloco "Configurações da Marca", mantendo editores comuns sem acesso.
+- Corrigido fallback de autenticacao: quando a leitura direta de `profiles` falha, o Admin agora consulta `is_admin()` antes de montar o profile local, evitando esconder Configuracoes de usuarios admin.
+- Supabase, banco, Auth, RLS, landing publica, Revista publica e Newsletter publica foram preservados.
+
+### HOTFIX SQL - Policies de aprovacao de editores
+
+- SQL de aprovacao de editores corrigido para evitar recursao de RLS.
+- `docs/supabase-editor-approval-policies.sql` agora recria `public.is_admin()` como `security definer` e usa essa funcao nas policies de `profiles`.
+- Removidas subqueries diretas em `public.profiles` dentro das policies da propria tabela.
+
+### CMS 15.6 - Agenda Editorial simples
+
+- Admin recebeu bloco "Agenda Editorial" usando o campo existente `published_at`, sem alterar schema, RLS ou automacao de publicacao.
+- Conteudos sao organizados por Hoje, Esta semana, Proximos e Sem data.
+- Filtros simples permitem visualizar Todos, Publicados, Rascunhos, Planejados e Arquivados.
+- Rascunhos com `published_at` futuro aparecem como "Planejado".
+- Cada item mostra titulo, categoria, status, data de publicacao e acao "Editar"; o botao "Novo conteudo" leva ao formulario de criacao.
+
+### HOTFIX CMS 15.6.1 - Navegacao interna ativa do Admin
+
+- Estado ativo da navegacao interna do Admin deixou de iniciar automaticamente em Conteudo.
+- Clique em uma aba mantem o item selecionado durante a rolagem suave.
+- Scroll manual agora recalcula a secao ativa conforme a area realmente visivel, evitando marcar Conteudo quando Agenda aparece primeiro.
+
+### CMS 15.7 - Historico de Atividades Editorial
+
+- Criado `docs/supabase-activity-log.sql` com tabela `activity_logs`, indices e policies de leitura/escrita para usuarios com `can_edit_magazine`.
+- Criado `src/services/activityLogService.js` com `logActivity` tolerante a falhas e `getRecentActivityLogs`.
+- Admin recebeu bloco "Atividades editoriais" com ultimas 20 acoes e botao Atualizar.
+- Logs foram integrados a criacao, edicao/publicacao, arquivamento, duplicacao, exclusao de posts, aprovacao/reprovacao de editores e salvamento de Configuracoes da Marca.
+- Se a tabela ainda nao existir, o Admin mostra "Historico ainda nao ativado. Execute o SQL indicado no Supabase." sem quebrar o painel.
+
+### CMS 15.8 - Dashboard Executivo 2.0
+
+- Dashboard Executivo passou a destacar proximo conteudo planejado, ultimo editorial publicado, ultimo inscrito da Newsletter, ultima atividade registrada e alertas uteis.
+- Alertas usam dados existentes de posts e configuracoes da marca: conteudos sem imagem, rascunhos sem data, Revista sem posts ativos e configuracoes incompletas/indisponiveis.
+- Leituras de `activity_logs` e `site_settings` sao opcionais; se RLS ou tabela indisponivel impedir leitura, o card mostra mensagem amigavel sem quebrar o Admin.
+- Nenhuma alteracao de banco, schema, Auth/RLS, landing publica, Revista publica ou Newsletter publica foi aplicada.
+
+### CMS 15.9 - SEO Editorial Simplificado
+
+- Formulario de post recebeu assistente SEO leve com score Ruim, Regular, Bom ou Excelente.
+- Score usa cinco criterios simples: titulo, descricao adequada, imagem, conteudo minimo e slug.
+- O painel mostra dicas automaticas, URL final `/revista/:slug` e previa de compartilhamento com imagem, titulo e descricao.
+- Nenhuma alteracao de banco, Supabase, RLS, landing publica, Revista publica, Newsletter publica ou Auth foi aplicada.
+
+### CMS 16.0 - Publicacao automatica agendada
+
+- Criada Edge Function em `supabase/functions/publish-scheduled-posts/index.ts` para publicar posts `inactive` com `published_at <= now()`.
+- Criados `docs/supabase-scheduled-publishing.md`, `docs/supabase-scheduled-publishing.sql` e `docs/supabase-scheduled-publishing-cron.sql` com instrucoes de deploy, secrets, teste manual, cron e indice opcional.
+- Agenda Editorial passou a exibir "Planejado para ..." e "Publicacao automatica ativa" para rascunhos com data futura.
+- A function registra `post_auto_published` em `activity_logs` quando a tabela estiver ativa; se o log falhar, a publicacao continua.
+- Secrets necessarios na Supabase Function: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` e `SCHEDULED_PUBLISH_SECRET`. Nunca usar service role no frontend ou em variaveis `VITE_`.
+- Cron recomendado: `*/5 * * * *`.

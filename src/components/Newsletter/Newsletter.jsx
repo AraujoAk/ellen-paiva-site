@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { assets } from '../../assets/assetsMap.js';
 import { subscribeToNewsletter } from '../../services/newsletterService.js';
+import { publicSiteSettingsFallback } from '../../services/siteSettingsPublicService.js';
 import './Newsletter.css';
 
-function Newsletter() {
+function Newsletter({ settings = publicSiteSettingsFallback }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -115,7 +116,7 @@ function Newsletter() {
           <button
             className="newsletter-button"
             type="submit"
-            aria-label="Entrar para a curadoria editorial da Ellen Paiva"
+            aria-label={`Entrar para a curadoria editorial de ${settings.owner_name || settings.brand_name}`}
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Enviando...' : 'Entrar para a curadoria'}

@@ -1,8 +1,6 @@
 import { assets } from '../../assets/assetsMap.js';
+import { publicSiteSettingsFallback } from '../../services/siteSettingsPublicService.js';
 import './Footer.css';
-
-const instagramUrl = 'https://www.instagram.com/direct/t/107763033955970/';
-const whatsappUrl = 'https://tr.ee/-R-sQ_hJqC';
 
 const navigationLinks = [
   { label: 'Sobre', href: '#sobre' },
@@ -20,23 +18,26 @@ const contentLinks = [
   'Guarda-roupa funcional',
 ];
 
-const contactLinks = [
-  { label: 'Instagram', href: instagramUrl, isExternal: true },
-  { label: 'WhatsApp', href: whatsappUrl, isExternal: true },
+const getContactLinks = (settings) => [
+  { label: 'Instagram', href: settings.instagram_url, isExternal: true },
+  { label: 'WhatsApp', href: settings.whatsapp_url, isExternal: true },
+  ...(settings.contact_email ? [{ label: 'E-mail', href: `mailto:${settings.contact_email}`, isExternal: false }] : []),
   { label: 'Mossoró/RN', href: '#newsletter', isExternal: false },
 ];
 
-function Footer() {
+function Footer({ settings = publicSiteSettingsFallback }) {
+  const contactLinks = getContactLinks(settings);
+
   return (
     <footer className="site-footer page-section">
       <div className="site-footer-container section-container">
         <div className="site-footer-grid">
           <div className="site-footer-brand reveal reveal-fade">
-            <a className="site-footer-logo" href="#top" aria-label="Ellen Paiva - voltar ao topo">
+            <a className="site-footer-logo" href="#top" aria-label={`${settings.brand_name} - voltar ao topo`}>
               {assets.ellenSignature ? (
-                <img src={assets.ellenSignature} alt="Ellen Paiva" className="site-footer-logo-image" />
+                <img src={assets.ellenSignature} alt={settings.brand_name} className="site-footer-logo-image" />
               ) : (
-                'Ellen Paiva'
+                settings.brand_name
               )}
             </a>
             <p>Estilo, elegância e moda inteligente para mulheres reais.</p>

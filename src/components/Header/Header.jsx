@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { assets } from '../../assets/assetsMap.js';
+import { publicSiteSettingsFallback } from '../../services/siteSettingsPublicService.js';
 import './Header.css';
-
-const tendenciaUrl = 'https://linktr.ee/tendenciamu?utm_source=linktree_profile_share&ltsid=a98130d2-cc29-41d4-8f87-c76c3462c011';
 
 const navItems = [
   { label: 'Sobre', href: '#sobre' },
@@ -13,7 +12,7 @@ const navItems = [
 
 const sectionIds = [...navItems.map((item) => item.href.replace('#', '')), 'newsletter'];
 
-function Header() {
+function Header({ settings = publicSiteSettingsFallback }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -164,7 +163,7 @@ function Header() {
           <p className="site-topbar-message">MODA INTELIGENTE PARA MULHERES REAIS</p>
           <a
             className="site-topbar-link"
-            href={tendenciaUrl}
+            href={settings.tendencia_url}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Conheça a Tendência Multimarcas em nova aba"
@@ -179,11 +178,11 @@ function Header() {
         aria-label="Cabeçalho principal"
       >
       <div className="site-header-container">
-        <a className="site-logo" href="#top" aria-label="Ellen Paiva - página inicial" onClick={handleLogoClick}>
+        <a className="site-logo" href="#top" aria-label={`${settings.brand_name} - página inicial`} onClick={handleLogoClick}>
           {assets.ellenSignature ? (
-            <img src={assets.ellenSignature} alt="Ellen Paiva" className="site-logo-image" />
+            <img src={assets.ellenSignature} alt={settings.brand_name} className="site-logo-image" />
           ) : (
-            'Ellen Paiva'
+            settings.brand_name
           )}
         </a>
 
