@@ -167,9 +167,14 @@ function AdminEditorialAgenda({ posts, activeFilter, onFilterChange, onEdit, onN
           <p className="admin-kicker">Agenda Editorial</p>
           <h2 id="admin-editorial-agenda-title">Conteudos por data</h2>
         </div>
-        <button className="admin-button admin-button-primary" type="button" onClick={onNewPost}>
-          Novo conteudo
-        </button>
+        <div className="admin-agenda-header-actions">
+          <small className="admin-agenda-automation" data-tour="automatic-publishing">
+            Publicacao automatica ativa
+          </small>
+          <button className="admin-button admin-button-primary" type="button" onClick={onNewPost}>
+            Novo conteudo
+          </button>
+        </div>
       </div>
 
       <div className="admin-agenda-filters" aria-label="Filtros da agenda editorial">

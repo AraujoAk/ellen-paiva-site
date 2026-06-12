@@ -121,19 +121,15 @@ Resposta esperada quando nao houver post vencido:
 
 Preferencia: rodar a cada 5 minutos.
 
-O arquivo `docs/supabase-scheduled-publishing-cron.sql` prepara o agendamento via `pg_cron` + `pg_net` + Supabase Vault.
+O arquivo `docs/supabase-scheduled-publishing-cron.sql` prepara o agendamento via `pg_cron` + `pg_net`, sem depender da extensao `vault`.
 
 Fluxo:
 
 1. Fazer deploy da Edge Function.
 2. Configurar os secrets da Edge Function.
 3. Abrir `docs/supabase-scheduled-publishing-cron.sql`.
-4. Substituir os placeholders:
-   - `https://SEU-PROJECT-REF.supabase.co`
-   - `SUA_PUBLISHABLE_OU_ANON_KEY`
-   - `CRIE_UM_SEGREDO_FORTE_AQUI`
-5. Executar no Supabase SQL Editor.
-6. Validar o job:
+4. Executar no Supabase SQL Editor.
+5. Validar o job:
 
 ```sql
 select jobid, jobname, schedule, active

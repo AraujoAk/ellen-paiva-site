@@ -4,44 +4,61 @@ const TOUR_DISMISSED_KEY = 'editorial-tour-dismissed';
 
 const tourSteps = [
   {
-    target: '[data-tour="new-content"]',
-    title: 'Novo conteúdo',
-    message: 'Aqui você cria novos editoriais para a Revista. Clique em continuar.',
+    target: '[data-tour="dashboard"]',
+    title: 'Dashboard Executivo',
+    message: 'Acompanhe rapidamente numeros da Revista, Newsletter e atividade editorial.',
   },
   {
-    target: '[data-tour="title"]',
-    title: 'Título',
-    message: 'O título será exibido na Revista e utilizado na URL do artigo.',
+    target: '[data-tour="content-area"]',
+    title: 'Conteudo',
+    message: 'Crie, edite, publique, arquive e organize os conteudos da Revista.',
   },
   {
-    target: '[data-tour="category"]',
-    title: 'Categoria',
-    message: 'Categorias ajudam a organizar os conteúdos e sugerir artigos relacionados.',
+    target: '[data-tour="agenda"]',
+    title: 'Agenda Editorial',
+    message: 'Visualize conteudos por data e acompanhe publicacoes planejadas.',
+  },
+  {
+    target: '[data-tour="automatic-publishing"]',
+    title: 'Publicacao Automatica',
+    message: 'Posts com data futura podem ser publicados automaticamente sem intervencao manual.',
   },
   {
     target: '[data-tour="image"]',
-    title: 'Imagem',
-    message: 'A imagem é utilizada no destaque editorial e nos compartilhamentos.',
+    title: 'Biblioteca de Imagens',
+    message: 'Escolha imagens ja enviadas ou faca novos uploads para os artigos.',
   },
   {
-    target: '[data-tour="content"]',
-    title: 'Conteúdo',
-    message: 'Aqui você escreve o conteúdo completo do artigo.',
-  },
-  {
-    target: '[data-tour="publish"]',
-    title: 'Publicar',
-    message: 'Quando estiver pronto, publique o conteúdo para torná-lo visível na Revista.',
-  },
-  {
-    target: '[data-tour="dashboard"]',
-    title: 'Dashboard',
-    message: 'Aqui você acompanha seus conteúdos publicados, rascunhos e arquivados.',
+    target: '[data-tour="editorial-form"]',
+    title: 'Formulario Editorial',
+    message: 'Preencha titulo, categoria, conteudo, imagem e publicacao.',
   },
   {
     target: '[data-tour="newsletter"]',
     title: 'Newsletter',
-    message: 'Os inscritos da Newsletter formam sua audiência própria.',
+    message: 'Acompanhe o crescimento da audiencia propria.',
+  },
+  {
+    target: '[data-tour="editors"]',
+    title: 'Editores',
+    message: 'Aprove ou gerencie acessos editoriais.',
+    adminOnly: true,
+  },
+  {
+    target: '[data-tour="settings"]',
+    title: 'Configuracoes da Marca',
+    message: 'Atualize contatos, links e informacoes institucionais.',
+    adminOnly: true,
+  },
+  {
+    target: '[data-tour="activities"]',
+    title: 'Historico de Atividades',
+    message: 'Visualize acoes realizadas dentro do painel.',
+  },
+  {
+    target: '[data-tour="help-center"]',
+    title: 'Central de Ajuda',
+    message: 'Consulte orientacoes e reabra este tour sempre que precisar.',
   },
 ];
 
@@ -129,7 +146,7 @@ function getCardStyle(rect) {
   };
 }
 
-function EditorialAssistant() {
+function EditorialAssistant({ isAdmin = false }) {
   const [isIntroOpen, setIsIntroOpen] = useState(() => window.localStorage.getItem(TOUR_DISMISSED_KEY) !== 'true');
   const [isTourOpen, setIsTourOpen] = useState(false);
   const [doNotShowAgain, setDoNotShowAgain] = useState(false);
@@ -138,7 +155,11 @@ function EditorialAssistant() {
   const [isComplete, setIsComplete] = useState(false);
   const cardRef = useRef(null);
 
-  const currentStep = tourSteps[stepIndex];
+  const availableTourSteps = useMemo(
+    () => tourSteps.filter((step) => !step.adminOnly || isAdmin),
+    [isAdmin],
+  );
+  const currentStep = availableTourSteps[stepIndex];
   const highlightStyle = useMemo(() => getHighlightStyle(targetRect), [targetRect]);
   const cardStyle = useMemo(() => getCardStyle(targetRect), [targetRect]);
 
@@ -183,7 +204,7 @@ function EditorialAssistant() {
   }
 
   function nextStep() {
-    if (stepIndex >= tourSteps.length - 1) {
+    if (stepIndex >= availableTourSteps.length - 1) {
       setIsComplete(true);
       setTargetRect(emptyRect);
       return;
@@ -195,6 +216,12 @@ function EditorialAssistant() {
   function previousStep() {
     setStepIndex((current) => Math.max(0, current - 1));
   }
+
+  useEffect(() => {
+    if (stepIndex > availableTourSteps.length - 1) {
+      setStepIndex(0);
+    }
+  }, [availableTourSteps.length, stepIndex]);
 
   useEffect(() => {
     function handleKeydown(event) {
@@ -291,8 +318,8 @@ function EditorialAssistant() {
             aria-modal="true"
           >
             <p className="admin-kicker">Assistente Editorial</p>
-            <h2 id="admin-assistant-intro-title">Bem-vinda à área editorial.</h2>
-            <p>Você gostaria de conhecer rapidamente como publicar, editar e gerenciar conteúdos da Revista?</p>
+            <h2 id="admin-assistant-intro-title">Bem-vinda a area editorial.</h2>
+            <p>Voce gostaria de conhecer rapidamente como publicar, editar e gerenciar conteudos da Revista?</p>
 
             <label className="admin-assistant-checkbox">
               <input
@@ -300,7 +327,7 @@ function EditorialAssistant() {
                 checked={doNotShowAgain}
                 onChange={(event) => setDoNotShowAgain(event.target.checked)}
               />
-              Não mostrar novamente
+              Nao mostrar novamente
             </label>
 
             <div className="admin-assistant-actions">
@@ -308,7 +335,7 @@ function EditorialAssistant() {
                 Iniciar tour
               </button>
               <button className="admin-button admin-button-secondary" type="button" onClick={closeIntro}>
-                Agora não
+                Agora nao
               </button>
             </div>
           </section>
@@ -334,17 +361,17 @@ function EditorialAssistant() {
               <>
                 <p className="admin-kicker">Pronto</p>
                 <h2 id="admin-assistant-step-title">Pronto.</h2>
-                <p>Agora você já conhece os principais recursos da área editorial.</p>
+                <p>Agora voce ja conhece os principais recursos da area editorial.</p>
                 <div className="admin-assistant-actions">
                   <button className="admin-button admin-button-primary" type="button" onClick={finishTour}>
-                    Começar
+                    Comecar
                   </button>
                 </div>
               </>
             ) : (
               <>
                 <p className="admin-kicker">
-                  Passo {stepIndex + 1} de {tourSteps.length}
+                  Passo {stepIndex + 1} de {availableTourSteps.length}
                 </p>
                 <h2 id="admin-assistant-step-title">{currentStep.title}</h2>
                 <p>{currentStep.message}</p>

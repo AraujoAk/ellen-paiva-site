@@ -791,7 +791,7 @@ function AdminPanel({ profile }) {
         )}
       </nav>
 
-      <div ref={agendaSectionRef} className="admin-section-anchor">
+      <div ref={agendaSectionRef} className="admin-section-anchor" data-tour="agenda">
         <AdminEditorialAgenda
           posts={posts}
           activeFilter={agendaFilter}
@@ -802,7 +802,7 @@ function AdminPanel({ profile }) {
       </div>
 
       {isAdminProfile && (
-        <div ref={settingsSectionRef} className="admin-section-anchor">
+        <div ref={settingsSectionRef} className="admin-section-anchor" data-tour="settings">
           <AdminSiteSettings onSaved={handleSiteSettingsSaved} />
         </div>
       )}
@@ -814,7 +814,12 @@ function AdminPanel({ profile }) {
       )}
 
       {isAdminProfile && (
-        <section ref={editorsSectionRef} className="admin-editor-requests" aria-labelledby="admin-editor-requests-title">
+        <section
+          ref={editorsSectionRef}
+          className="admin-editor-requests"
+          data-tour="editors"
+          aria-labelledby="admin-editor-requests-title"
+        >
           <div className="admin-editor-requests-header">
             <div>
               <p className="admin-kicker">Acessos</p>
@@ -866,11 +871,11 @@ function AdminPanel({ profile }) {
         <p>Os inscritos da Newsletter formam uma base própria para relacionamento editorial e futuras campanhas.</p>
       </section>
 
-      <div ref={activitiesSectionRef} className="admin-section-anchor">
+      <div ref={activitiesSectionRef} className="admin-section-anchor" data-tour="activities">
         <AdminActivityLog refreshToken={activityRefreshToken} />
       </div>
 
-      <div ref={contentSectionRef} className="admin-workspace">
+      <div ref={contentSectionRef} className="admin-workspace" data-tour="content-area">
         {isLoadingPosts ? (
           <p className="admin-loading">Carregando posts...</p>
         ) : (
@@ -893,17 +898,19 @@ function AdminPanel({ profile }) {
           />
         )}
 
-        <AdminPostForm
+        <div data-tour="editorial-form">
+          <AdminPostForm
           post={selectedPost}
           isSaving={isSaving}
           onSave={handleSave}
           onUploadImage={uploadMagazineImage}
           onListImages={listMagazineImages}
           onResetComplete={() => setSelectedPost(newPost)}
-        />
+          />
+        </div>
       </div>
       <AdminHelpCenter />
-      <EditorialAssistant />
+      <EditorialAssistant isAdmin={isAdminProfile} />
     </main>
   );
 }

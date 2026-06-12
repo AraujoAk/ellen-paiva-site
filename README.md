@@ -992,3 +992,32 @@ O arquivo `.env.local` é apenas local e está protegido pelo `.gitignore`.
 - A function registra `post_auto_published` em `activity_logs` quando a tabela estiver ativa; se o log falhar, a publicacao continua.
 - Secrets necessarios na Supabase Function: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` e `SCHEDULED_PUBLISH_SECRET`. Nunca usar service role no frontend ou em variaveis `VITE_`.
 - Cron recomendado: `*/5 * * * *`.
+- HOTFIX CMS 16.0.2: `docs/supabase-scheduled-publishing-cron.sql` foi refeito sem dependencia de `vault`, usando apenas `pg_cron`, `pg_net` e `net.http_post`.
+
+### CMS 16.1 - Assistente Editorial 2.0
+
+- Assistente Editorial atualizado para refletir Dashboard Executivo, Conteudo, Agenda Editorial, Publicacao Automatica, Biblioteca de Imagens, Formulario Editorial, Newsletter, Editores, Configuracoes, Historico de Atividades e Central de Ajuda.
+- Passos de Editores e Configuracoes sao exibidos apenas para usuarios com perfil admin.
+- Mantidos botao "Primeiros passos", `localStorage` `editorial-tour-dismissed`, ESC para fechar, scroll automatico e comportamento mobile.
+
+### CMS 16.2 - Central de Ajuda completa
+
+- Central de Ajuda passou a funcionar como documentacao interna com busca, navegacao por categorias e topicos expansivos.
+- Incluidas categorias de Primeiros passos, Agenda Editorial, Biblioteca de Imagens, Newsletter, Editores, Configuracoes da Marca, Historico de Atividades e Duvidas frequentes.
+- Mantido botao para reabrir o Assistente Editorial e modal com scroll interno responsivo.
+
+### UX Refresh Admin - Organizacao visual do painel
+
+- Admin recebeu hierarquia visual mais clara entre Dashboard, Conteudo, Agenda, Newsletter, Editores, Configuracoes e Historico.
+- Dashboard ganhou tratamento executivo com fundo e contorno mais destacados.
+- Agenda, Newsletter, Configuracoes e Historico receberam fundos e ritmos visuais próprios, mantendo a identidade editorial premium.
+- Ajustes mobile preservam botoes visiveis, Central de Ajuda confortavel e tour utilizavel em telas pequenas.
+
+### MOBILE FINAL QA - Refinamento completo do mobile
+
+- Admin recebeu ajustes finais para telas 390px, 430px e 768px, priorizando login, Dashboard Executivo, navegacao interna, Agenda, Conteudo/Formulario, Biblioteca, Newsletter, Editores, Configuracoes, Historico, Central de Ajuda e Assistente Editorial.
+- Inputs, selects, textareas, busca da Central e busca da Biblioteca mantem `font-size: 16px` no mobile para evitar zoom automatico no iPhone.
+- Navegacao interna, filtros da Agenda, filtros de posts e controles da Biblioteca usam rolagem horizontal controlada no mobile para evitar overflow lateral.
+- Modais da Biblioteca e Central mantem altura baseada em `dvh`, scroll interno e botoes de fechar visiveis.
+- Formulario editorial ganhou acoes sticky no mobile para manter salvar/publicar acessiveis sem esconder conteudo.
+- Login/reset password, Admin, landing publica e artigo individual foram validados tecnicamente em rotas locais, sem alteracao de Supabase, banco, Auth, RLS, Edge Function, cron ou landing publica.
